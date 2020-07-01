@@ -1,31 +1,32 @@
 <div class="card my-5">
   <div class="card-body">
-    <mat-table [dataSource]="dataSource">
-      <ng-container>
+    <mat-table [dataSource]="dataSource" matSort>
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
         <button class="btn btn-primary">View Details</button>
       </ng-container>
       <ng-container matColumnDef="id">
-        <mat-header-cell *matHeaderCellDef>Id</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
         <mat-cell *matCellDef="let server"> {{ server.id }}</mat-cell>
       </ng-container>
       <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
         <mat-cell *matCellDef="let server"> {{ server.name }}</mat-cell>
       </ng-container>
       <ng-container matColumnDef="fullCapacity">
-        <mat-header-cell *matHeaderCellDef>Full Capacity</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Full Capacity</mat-header-cell>
         <mat-cell *matCellDef="let server"> {{ server.fullCapacity }}</mat-cell>
       </ng-container>
       <ng-container matColumnDef="storageReserved">
-        <mat-header-cell *matHeaderCellDef>Storage Reserved</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Storage Reserved</mat-header-cell>
         <mat-cell *matCellDef="let server"> {{ server.storageReserved }}</mat-cell>
       </ng-container>
       <ng-container matColumnDef="storageFree">
-        <mat-header-cell *matHeaderCellDef>Storage Free</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Storage Free</mat-header-cell>
         <mat-cell *matCellDef="let server"> {{ server.storageFree }}</mat-cell>
       </ng-container>
       <ng-container matColumnDef="storageRatio">
-        <mat-header-cell *matHeaderCellDef>Storage Ratio</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Storage Ratio</mat-header-cell>
         <mat-cell *matCellDef="let server"> {{ server.storageRatio }}</mat-cell>
       </ng-container>
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

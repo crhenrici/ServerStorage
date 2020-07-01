@@ -5,11 +5,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ServerListComponent } from './server-list/server-list.component';
 import { MatTableModule, MatDialogModule, MatSortModule, MatFormFieldModule } from '@angular/material';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { DetailsViewComponent } from './details-view/details-view.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ServerListComponent
+    ServerListComponent,
+    DetailsViewComponent
   ],
   imports: [
     BrowserModule,
@@ -17,7 +20,8 @@ import { MatTableModule, MatDialogModule, MatSortModule, MatFormFieldModule } fr
     MatTableModule,
     MatDialogModule,
     MatSortModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    NoopAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

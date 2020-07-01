@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
 import { Server } from '../model/server';
+import { Sort } from '@angular/material';
 
 @Component({
   selector: 'app-server-list',
@@ -10,7 +11,7 @@ import { Server } from '../model/server';
 export class ServerListComponent implements OnInit {
   servers: Server[];
   dataSource = new MatTableDataSource(this.servers);
-  displayedColumns = ['id', 'name', 'fullCapacity', 'storageReserved', 'storageFree', 'storageRatio'];
+  displayedColumns = ['actions', 'id', 'name', 'fullCapacity', 'storageReserved', 'storageFree', 'storageRatio'];
 
   constructor() { }
 
