@@ -21,14 +21,4 @@ export class ServerService {
     var url = `${this.httpUrl}/servers`;
     return this.http.get<Server[]>(url,httpOptions);
   }
-
-  save(server: Server) {
-    var url = `${this.httpUrl}/save`;
-    return this.http.post<Server>(url, httpOptions);
-  }
-
-  update(server: Server) {
-    var url = `${this.httpUrl}/update`;
-    return this.http.put<Server>(url,httpOptions);
-  }
 }

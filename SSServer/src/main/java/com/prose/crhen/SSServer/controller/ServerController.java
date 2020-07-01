@@ -3,6 +3,7 @@ package com.prose.crhen.SSServer.controller;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,6 +14,7 @@ import com.prose.crhen.SSServer.db.ServerRepository;
 import com.prose.crhen.SSServer.model.Server;
 
 @RestController
+@CrossOrigin(origins = "http:/localhost:4200")
 public class ServerController {
 	
 	ServerRepository repository;
@@ -21,7 +23,7 @@ public class ServerController {
 		this.repository = repository;
 	}
 	
-	@GetMapping()
+	@GetMapping("/servers")
 	public List<Server> getAllServer() {
 		List<Server> serverList = repository.findAll();
 		return serverList;
