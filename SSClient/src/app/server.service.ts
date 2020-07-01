@@ -12,10 +12,12 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class ServerService {
-  httpUrl = 'http://localhost:8080'
+  httpUrl: String;
   http: HttpClient;
 
-  constructor() { }
+  constructor() {
+    this.httpUrl = 'http://localhost:8080';
+   }
 
   getALL(): Observable<Server[]> {
     var url = `${this.httpUrl}/servers`;
