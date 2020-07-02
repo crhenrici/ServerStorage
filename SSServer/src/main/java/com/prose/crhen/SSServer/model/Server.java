@@ -30,6 +30,10 @@ public class Server {
 	@Getter
 	@Setter
 	private double storageRatio;
+
+	public Server() {
+
+	}
 	
 	public Server(long id, String name, int fullCapacity, int storageReserved, int storageFree, double storageRatio) {
 		super();

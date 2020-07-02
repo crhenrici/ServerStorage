@@ -1,1 +1,28 @@
-<p>details-view works!</p>
+<div>
+    <h2>Detailed view {{ server.name }} </h2>
+    <div class="form-group">
+      <label for="id">Id</label>
+      <span>{{ server.id }}</span>
+    </div>
+    <div class="form-group">
+      <label for="name">Name</label>
+      <span>{{ server.name }} </span>
+    </div>
+    <div class="form-group">
+      <label class="form-check-label" for="fullCapacity">Full Capacity</label>
+      <span>{{ server.fullCapacity }}</span>
+    </div>
+    <div class="form-group">
+        <label class="form-check-label" for="storageReserved">Storage Reserved</label>
+        <span>{{ server.storageReserved }}</span>
+      </div>
+      <div class="form-group">
+        <label class="form-check-label" for="storageFree">Storage Free</label>
+        <span>{{ server.storageFree }}</span>
+      </div>
+      <div class="form-group">
+        <label class="form-check-label" for="storageRatio">StorageRatio</label>
+        <span>{{ server.storageRatio }}</span>
+      </div>
+    <button type="submit" class="btn btn-primary" routerLink="">Back</button>
+</div>
