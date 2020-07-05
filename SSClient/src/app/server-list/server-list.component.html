@@ -3,7 +3,7 @@
     <mat-table [dataSource]="dataSource" matSort>
       <ng-container matColumnDef="actions">
         <mat-header-cell *matHeaderCellDef></mat-header-cell>
-        <mat-cell *matCellDef="let server"><button class="btn btn-primary" (click)="sendData(server)" [routerLink]="['/details-view', server.id]">View Details</button></mat-cell>
+        <mat-cell *matCellDef="let server"><button mat-stroked-button class="btn btn-primary" (click)="sendData(server)" [routerLink]="['/details-view', server.id]">View Details</button></mat-cell>
       </ng-container>
       <ng-container matColumnDef="id">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
