@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ServerListComponent } from './server-list/server-list.component';
-import { MatTableModule, MatDialogModule, MatSortModule, MatFormFieldModule, MatFormFieldControl, MatButtonModule } from '@angular/material';
+import { MatTableModule, MatDialogModule, MatSortModule, MatFormFieldModule, MatFormFieldControl, MatButtonModule, MatDividerModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DetailsViewComponent } from './details-view/details-view.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -21,6 +21,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatDialogModule,
     MatSortModule,
     MatButtonModule,
+    MatDividerModule,
     MatFormFieldModule,
     NoopAnimationsModule,
     HttpClientModule,

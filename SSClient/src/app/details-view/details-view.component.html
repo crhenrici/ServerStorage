@@ -1,28 +1,33 @@
-<div>
+<div class="container">
     <h2>Detailed view {{ server.name }} </h2>
-    <div class="form-group">
-      <label for="id">Id</label>
-      <span>{{ server.id }}</span>
+    <div class="row">
+      <label class="col" for="id">Id</label>
+      <span class="col">{{ server.id }}</span>
     </div>
-    <div class="form-group">
-      <label for="name">Name</label>
-      <span>{{ server.name }} </span>
+    <mat-divider></mat-divider>
+    <div class="row">
+      <label class="col" for="name">Name</label>
+      <span class="col">{{ server.name }} </span>
     </div>
-    <div class="form-group">
-      <label class="form-check-label" for="fullCapacity">Full Capacity</label>
-      <span>{{ server.fullCapacity }}</span>
+    <mat-divider></mat-divider>
+    <div class="row">
+      <label class="col" for="fullCapacity">Full Capacity</label>
+      <span class="col">{{ server.fullCapacity }}</span>
     </div>
-    <div class="form-group">
-        <label class="form-check-label" for="storageReserved">Storage Reserved</label>
-        <span>{{ server.storageReserved }}</span>
-      </div>
-      <div class="form-group">
-        <label class="form-check-label" for="storageFree">Storage Free</label>
-        <span>{{ server.storageFree }}</span>
-      </div>
-      <div class="form-group">
-        <label class="form-check-label" for="storageRatio">StorageRatio</label>
-        <span>{{ server.storageRatio }}</span>
-      </div>
+    <mat-divider></mat-divider>
+    <div class="row">
+      <label class="col" for="storageReserved">Storage Reserved</label>
+      <span class="col">{{ server.storageReserved }}</span>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="row">
+      <label class="col" for="storageFree">Storage Free</label>
+      <span class="col">{{ server.storageFree }}</span>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="row">
+      <label class="col" for="storageRatio">StorageRatio</label>
+      <span class="col">{{ server.storageRatio }}</span>
+    </div>
     <button mat-stroked-button type="submit" routerLink="">Back</button>
 </div>

@@ -35,4 +35,7 @@ export class ServerListComponent implements OnInit {
     this.sharedData.transmitData(server);
   }
 
+  generatePDF() {
+
+  }
 }
