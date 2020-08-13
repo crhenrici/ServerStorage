@@ -11,23 +11,33 @@
     </div>
     <mat-divider></mat-divider>
     <div class="row">
-      <label class="col" for="fullCapacity">Full Capacity</label>
+      <label class="col" for="fullCapacity">Full Capacity (in GB)</label>
       <span class="col">{{ server.fullCapacity }}</span>
     </div>
     <mat-divider></mat-divider>
     <div class="row">
-      <label class="col" for="storageReserved">Storage Reserved</label>
+      <label class="col" for="storageReserved">Storage Reserved (in GB)</label>
       <span class="col">{{ server.storageReserved }}</span>
     </div>
     <mat-divider></mat-divider>
     <div class="row">
-      <label class="col" for="storageFree">Storage Free</label>
+      <label class="col" for="storageFree">Storage Free (in GB)</label>
       <span class="col">{{ server.storageFree }}</span>
     </div>
     <mat-divider></mat-divider>
     <div class="row">
-      <label class="col" for="storageRatio">StorageRatio</label>
+      <label class="col" for="storageRatio">Storage Ratio (in GB)</label>
       <span class="col">{{ server.storageRatio }}</span>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="row">
+      <label for="ram" class="col">Ram (in GB)</label>
+      <span class="col">{{ server.ram }}</span>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="row">
+      <label for="cpuUsage" class="col">Cpu Usage (in %)</label>
+      <span class="col">{{ server.cpuUsage }}</span>
     </div>
     <button mat-stroked-button type="submit" routerLink="">Back</button>
 </div>

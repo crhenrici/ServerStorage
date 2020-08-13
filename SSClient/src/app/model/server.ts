@@ -5,4 +5,6 @@ export interface Server {
   storageReserved: number;
   storageFree: number;
   storageRatio: number;
+  ram: number;
+  cpuUsage: number;
 }
