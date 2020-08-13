@@ -30,27 +30,39 @@ public class Server {
 	@Getter
 	@Setter
 	private double storageRatio;
+	@Getter
+	@Setter
+	private int ram;
+	@Getter
+	@Setter
+	private double cpuUsage;
 
 	public Server() {
 
 	}
 	
-	public Server(long id, String name, int fullCapacity, int storageReserved, int storageFree, double storageRatio) {
+	public Server(String name, int fullCapacity, int storageReserved, int storageFree, double storageRatio, int ram, double cpuUsage) {
 		super();
-		this.id = id;
 		this.name = name;
 		this.fullCapacity = fullCapacity;
 		this.storageReserved = storageReserved;
 		this.storageFree = storageFree;
 		this.storageRatio = storageRatio;
+		this.ram = ram;
+		this.cpuUsage = cpuUsage;
 	}
 
 	@Override
 	public String toString() {
-		return "Server [id=" + id + ", name=" + name + ", fullCapacity=" + fullCapacity + ", storageReserved="
-				+ storageReserved + ", storageFree=" + storageFree + ", storageRatio=" + storageRatio + "]";
+		return "Server{" +
+				"id=" + id +
+				", name='" + name + '\'' +
+				", fullCapacity=" + fullCapacity +
+				", storageReserved=" + storageReserved +
+				", storageFree=" + storageFree +
+				", storageRatio=" + storageRatio +
+				", ram=" + ram +
+				", cpuUsage=" + cpuUsage +
+				'}';
 	}
-	
-	
-
 }
