@@ -7,6 +7,7 @@ DROP TABLE IF EXISTS server;
 CREATE TABLE server(
     id int UNSIGNED NOT NULL AUTO_INCREMENT,
     name varchar(50),
+    desc varchar(255),
     ram int,
     cpu_usage int,
 );
@@ -14,6 +15,8 @@ CREATE TABLE server(
 DROP TABLE IF EXISTS volume;
 CREATE TABLE volume(
     id int UNSIGNED NOT NULL AUTO_INCREMENT,
+    name varchar(50),
+    desc varchar(255),
     server_id int UNSIGNED NOT NULL,
     storage_capacity int,
     latest_storage_used int,
