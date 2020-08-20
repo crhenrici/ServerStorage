@@ -21,6 +21,7 @@ CREATE TABLE volume(
     storage_capacity int,
     latest_storage_used int,
     latest_storage_free int,
+    latest_storage_ratio int,
     CONSTRAINT `fk_server_volume`
         FOREIGN KEY (server_id) REFERENCES server (id)
         ON DELETE CASCADE
@@ -32,6 +33,7 @@ CREATE TABLE volume_history(
     volume_id int UNSIGNED NOT NULL,
     storage_free int,
     storage_used int,
+    storage_ratio int,
     CONSTRAINT `fk_volume_volume_history`
         FOREIGN KEY (volume_id) REFERENCES volume (id)
         ON DELETE CASCADE,
