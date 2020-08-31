@@ -1,17 +1,16 @@
 package com.prose.crhen.SSServer.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Set;
+
 @Entity
 public class Server {
 	
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Getter
 	@Id
 	private long id;
@@ -36,6 +35,11 @@ public class Server {
 	@Getter
 	@Setter
 	private double cpuUsage;
+	@Getter
+	@Setter
+	@OneToMany(mappedBy = "server", fetch = FetchType.LAZY,
+				cascade = CascadeType.ALL)
+	private Set<Volume> volumes;
 
 	public Server() {
 

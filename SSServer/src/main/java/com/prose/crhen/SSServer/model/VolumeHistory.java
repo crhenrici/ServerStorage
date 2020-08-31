@@ -1,15 +1,17 @@
 package com.prose.crhen.SSServer.model;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
 public class VolumeHistory {
-	
+
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Getter
-	private long volumeId;
+	@Id
+	private long id;
 	@Getter
 	@Setter
 	private int storageReserved;
@@ -19,10 +21,12 @@ public class VolumeHistory {
 	@Getter
 	@Setter
 	private int storageRatio;
-	
-	public VolumeHistory(long volumeId, int storageReserved, int storageFree, int storageRatio) {
+
+	public VolumeHistory() {}
+
+	public VolumeHistory(long id, int storageReserved, int storageFree, int storageRatio) {
 		super();
-		this.volumeId = volumeId;
+		this.id = id;
 		this.storageReserved = storageReserved;
 		this.storageFree = storageFree;
 		this.storageRatio = storageRatio;
@@ -30,7 +34,7 @@ public class VolumeHistory {
 
 	@Override
 	public String toString() {
-		return "VolumeHistory [volumeId=" + volumeId + ", storageReserved=" + storageReserved + ", storageFree="
+		return "VolumeHistory [id=" + id + ", storageReserved=" + storageReserved + ", storageFree="
 				+ storageFree + ", storageRatio=" + storageRatio + "]";
 	}
 }

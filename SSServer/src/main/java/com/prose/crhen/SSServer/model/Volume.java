@@ -1,8 +1,6 @@
 package com.prose.crhen.SSServer.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.*;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -10,12 +8,10 @@ import lombok.Setter;
 @Entity
 public class Volume {
 	
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Getter
+	@Id
 	private long id;
-	@Getter
-	@Setter
-	private long serverId;
 	@Getter
 	@Setter
 	private String name;
@@ -30,23 +26,36 @@ public class Volume {
 	private int latestStorageFree;
 	@Getter
 	@Setter
-	private int latestStorageRatio;
+	private double latestStorageRatio;
+	@Getter
+	@Setter
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(nullable = false)
+	public Server server;
+
+	public Volume() {}
 	
-	public Volume(long serverId, String name, String desc, int latestStorageReserved, int latestStorageFree,
-			int latestStorageRatio) {
+	public Volume(String name, String desc, int latestStorageReserved, int latestStorageFree,
+			double latestStorageRatio, Server server) {
 		super();
-		this.serverId = serverId;
 		this.name = name;
 		this.desc = desc;
 		this.latestStorageReserved = latestStorageReserved;
 		this.latestStorageFree = latestStorageFree;
 		this.latestStorageRatio = latestStorageRatio;
+		this.server = server;
 	}
 
 	@Override
 	public String toString() {
-		return "Volume [id=" + id + ", serverId=" + serverId + ", name=" + name + ", desc=" + desc
-				+ ", latestStorageReserved=" + latestStorageReserved + ", latestStorageFree=" + latestStorageFree
-				+ ", latestStorageRatio=" + latestStorageRatio + "]";
+		return "Volume{" +
+				"id=" + id +
+				", name='" + name + '\'' +
+				", desc='" + desc + '\'' +
+				", latestStorageReserved=" + latestStorageReserved +
+				", latestStorageFree=" + latestStorageFree +
+				", latestStorageRatio=" + latestStorageRatio +
+				", server=" + server +
+				'}';
 	}
 }
