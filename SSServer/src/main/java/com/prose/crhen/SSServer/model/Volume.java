@@ -5,6 +5,8 @@ import javax.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Set;
+
 @Entity
 public class Volume {
 	
@@ -20,10 +22,10 @@ public class Volume {
 	private String desc;
 	@Getter
 	@Setter
-	private int latestStorageReserved;
+	private double latestStorageReserved;
 	@Getter
 	@Setter
-	private int latestStorageFree;
+	private double latestStorageFree;
 	@Getter
 	@Setter
 	private double latestStorageRatio;
@@ -31,11 +33,16 @@ public class Volume {
 	@Setter
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(nullable = false)
-	public Server server;
+	private Server server;
+	@Getter
+	@Setter
+	@OneToMany(mappedBy = "volume", fetch = FetchType.LAZY,
+				cascade = CascadeType.ALL)
+	private Set<VolumeHistory> volumeHistories;
 
 	public Volume() {}
 	
-	public Volume(String name, String desc, int latestStorageReserved, int latestStorageFree,
+	public Volume(String name, String desc, double latestStorageReserved, double latestStorageFree,
 			double latestStorageRatio, Server server) {
 		super();
 		this.name = name;

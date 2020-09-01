@@ -19,16 +19,16 @@ public class Server {
 	private String name;
 	@Getter
 	@Setter
-	private int fullCapacity;
+	private double fullCapacity;
 	@Getter
 	@Setter
-	private int storageReserved;
+	private double latestStorageReserved;
 	@Getter
 	@Setter
-	private int storageFree;
+	private double latestStorageFree;
 	@Getter
 	@Setter
-	private double storageRatio;
+	private double latestStorageRatio;
 	@Getter
 	@Setter
 	private int ram;
@@ -40,18 +40,23 @@ public class Server {
 	@OneToMany(mappedBy = "server", fetch = FetchType.LAZY,
 				cascade = CascadeType.ALL)
 	private Set<Volume> volumes;
+	@Getter
+	@Setter
+	@OneToMany(mappedBy = "server", fetch = FetchType.LAZY,
+				cascade = CascadeType.ALL)
+	private Set<ServerHistory> serverHistories;
 
 	public Server() {
 
 	}
 	
-	public Server(String name, int fullCapacity, int storageReserved, int storageFree, double storageRatio, int ram, double cpuUsage) {
+	public Server(String name, double fullCapacity, double latestStorageReserved, double latestStorageFree, double latestStorageRatio, int ram, double cpuUsage) {
 		super();
 		this.name = name;
 		this.fullCapacity = fullCapacity;
-		this.storageReserved = storageReserved;
-		this.storageFree = storageFree;
-		this.storageRatio = storageRatio;
+		this.latestStorageReserved = latestStorageReserved;
+		this.latestStorageFree = latestStorageFree;
+		this.latestStorageRatio = latestStorageRatio;
 		this.ram = ram;
 		this.cpuUsage = cpuUsage;
 	}
@@ -62,9 +67,9 @@ public class Server {
 				"id=" + id +
 				", name='" + name + '\'' +
 				", fullCapacity=" + fullCapacity +
-				", storageReserved=" + storageReserved +
-				", storageFree=" + storageFree +
-				", storageRatio=" + storageRatio +
+				", storageReserved=" + latestStorageReserved +
+				", storageFree=" + latestStorageFree +
+				", storageRatio=" + latestStorageRatio +
 				", ram=" + ram +
 				", cpuUsage=" + cpuUsage +
 				'}';

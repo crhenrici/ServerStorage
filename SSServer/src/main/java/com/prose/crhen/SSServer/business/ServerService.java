@@ -10,7 +10,7 @@ import java.math.RoundingMode;
 public class ServerService {
 
     //calculate the storaga ratio of the server
-    public double calculateStorageRatio(int storageCapacity, int storageUsed) {
+    public double calculateStorageRatio(double storageCapacity, double storageUsed) {
         double storageRatio = (Double.valueOf(storageUsed)/Double.valueOf(storageCapacity))*100;
         storageRatio = round(storageRatio);
         return storageRatio;
