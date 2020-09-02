@@ -19,8 +19,6 @@ import com.prose.crhen.SSServer.model.Server;
 @RequestMapping(path = "service")
 public class ServerController {
 
-	@Autowired(required = false)
-	ServerRepository repository;
 
 	@Autowired(required = false)
 	ServerService service;
@@ -32,7 +30,7 @@ public class ServerController {
 	@GetMapping("/servers")
 	@ResponseBody
 	public List<Server> getAllServer() {
-		List<Server> serverList = (List<Server>) repository.findAll();
+		List<Server> serverList = this.service.getServers();
 		return serverList;
 	}
 	

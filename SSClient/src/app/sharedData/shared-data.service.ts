@@ -1,5 +1,5 @@
+import { Volume } from './../model/volume';
 import { Injectable } from '@angular/core';
-import { Server } from '../model/server';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -7,14 +7,14 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class SharedDataService {
 
-  private servers = new BehaviorSubject<Server>(null);
+  private volume = new BehaviorSubject<Volume>(null);
 
-  servers$ = this.servers.asObservable();
+  volume$ = this.volume.asObservable();
   constructor() { }
 
-  transmitData(newServer: Server) {
-    this.servers.next(newServer);
-    console.log('Sent server: ', newServer);
+  transmitData(newVolume: Volume) {
+    this.volume.next(newVolume);
+    console.log('Sent server: ', newVolume);
   }
 
 

@@ -1,43 +1,48 @@
 <div class="container">
-    <h2>Detailed view {{ server.name }} </h2>
+    <h2>Detailed view {{ volume.name }} </h2>
     <div class="row">
       <label class="col" for="id">Id</label>
-      <span class="col">{{ server.id }}</span>
+      <span class="col">{{ volume.id }}</span>
     </div>
     <mat-divider></mat-divider>
     <div class="row">
       <label class="col" for="name">Name</label>
-      <span class="col">{{ server.name }} </span>
+      <span class="col">{{ volume.name }} </span>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="row">
+      <label class="col" for="name">Description</label>
+      <span class="col">{{ volume.desc }} </span>
     </div>
     <mat-divider></mat-divider>
     <div class="row">
       <label class="col" for="fullCapacity">Full Capacity (in GB)</label>
-      <span class="col">{{ server.fullCapacity }}</span>
+      <span class="col">{{ volume.fullCapacity }}</span>
     </div>
     <mat-divider></mat-divider>
     <div class="row">
       <label class="col" for="storageReserved">Storage Reserved (in GB)</label>
-      <span class="col">{{ server.storageReserved }}</span>
+      <span class="col">{{ volume.storageReserved }}</span>
     </div>
     <mat-divider></mat-divider>
     <div class="row">
       <label class="col" for="storageFree">Storage Free (in GB)</label>
-      <span class="col">{{ server.storageFree }}</span>
+      <span class="col">{{ volume.storageFree }}</span>
     </div>
     <mat-divider></mat-divider>
     <div class="row">
       <label class="col" for="storageRatio">Storage Ratio (in GB)</label>
-      <span class="col">{{ server.storageRatio }}</span>
+      <span class="col">{{ volume.storageRatio }}</span>
     </div>
     <mat-divider></mat-divider>
     <div class="row">
       <label for="ram" class="col">Ram (in GB)</label>
-      <span class="col">{{ server.ram }}</span>
+      <span class="col">{{ volume.ram }}</span>
     </div>
     <mat-divider></mat-divider>
     <div class="row">
       <label for="cpuUsage" class="col">Cpu Usage (in %)</label>
-      <span class="col">{{ server.cpuUsage }}</span>
+      <span class="col">{{ volume.cpuUsage }}</span>
     </div>
     <button mat-stroked-button type="submit" routerLink="">Back</button>
 </div>

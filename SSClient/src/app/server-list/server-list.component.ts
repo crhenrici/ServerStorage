@@ -1,7 +1,7 @@
+import { Volume } from './../model/volume';
 import { ServerService } from '../serverService/server.service';
-import { Component, OnInit, AfterViewInit, ViewChild, AfterContentInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort } from '@angular/material';
-import { Server } from '../model/server';
 import { SharedDataService } from '../sharedData/shared-data.service';
 
 
@@ -11,10 +11,10 @@ import { SharedDataService } from '../sharedData/shared-data.service';
   styleUrls: ['./server-list.component.css']
 })
 export class ServerListComponent implements OnInit {
-  servers: Server[];
+  volume: Volume[];
 
-  dataSource: MatTableDataSource<Server>;
-  displayedColumns = ['actions', 'id', 'name', 'fullCapacity', 'storageReserved', 'storageFree', 'storageRatio'];
+  dataSource: MatTableDataSource<Volume>;
+  displayedColumns = ['actions', 'id', 'name', 'desc', 'fullCapacity', 'storageReserved', 'storageFree', 'storageRatio'];
 
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
@@ -23,16 +23,16 @@ export class ServerListComponent implements OnInit {
 
   ngOnInit() {
     this.service.getALL().subscribe(data => {
-      this.servers = data;
+      this.volume = data;
       console.log('Data: ', data);
-      console.log('Servers: ', this.servers);
-      this.dataSource = new MatTableDataSource(this.servers);
+      console.log('Volumes: ', this.volume);
+      this.dataSource = new MatTableDataSource(this.volume);
       this.dataSource.sort = this.sort;
     });
   }
 
-  sendData(server: Server) {
-    this.sharedData.transmitData(server);
+  sendData(volume: Volume) {
+    this.sharedData.transmitData(volume);
   }
 
   generatePDF() {
