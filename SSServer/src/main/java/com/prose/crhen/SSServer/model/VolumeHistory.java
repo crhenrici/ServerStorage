@@ -29,9 +29,8 @@ public class VolumeHistory {
 
 	public VolumeHistory() {}
 
-	public VolumeHistory(long id, double storageReserved, double storageFree, double storageRatio, Volume volume) {
+	public VolumeHistory(double storageReserved, double storageFree, double storageRatio, Volume volume) {
 		super();
-		this.id = id;
 		this.storageReserved = storageReserved;
 		this.storageFree = storageFree;
 		this.storageRatio = storageRatio;

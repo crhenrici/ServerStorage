@@ -13,6 +13,8 @@ public class VolumesUpdateDTO {
     private String freeSpaceGB;
     private String freeSpacePercent;
     private String date;
+    private String ram;
+    private String cpuUsage;
 
     @JsonProperty("SystemName")
     public String getSystemName() {
@@ -77,28 +79,46 @@ public class VolumesUpdateDTO {
         this.date = date;
     }
 
+    public String getRam() {
+        return ram;
+    }
+
+    public void setRam(String ram) {
+        this.ram = ram;
+    }
+
+    public String getCpuUsage() {
+        return cpuUsage;
+    }
+
+    public void setCpuUsage(String cpuUsage) {
+        this.cpuUsage = cpuUsage;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        VolumesUpdateDTO serverDTO = (VolumesUpdateDTO) o;
-        return Objects.equals(systemName, serverDTO.systemName) &&
-                Objects.equals(name, serverDTO.name) &&
-                Objects.equals(driveLetter, serverDTO.driveLetter) &&
-                Objects.equals(capacityGB, serverDTO.capacityGB) &&
-                Objects.equals(freeSpaceGB, serverDTO.freeSpaceGB) &&
-                Objects.equals(freeSpacePercent, serverDTO.freeSpacePercent) &&
-                Objects.equals(date, serverDTO.date);
+        VolumesUpdateDTO that = (VolumesUpdateDTO) o;
+        return Objects.equals(systemName, that.systemName) &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(driveLetter, that.driveLetter) &&
+                Objects.equals(capacityGB, that.capacityGB) &&
+                Objects.equals(freeSpaceGB, that.freeSpaceGB) &&
+                Objects.equals(freeSpacePercent, that.freeSpacePercent) &&
+                Objects.equals(date, that.date) &&
+                Objects.equals(ram, that.ram) &&
+                Objects.equals(cpuUsage, that.cpuUsage);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(systemName, name, driveLetter, capacityGB, freeSpaceGB, freeSpacePercent, date);
+        return Objects.hash(systemName, name, driveLetter, capacityGB, freeSpaceGB, freeSpacePercent, date, ram, cpuUsage);
     }
 
     @Override
     public String toString() {
-        return "ServerDTO{" +
+        return "VolumesUpdateDTO{" +
                 "systemName='" + systemName + '\'' +
                 ", name='" + name + '\'' +
                 ", driveLetter='" + driveLetter + '\'' +
@@ -106,6 +126,8 @@ public class VolumesUpdateDTO {
                 ", freeSpaceGB='" + freeSpaceGB + '\'' +
                 ", freeSpacePercent='" + freeSpacePercent + '\'' +
                 ", date='" + date + '\'' +
+                ", ram='" + ram + '\'' +
+                ", cpuUsage='" + cpuUsage + '\'' +
                 '}';
     }
 }

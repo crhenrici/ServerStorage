@@ -5,11 +5,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.prose.crhen.SSServer.SsServerApplication;
+import com.prose.crhen.SSServer.db.ServerRepository;
 import com.prose.crhen.SSServer.dto.VolumesUpdateDTO;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.core.io.FileSystemResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
@@ -17,6 +20,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.util.List;
@@ -26,11 +30,14 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = TestConfig.class)
-@WebMvcTest(ServerController.class)
+@SpringBootTest(webEnvironment= SpringBootTest.WebEnvironment.RANDOM_PORT)
 class ServerControllerTest {
 
+    @LocalServerPort
+    int randomServerPort;
+
     @Autowired
-    private MockMvc mockMvc;
+    private ServerRepository serverRepository;
 
     @Test
     void saveTest() throws Exception {
@@ -42,12 +49,11 @@ class ServerControllerTest {
         assertEquals(5, result.size());
         VolumesUpdateDTO o = result.get(0);
         o.getSystemName().equals("CHWIWS08");
-        mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
-        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        String requestJson=ow.writeValueAsString(result);
 
-        mockMvc.perform(post("/service/save").contentType(MediaType.APPLICATION_JSON)
-                .content(requestJson)).andExpect(MockMvcResultMatchers.status().isOk());
+        RestTemplate restTemplate = new RestTemplate();
+
+        final String baseUrl = "http://localhost:" + randomServerPort + "/service/save";
+        restTemplate.postForLocation(baseUrl, result);
     }
 
 }
