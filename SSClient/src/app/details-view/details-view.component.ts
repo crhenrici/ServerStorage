@@ -16,6 +16,10 @@ export class DetailsViewComponent implements OnInit {
     this.route.params.subscribe(params => console.log(params));
   }
 
+  onEdit() {
+
+  }
+
   ngOnInit() {
     this.sharedData.volume$.subscribe(
       data => {

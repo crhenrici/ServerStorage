@@ -1,3 +1,6 @@
+import { Server } from './server';
+
+
 export interface Volume {
   id: number;
   serverId: number;
@@ -7,4 +10,6 @@ export interface Volume {
   storageReserved: number;
   storageFree: number;
   storagetRatio: number;
+  server: Server;
+  volumeHistories: Set<Volume>;
 }

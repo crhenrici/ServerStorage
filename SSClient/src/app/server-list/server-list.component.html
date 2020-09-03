@@ -32,6 +32,10 @@
       <mat-header-cell *matHeaderCellDef mat-sort-header>Storage Ratio</mat-header-cell>
       <mat-cell *matCellDef="let volume"> {{ volume.storagetRatio }}</mat-cell>
     </ng-container>
+    <ng-container>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Parent Server</mat-header-cell>
+      <mat-cell *matCellDef="let volume">{{ volume.server.name }}</mat-cell>
+    </ng-container>
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns; let volume" [ngClass]="{'data-affected': row.storageRatio >= 75}" ></mat-row>
   </mat-table>
