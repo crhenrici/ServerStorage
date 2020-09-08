@@ -13,28 +13,25 @@ import com.prose.crhen.SSServer.model.ServerHistory;
 import com.prose.crhen.SSServer.model.Volume;
 import com.prose.crhen.SSServer.model.VolumeHistory;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.function.Consumer;
 
 @Service
 public class ServerService {
 	
 	@Autowired
-	ServerRepository serverRepository;
+	private ServerRepository serverRepository;
 
 	@Autowired
-	VolumeRepository volumeRepository;
+	private VolumeRepository volumeRepository;
 	
 	@Autowired
-	VolumeHistoryRepository volumeHistoryRepo;
+	private VolumeHistoryRepository volumeHistoryRepo;
 	
 	@Autowired
-	ServerHistoryRepository serverHistoryRepo;
+	private ServerHistoryRepository serverHistoryRepo;
 	
 	public List<Server> getServers() {
 		List<Server> servers = serverRepository.findAll();
