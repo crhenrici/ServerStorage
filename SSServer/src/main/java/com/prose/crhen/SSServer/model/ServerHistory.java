@@ -23,7 +23,7 @@ public class ServerHistory {
     private double storageRatio;
     @Getter
     @Setter
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(nullable = false)
     private Server server;
 

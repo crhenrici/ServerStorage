@@ -22,6 +22,9 @@ public class Volume {
 	private String desc;
 	@Getter
 	@Setter
+	private double fullCapacity;
+	@Getter
+	@Setter
 	private double latestStorageReserved;
 	@Getter
 	@Setter
@@ -31,22 +34,23 @@ public class Volume {
 	private double latestStorageRatio;
 	@Getter
 	@Setter
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
 	@JoinColumn(nullable = false)
 	private Server server;
 	@Getter
 	@Setter
-	@OneToMany(mappedBy = "volume", fetch = FetchType.LAZY,
+	@OneToMany(mappedBy = "volume", fetch = FetchType.EAGER,
 				cascade = CascadeType.ALL)
 	private Set<VolumeHistory> volumeHistories;
 
 	public Volume() {}
 	
-	public Volume(String name, String desc, double latestStorageReserved, double latestStorageFree,
+	public Volume(String name, String desc, double fullCapacity, double latestStorageReserved, double latestStorageFree,
 			double latestStorageRatio, Server server) {
 		super();
 		this.name = name;
 		this.desc = desc;
+		this.fullCapacity = fullCapacity;
 		this.latestStorageReserved = latestStorageReserved;
 		this.latestStorageFree = latestStorageFree;
 		this.latestStorageRatio = latestStorageRatio;
@@ -55,14 +59,11 @@ public class Volume {
 
 	@Override
 	public String toString() {
-		return "Volume{" +
-				"id=" + id +
-				", name='" + name + '\'' +
-				", desc='" + desc + '\'' +
-				", latestStorageReserved=" + latestStorageReserved +
-				", latestStorageFree=" + latestStorageFree +
-				", latestStorageRatio=" + latestStorageRatio +
-				", server=" + server +
-				'}';
+		return "Volume [id=" + id + ", name=" + name + ", desc=" + desc + ", fullCapacity=" + fullCapacity
+				+ ", latestStorageReserved=" + latestStorageReserved + ", latestStorageFree=" + latestStorageFree
+				+ ", latestStorageRatio=" + latestStorageRatio + ", server=" + server + ", volumeHistories="
+				+ volumeHistories + "]";
 	}
+
+
 }

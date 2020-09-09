@@ -2,14 +2,20 @@
 DROP DATABASE IF EXISTS prose;
 CREATE DATABASE prose;
 
+USE prose;
+
 -- Creating tables
 DROP TABLE IF EXISTS server;
 CREATE TABLE server(
     id int UNSIGNED NOT NULL AUTO_INCREMENT,
     name varchar(50),
     desc varchar(255),
+    full_capacity double,
+    storage_reserved double,
+    storage_free double,
+    storage_ratio double
     ram int,
-    cpu_usage int
+    cpu_usage double
 );
 
 DROP TABLE IF EXISTS volume;
@@ -18,10 +24,10 @@ CREATE TABLE volume(
     name varchar(50),
     desc varchar(255),
     server_id int UNSIGNED NOT NULL,
-    storage_capacity int,
-    latest_storage_used int,
-    latest_storage_free int,
-    latest_storage_ratio int,
+    storage_capacity double,
+    latest_storage_used double,
+    latest_storage_free double,
+    latest_storage_ratio double,
     CONSTRAINT `fk_server_volume`
         FOREIGN KEY (server_id) REFERENCES server (id)
         ON DELETE CASCADE
@@ -31,13 +37,25 @@ CREATE TABLE volume(
 DROP TABLE IF EXISTS volume_history;
 CREATE TABLE volume_history(
     volume_id int UNSIGNED NOT NULL,
-    storage_free int,
-    storage_used int,
-    storage_ratio int,
+    storage_free double,
+    storage_used double,
+    storage_ratio double,
     CONSTRAINT `fk_volume_volume_history`
         FOREIGN KEY (volume_id) REFERENCES volume (id)
         ON DELETE CASCADE
         ON UPDATE RESTRICT
+);
+
+DROP TABLE IF EXISTS server_history;
+CREATE TABLE server_history
+	server_id int UNSIGNED NOT NULL,
+	storage_free double,
+	storage_reserved double,
+	storage_ratio double
+	CONSTRAINT `fk_server_server_history`
+		FOREIGN KEY (server_id) REFERENCES server (id)
+		ON DELETE CASCADE
+		ON UPDATE RESTRICT
 );
 
 -- Create User

@@ -37,7 +37,7 @@ class VolumeRepositoryTest {
     void testPersistVolume() {
         Server result = serverRepository.findByName("CHWISRV01");
         assertNotNull(result);
-        Volume volume = new Volume("Test", "Some test", 50, 50, 50, result);
+        Volume volume = new Volume("Test", "Some test", 100, 50, 50, 50, result);
         manager.persist(volume);
         manager.flush();
         List<Volume> volumeList = volumeRepository.findByServer(result);

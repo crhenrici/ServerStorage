@@ -37,12 +37,12 @@ public class Server {
 	private double cpuUsage;
 	@Getter
 	@Setter
-	@OneToMany(mappedBy = "server", fetch = FetchType.LAZY,
+	@OneToMany(mappedBy = "server", fetch = FetchType.EAGER,
 				cascade = CascadeType.ALL)
 	private Set<Volume> volumes;
 	@Getter
 	@Setter
-	@OneToMany(mappedBy = "server", fetch = FetchType.LAZY,
+	@OneToMany(mappedBy = "server", fetch = FetchType.EAGER,
 				cascade = CascadeType.ALL)
 	private Set<ServerHistory> serverHistories;
 
