@@ -3,6 +3,7 @@ package com.prose.crhen.SSServer.business;
 import com.prose.crhen.SSServer.dto.VolumesUpdateDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.prose.crhen.SSServer.db.ServerHistoryRepository;
 import com.prose.crhen.SSServer.db.ServerRepository;
@@ -73,8 +74,7 @@ public class ServerService {
 		Optional<Server> serverFound = Optional.ofNullable(this.serverRepository.findByName(newServer.getSystemName()));
 		if (serverFound.isPresent()) {
 			updateServer(serverFound.get(), newServer);
-			System.out.println(serverFound.get().getServerHistories().size());
-		} else {
+			} else {
 			insertServer(newServer);
 		}
 	}
@@ -120,18 +120,8 @@ public class ServerService {
 		//creating the new entities
 		Server insertedServer = new Server(newVolume.getSystemName(), Double.parseDouble(newVolume.getCapacityGB()), reserved, Double.parseDouble(newVolume.getFreeSpaceGB()), Double.parseDouble(newVolume.getFreeSpacePercent()), Integer.parseInt(newVolume.getRam()), Double.parseDouble(newVolume.getCpuUsage()));
 		Volume insertedVolume = new Volume(newVolume.getName(),"", Double.parseDouble(newVolume.getCapacityGB()) , reserved, Double.parseDouble(newVolume.getFreeSpaceGB()), Double.parseDouble(newVolume.getFreeSpacePercent()),insertedServer);
-		Set<Volume> volumes = new LinkedHashSet<>();
 		VolumeHistory volumeHistory = new VolumeHistory(insertedVolume.getLatestStorageReserved(), insertedVolume.getLatestStorageFree(), insertedVolume.getLatestStorageRatio(), insertedVolume);
-		Set<VolumeHistory> volumeHistories = new LinkedHashSet<>();
 		ServerHistory serverHistory = new ServerHistory(insertedServer.getLatestStorageFree(), insertedServer.getLatestStorageReserved(), insertedServer.getLatestStorageRatio(),insertedServer);
-		Set<ServerHistory> serverHistories = new LinkedHashSet<>();
-
-		//linking the entities
-		volumes.add(insertedVolume);
-		serverHistories.add(serverHistory);
-		insertedServer.setVolumes(volumes);
-		insertedVolume.setVolumeHistories(volumeHistories);
-		insertedServer.setServerHistories(serverHistories);
 		
 		//save in repository
 		serverRepository.save(insertedServer);
@@ -145,49 +135,35 @@ public class ServerService {
 		Volume insertedVolume = null;
 		if (volumeOptional.isPresent()) {
 			insertedVolume = volumeOptional.get();
-			Volume updatedVolume = updateVolume(insertedVolume, newVolume);
-			Set<Volume> volumes = server.getVolumes();
-			volumes.add(updatedVolume);
+			Set<Volume> volumes = updateVolume(insertedVolume, newVolume);
+			server.setVolumes(volumes);
 		} else {
 			insertedVolume = insertVolume(server, newVolume);
 		}
 		Server newServer = calcServerDetails(server);
-		newServer.getVolumes().add(insertedVolume);
 		ServerHistory serverHistory = new ServerHistory(newServer.getLatestStorageReserved(), newServer.getLatestStorageFree(), newServer.getLatestStorageRatio(), newServer);
-		System.out.println(newServer.getServerHistories().size());
-		newServer.getServerHistories().add(serverHistory);
-		System.out.println(newServer.getServerHistories().size());
 		serverRepository.save(newServer);
 		serverHistoryRepo.save(serverHistory);
-		System.out.println(newServer.getServerHistories().size());
 	}
 	
-	private Volume updateVolume(Volume updatedVolume, VolumesUpdateDTO newVolume) {
+	private Set<Volume> updateVolume(Volume updatedVolume, VolumesUpdateDTO newVolume) {
 		double reserved = Double.parseDouble(newVolume.getCapacityGB()) - Double.parseDouble(newVolume.getFreeSpaceGB());
 		Volume insertedVolume = updatedVolume;
 		insertedVolume.setLatestStorageFree(Double.parseDouble(newVolume.getFreeSpaceGB()));
 		insertedVolume.setLatestStorageRatio(Double.parseDouble(newVolume.getFreeSpacePercent()));
 		insertedVolume.setLatestStorageReserved(reserved);
 		VolumeHistory volumeHistory = new VolumeHistory(insertedVolume.getLatestStorageReserved(), insertedVolume.getLatestStorageFree(), insertedVolume.getLatestStorageRatio(), insertedVolume);
-		Set<VolumeHistory> volumeHistories = updatedVolume.getVolumeHistories();
-		volumeHistories.add(volumeHistory);
-		insertedVolume.setVolumeHistories(volumeHistories);
-
+		
+		Set<Volume> volumes = insertedVolume.getServer().getVolumes();
 		volumeRepository.save(insertedVolume);
-		volumeHistoryRepo.save(volumeHistory);
-		return insertedVolume;
+ 		volumeHistoryRepo.save(volumeHistory);
+		return volumes;
 	}
 
 	private Volume insertVolume(Server server,VolumesUpdateDTO newVolume) {
 		double reserved = Double.parseDouble(newVolume.getCapacityGB()) - Double.parseDouble(newVolume.getFreeSpaceGB());
 		Volume insertedVolume = new Volume(newVolume.getName(),"", Double.parseDouble(newVolume.getCapacityGB()) , reserved, Double.parseDouble(newVolume.getFreeSpaceGB()), Double.parseDouble(newVolume.getFreeSpacePercent()),server);
-		Set<Volume> volumes = new LinkedHashSet<>();
 		VolumeHistory volumeHistory = new VolumeHistory(insertedVolume.getLatestStorageReserved(), insertedVolume.getLatestStorageFree(), insertedVolume.getLatestStorageRatio(), insertedVolume);
-		Set<VolumeHistory> volumeHistories = new LinkedHashSet<>();
-
-		server.setVolumes(volumes);
-		volumeHistories.add(volumeHistory);
-		insertedVolume.setVolumeHistories(volumeHistories);
 
 		volumeRepository.save(insertedVolume);
 		volumeHistoryRepo.save(volumeHistory);

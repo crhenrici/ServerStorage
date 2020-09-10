@@ -61,9 +61,10 @@ public class Volume {
 	public String toString() {
 		return "Volume [id=" + id + ", name=" + name + ", desc=" + desc + ", fullCapacity=" + fullCapacity
 				+ ", latestStorageReserved=" + latestStorageReserved + ", latestStorageFree=" + latestStorageFree
-				+ ", latestStorageRatio=" + latestStorageRatio + ", server=" + server + ", volumeHistories="
-				+ volumeHistories + "]";
+				+ ", latestStorageRatio=" + latestStorageRatio + ", server=" + server + "]";
 	}
+	
+	
 
 
 }

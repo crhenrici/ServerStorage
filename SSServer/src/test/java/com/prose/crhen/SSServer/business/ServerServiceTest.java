@@ -3,6 +3,7 @@ package com.prose.crhen.SSServer.business;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,6 +23,8 @@ import com.prose.crhen.SSServer.db.VolumeRepository;
 import com.prose.crhen.SSServer.dto.VolumesUpdateDTO;
 import com.prose.crhen.SSServer.model.Server;
 import com.prose.crhen.SSServer.model.ServerHistory;
+import com.prose.crhen.SSServer.model.Volume;
+import com.prose.crhen.SSServer.model.VolumeHistory;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = TestConfig.class)
@@ -81,6 +84,9 @@ public class ServerServiceTest {
 		assertEquals(fullCapacity, server.getFullCapacity());
 		assertEquals(2, server.getVolumes().size());
 		assertEquals(2, server.getServerHistories().size());
+		for (ServerHistory serverHistory : server.getServerHistories()) {
+			System.out.println("ServerHistory: " + serverHistory.toString());
+		}
 
 		VolumesUpdateDTO lastVolume = new VolumesUpdateDTO();
 		lastVolume.setCapacityGB("150");
@@ -95,9 +101,28 @@ public class ServerServiceTest {
 		service.saveServer(lastVolume);
 		assertEquals(2, serverRepository.count());
 		assertEquals(3, volumeRepository.count());
-		System.out.println(serverHistoryRepository.findAll().toString());
+		Server testingServer = serverRepository.findByName("TestingServer");
+		assertEquals(1, testingServer.getServerHistories().size());
 		List<ServerHistory> serverHistories = serverHistoryRepository.findAll();
 		assertEquals(3, serverHistoryRepository.count());
+		assertEquals(3, serverHistories.size());
+	}
+	
+	@Test
+	void saveServerUpdateVolumeTest() {
+		VolumesUpdateDTO updatedVolume = newVolume;
+		updatedVolume.setCpuUsage("32.43");
+		updatedVolume.setDate("2020-08-20");
+		updatedVolume.setFreeSpaceGB("25");
+		updatedVolume.setFreeSpacePercent("25");
+		service.saveServer(updatedVolume);
+		List<Volume> volumes = service.getVolumes();
+		Volume volume = volumes.get(0);
+		System.out.println("volume: " + volume.toString());
+		assertEquals(25, volume.getLatestStorageFree());
+		assertEquals(75, volume.getLatestStorageReserved());
+		assertEquals(3, volumeRepository.count());
+		assertEquals(4, volumeHistoryRepository.count());
 	}
 
 }
