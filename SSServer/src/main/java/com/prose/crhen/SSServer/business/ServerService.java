@@ -56,17 +56,11 @@ public class ServerService {
 
 	private void insertServer(VolumesUpdateDTO newVolume) {
 		double reserved = Double.parseDouble(newVolume.getCapacityGB()) - Double.parseDouble(newVolume.getFreeSpaceGB());
-		//creating the new entities
 		Server insertedServer = new Server(newVolume.getSystemName(), Double.parseDouble(newVolume.getCapacityGB()), reserved, Double.parseDouble(newVolume.getFreeSpaceGB()), Double.parseDouble(newVolume.getFreeSpacePercent()), Integer.parseInt(newVolume.getRam()), Double.parseDouble(newVolume.getCpuUsage()));
 		Volume insertedVolume = new Volume(newVolume.getName(),"", Double.parseDouble(newVolume.getCapacityGB()) , reserved, Double.parseDouble(newVolume.getFreeSpaceGB()), Double.parseDouble(newVolume.getFreeSpacePercent()),insertedServer);
-		VolumeHistory volumeHistory = new VolumeHistory(insertedVolume.getLatestStorageReserved(), insertedVolume.getLatestStorageFree(), insertedVolume.getLatestStorageRatio(), insertedVolume);
-		ServerHistory serverHistory = new ServerHistory(insertedServer.getLatestStorageFree(), insertedServer.getLatestStorageReserved(), insertedServer.getLatestStorageRatio(),insertedServer);
-		
-		//save in repository
+
 		serverRepository.save(insertedServer);
 		volumeRepository.save(insertedVolume);
-		volumeHistoryRepo.save(volumeHistory);
-		serverHistoryRepo.save(serverHistory);
 	}
 
 	private void updateServer(Server server, VolumesUpdateDTO newVolume) {
@@ -77,37 +71,36 @@ public class ServerService {
 			Set<Volume> volumes = updateVolume(insertedVolume, newVolume);
 			server.setVolumes(volumes);
 		} else {
-			insertedVolume = insertVolume(server, newVolume);
+			insertVolume(server, newVolume);
 		}
 		Server newServer = calcServerDetails(server);
-		ServerHistory serverHistory = new ServerHistory(newServer.getLatestStorageReserved(), newServer.getLatestStorageFree(), newServer.getLatestStorageRatio(), newServer);
+		ServerHistory serverHistory = new ServerHistory(server.getLatestStorageReserved(), server.getLatestStorageFree(), server.getLatestStorageRatio(), server);
 		serverRepository.save(newServer);
 		serverHistoryRepo.save(serverHistory);
 	}
 	
 	private Set<Volume> updateVolume(Volume updatedVolume, VolumesUpdateDTO newVolume) {
 		double reserved = Double.parseDouble(newVolume.getCapacityGB()) - Double.parseDouble(newVolume.getFreeSpaceGB());
+
+		Volume latestVolume = volumeRepository.findByName(newVolume.getName());
+		VolumeHistory volumeHistory = new VolumeHistory(latestVolume.getLatestStorageReserved(), latestVolume.getLatestStorageFree(), latestVolume.getLatestStorageRatio(), latestVolume);
+		volumeHistoryRepo.save(volumeHistory);
+
 		Volume insertedVolume = updatedVolume;
 		insertedVolume.setLatestStorageFree(Double.parseDouble(newVolume.getFreeSpaceGB()));
 		insertedVolume.setLatestStorageRatio(Double.parseDouble(newVolume.getFreeSpacePercent()));
 		insertedVolume.setLatestStorageReserved(reserved);
-		VolumeHistory volumeHistory = new VolumeHistory(insertedVolume.getLatestStorageReserved(), insertedVolume.getLatestStorageFree(), insertedVolume.getLatestStorageRatio(), insertedVolume);
-		
+
 		Set<Volume> volumes = insertedVolume.getServer().getVolumes();
 		volumeRepository.save(insertedVolume);
- 		volumeHistoryRepo.save(volumeHistory);
 		return volumes;
 	}
 
-	private Volume insertVolume(Server server,VolumesUpdateDTO newVolume) {
+	private void insertVolume(Server server,VolumesUpdateDTO newVolume) {
 		double reserved = Double.parseDouble(newVolume.getCapacityGB()) - Double.parseDouble(newVolume.getFreeSpaceGB());
 		Volume insertedVolume = new Volume(newVolume.getName(),"", Double.parseDouble(newVolume.getCapacityGB()) , reserved, Double.parseDouble(newVolume.getFreeSpaceGB()), Double.parseDouble(newVolume.getFreeSpacePercent()),server);
-		VolumeHistory volumeHistory = new VolumeHistory(insertedVolume.getLatestStorageReserved(), insertedVolume.getLatestStorageFree(), insertedVolume.getLatestStorageRatio(), insertedVolume);
 
 		volumeRepository.save(insertedVolume);
-		volumeHistoryRepo.save(volumeHistory);
-
-		return insertedVolume;
 	}
 
 

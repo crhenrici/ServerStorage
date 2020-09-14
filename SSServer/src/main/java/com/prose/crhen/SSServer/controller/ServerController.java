@@ -32,7 +32,7 @@ public class ServerController {
 		Preconditions.checkNotNull(volumes, "value can't be null");
 		System.out.println(volumes.toString());
         for (VolumesUpdateDTO volume : volumes) {
-        	service.saveVolume(volume);
+        	service.save(volume);
 		}
 		return ResponseEntity.status(HttpStatus.OK).build();
 	}
