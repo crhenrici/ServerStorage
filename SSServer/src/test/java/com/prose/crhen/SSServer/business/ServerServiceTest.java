@@ -3,15 +3,11 @@ package com.prose.crhen.SSServer.business;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
-import java.util.Optional;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -24,7 +20,6 @@ import com.prose.crhen.SSServer.dto.VolumesUpdateDTO;
 import com.prose.crhen.SSServer.model.Server;
 import com.prose.crhen.SSServer.model.ServerHistory;
 import com.prose.crhen.SSServer.model.Volume;
-import com.prose.crhen.SSServer.model.VolumeHistory;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = TestConfig.class)
@@ -64,7 +59,7 @@ public class ServerServiceTest {
 	
 	@Test
 	void saveServerTest() {
-		service.saveServer(newVolume);
+		service.save(newVolume);
 		assertEquals(1, serverRepository.count());
 		assertEquals(1, volumeRepository.count());
 		VolumesUpdateDTO someVolume = new VolumesUpdateDTO();
@@ -77,7 +72,7 @@ public class ServerServiceTest {
 		someVolume.setName("Testing");
 		someVolume.setRam("16");
 		someVolume.setSystemName("TestServer");
-		service.saveServer(someVolume);
+		service.save(someVolume);
 		assertEquals(2, volumeRepository.count());
 		double fullCapacity = Double.parseDouble(newVolume.getCapacityGB()) + Double.parseDouble(someVolume.getCapacityGB());
 		Server server = serverRepository.findByName("TestServer");
@@ -98,7 +93,7 @@ public class ServerServiceTest {
 		lastVolume.setName("TestingVolume");
 		lastVolume.setRam("4");
 		lastVolume.setSystemName("TestingServer");
-		service.saveServer(lastVolume);
+		service.save(lastVolume);
 		assertEquals(2, serverRepository.count());
 		assertEquals(3, volumeRepository.count());
 		Server testingServer = serverRepository.findByName("TestingServer");
@@ -115,7 +110,7 @@ public class ServerServiceTest {
 		updatedVolume.setDate("2020-08-20");
 		updatedVolume.setFreeSpaceGB("25");
 		updatedVolume.setFreeSpacePercent("25");
-		service.saveServer(updatedVolume);
+		service.save(updatedVolume);
 		List<Volume> volumes = service.getVolumes();
 		Volume volume = volumes.get(0);
 		System.out.println("volume: " + volume.toString());

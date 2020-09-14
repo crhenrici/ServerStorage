@@ -13,7 +13,7 @@ CREATE TABLE server(
     full_capacity double,
     storage_reserved double,
     storage_free double,
-    storage_ratio double
+    storage_ratio double,
     ram int,
     cpu_usage double
 );

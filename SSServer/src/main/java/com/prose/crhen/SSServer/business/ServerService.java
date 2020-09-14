@@ -45,73 +45,12 @@ public class ServerService {
 	}
 	
 	//update or save server
-	public void saveServer(VolumesUpdateDTO newServer) {
-//		 Optional<Server> serverFound = this.serverRepository.findById(newServer.getId());
-//
-//		 //calculate details of server
-//		 Server updatedServer = calcServerDetails(newServer);
-//		 //save data to serverHistory
-//		 ServerHistory serverHistory = new ServerHistory(updatedServer.getLatestStorageFree(),updatedServer.getLatestStorageReserved(), updatedServer.getLatestStorageRatio(),
-//				 updatedServer);
-//		 serverHistoryRepo.save(serverHistory);
-//		 newServer.getServerHistories().add(serverHistory);
-//
-//		 if (serverFound.get().getId() == updatedServer.getId()) {
-//			 //update the server
-//			serverFound.map(server -> {
-//				server.setLatestStorageFree(updatedServer.getLatestStorageFree());
-//				server.setLatestStorageReserved(updatedServer.getLatestStorageReserved());
-//				server.setLatestStorageRatio(updatedServer.getLatestStorageRatio());
-//				server.setVolumes(updatedServer.getVolumes());
-//				server.setCpuUsage(updatedServer.getCpuUsage());
-//				server.setServerHistories(updatedServer.getServerHistories());
-//				return serverRepository.save(server);
-//			});
-//		 } else {
-//			 //save new server
-//			 serverRepository.save(newServer);
-//		 }
+	public void save(VolumesUpdateDTO newServer) {
 		Optional<Server> serverFound = Optional.ofNullable(this.serverRepository.findByName(newServer.getSystemName()));
 		if (serverFound.isPresent()) {
 			updateServer(serverFound.get(), newServer);
 			} else {
 			insertServer(newServer);
-		}
-	}
-	
-	//update or save volume
-	//this is the same code as saveServer - should be deleted
-	public void saveVolume(VolumesUpdateDTO volumeData) {
-//		Optional<Volume> volumeFound = this.volumeRepository.findByName(newVolume.getId());
-//        if (volumeFound.isPresent()) {
-//			updateVolume(volumeData);
-//		} else {
-//			insertVolume(volumeData);
-//		}
-//		//save data to volumeHistory
-//		VolumeHistory volumeHistory = new VolumeHistory(newVolume.getLatestStorageReserved(), newVolume.getLatestStorageFree(), newVolume.getLatestStorageRatio(), newVolume);
-//		volumeHistoryRepo.save(volumeHistory);
-//		newVolume.getVolumeHistories().add(volumeHistory);
-//
-//		if (volumeFound.get().getId() == newVolume.getId()) {
-//			//update the volume
-//			volumeFound.map(volume -> {
-//				volume.setDesc(newVolume.getDesc());
-//				volume.setLatestStorageFree(newVolume.getLatestStorageFree());
-//				volume.setLatestStorageReserved(newVolume.getLatestStorageReserved());
-//				volume.setLatestStorageRatio(newVolume.getLatestStorageRatio());
-//				volume.setVolumeHistories(newVolume.getVolumeHistories());
-//				return volumeRepository.save(volume);
-//			});
-//		} else {
-//			//save new volume
-//			volumeRepository.save(newVolume);
-//		}
-		Optional<Server> serverOptional = Optional.ofNullable(serverRepository.findByName(volumeData.getSystemName()));
-		if (serverOptional.isPresent()) {
-			updateServer(serverOptional.get(),volumeData);
-		} else {
-			insertServer(volumeData);
 		}
 	}
 
