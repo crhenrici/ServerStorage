@@ -8,34 +8,42 @@ import lombok.Setter;
 import java.util.Set;
 
 @Entity
+@Table(name = "volume")
 public class Volume {
 	
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Getter
 	@Id
+	@Column(name = "id")
 	private long id;
 	@Getter
 	@Setter
+	@Column(name = "name")
 	private String name;
 	@Getter
 	@Setter
+	@Column(name = "desc")
 	private String desc;
 	@Getter
 	@Setter
+	@Column(name = "full_capacity")
 	private double fullCapacity;
 	@Getter
 	@Setter
+	@Column(name = "latest_storage_reserved")
 	private double latestStorageReserved;
 	@Getter
 	@Setter
+	@Column(name = "latest_storage_free")
 	private double latestStorageFree;
 	@Getter
 	@Setter
+	@Column(name = "latest_storage_ratio")
 	private double latestStorageRatio;
 	@Getter
 	@Setter
 	@ManyToOne(fetch = FetchType.EAGER, optional = false)
-	@JoinColumn(nullable = false)
+	@JoinColumn(name = "server_id", nullable = false)
 	private Server server;
 	@Getter
 	@Setter

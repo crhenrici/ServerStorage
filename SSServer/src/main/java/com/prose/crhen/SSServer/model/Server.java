@@ -8,32 +8,41 @@ import lombok.Setter;
 import java.util.Set;
 
 @Entity
+@Table(name = "server")
 public class Server {
 	
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Getter
 	@Id
+	@Column(name = "id")
 	private long id;
 	@Getter
 	@Setter
+	@Column(name = "name")
 	private String name;
 	@Getter
 	@Setter
+	@Column(name = "full_capacity")
 	private double fullCapacity;
 	@Getter
 	@Setter
+	@Column(name = "latest_storage_reserved")
 	private double latestStorageReserved;
 	@Getter
 	@Setter
+	@Column(name = "latest_storage_free")
 	private double latestStorageFree;
 	@Getter
 	@Setter
+	@Column(name = "latest_storage_ratio")
 	private double latestStorageRatio;
 	@Getter
 	@Setter
+	@Column(name = "ram")
 	private int ram;
 	@Getter
 	@Setter
+	@Column(name = "cpu_usage")
 	private double cpuUsage;
 	@Getter
 	@Setter
