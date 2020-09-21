@@ -24,6 +24,8 @@ dependencies {
 	runtime 'com.h2database:h2'
 
 	implementation 'com.google.guava:guava:29.0-jre'
+	implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.6.1'
+
 
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'

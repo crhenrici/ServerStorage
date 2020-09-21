@@ -38,11 +38,11 @@ public class Server {
 	private double latestStorageRatio;
 	@Getter
 	@Setter
-	@Column(name = "ram")
+	@Column(name = "ram", nullable = true)
 	private int ram;
 	@Getter
 	@Setter
-	@Column(name = "cpu_usage")
+	@Column(name = "cpu_usage", nullable = true)
 	private double cpuUsage;
 	@Getter
 	@Setter
@@ -58,7 +58,15 @@ public class Server {
 	public Server() {
 
 	}
-	
+
+	public Server(String name, double fullCapacity, double latestStorageReserved, double latestStorageFree, double latestStorageRatio) {
+		this.name = name;
+		this.fullCapacity = fullCapacity;
+		this.latestStorageReserved = latestStorageReserved;
+		this.latestStorageFree = latestStorageFree;
+		this.latestStorageRatio = latestStorageRatio;
+	}
+
 	public Server(String name, double fullCapacity, double latestStorageReserved, double latestStorageFree, double latestStorageRatio, int ram, double cpuUsage) {
 		super();
 		this.name = name;

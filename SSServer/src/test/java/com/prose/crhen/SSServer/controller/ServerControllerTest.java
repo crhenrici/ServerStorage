@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.prose.crhen.SSServer.SsServerApplication;
 import com.prose.crhen.SSServer.db.ServerRepository;
 import com.prose.crhen.SSServer.dto.VolumesUpdateDTO;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +55,11 @@ class ServerControllerTest {
 
         final String baseUrl = "http://localhost:" + randomServerPort + "/service/save";
         restTemplate.postForLocation(baseUrl, result);
+    }
+
+    @AfterEach
+    void tearDown() {
+        serverRepository.deleteAll();
     }
 
 }

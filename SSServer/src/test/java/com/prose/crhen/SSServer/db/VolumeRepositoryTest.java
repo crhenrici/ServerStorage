@@ -2,6 +2,8 @@ package com.prose.crhen.SSServer.db;
 
 import com.prose.crhen.SSServer.model.Server;
 import com.prose.crhen.SSServer.model.Volume;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -46,5 +48,10 @@ class VolumeRepositoryTest {
         Server expectedServer = expected.getServer();
         assertEquals(expectedServer,result);
 
+    }
+
+    @AfterEach
+    void tearDown() {
+        manager.clear();
     }
 }

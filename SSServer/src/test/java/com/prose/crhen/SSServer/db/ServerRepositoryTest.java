@@ -56,5 +56,6 @@ class ServerRepositoryTest {
 
     @AfterEach
     void tearDown() {
+        manager.clear();
     }
 }
