@@ -15,7 +15,8 @@ CREATE TABLE server(
     storage_free double,
     storage_ratio double,
     ram int,
-    cpu_usage double
+    cpu_usage double,
+    PRIMARY KEY (id)
 );
 
 DROP TABLE IF EXISTS volume;
@@ -28,6 +29,7 @@ CREATE TABLE volume(
     latest_storage_used double,
     latest_storage_free double,
     latest_storage_ratio double,
+    PRIMARY KEY (id),
     CONSTRAINT `fk_server_volume`
         FOREIGN KEY (server_id) REFERENCES server (id)
         ON DELETE CASCADE
@@ -36,10 +38,12 @@ CREATE TABLE volume(
 
 DROP TABLE IF EXISTS volume_history;
 CREATE TABLE volume_history(
+    id int UNSIGNED NOT NULL AUTO_INCREMENT,
     volume_id int UNSIGNED NOT NULL,
     storage_free double,
     storage_used double,
     storage_ratio double,
+    PRIMARY KEY (id),
     CONSTRAINT `fk_volume_volume_history`
         FOREIGN KEY (volume_id) REFERENCES volume (id)
         ON DELETE CASCADE
@@ -48,10 +52,12 @@ CREATE TABLE volume_history(
 
 DROP TABLE IF EXISTS server_history;
 CREATE TABLE server_history(
+    id int UNSIGNED NOT NULL AUTO_INCREMENT,
 	server_id int UNSIGNED NOT NULL,
 	storage_free double,
 	storage_reserved double,
 	storage_ratio double,
+	PRIMARY KEY (id),
 	CONSTRAINT `fk_server_server_history`
 		FOREIGN KEY (server_id) REFERENCES server (id)
 		ON DELETE CASCADE
