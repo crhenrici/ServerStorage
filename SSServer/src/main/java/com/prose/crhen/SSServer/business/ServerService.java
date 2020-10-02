@@ -49,7 +49,7 @@ public class ServerService {
 			updateServer(serverFound.get(), newServer);
 			} else {
 			Server createdServer = createServerToBeInserted(newServer);
-			Volume createdVolume = createVolumeToBeInserted(newServer);
+			Volume createdVolume = createVolumeToBeInserted(newServer, createdServer);
 			insertServerAndVolume(createdServer, createdVolume);
 		}
 	}
@@ -60,7 +60,7 @@ public class ServerService {
 		return insertedServer;
 	}
 
-	private Volume createVolumeToBeInserted(VolumesUpdateDTO newVolume) {
+	private Volume createVolumeToBeInserted(VolumesUpdateDTO newVolume, Server insertedServer) {
 		double reserved = Double.parseDouble(newVolume.getCapacityGB()) - Double.parseDouble(newVolume.getFreeSpaceGB());
 		Volume insertedVolume = new Volume(newVolume.getName(),"", Double.parseDouble(newVolume.getCapacityGB()) , reserved, Double.parseDouble(newVolume.getFreeSpaceGB()), Double.parseDouble(newVolume.getFreeSpacePercent()),insertedServer);
 		return insertedVolume;
