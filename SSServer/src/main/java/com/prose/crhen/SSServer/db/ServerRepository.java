@@ -8,6 +8,6 @@ import com.prose.crhen.SSServer.model.Server;
 @Repository
 public interface ServerRepository extends JpaRepository<Server, Long> {
 
-    public Server findByName(String name);
+    Server findByName(String name);
 
 }

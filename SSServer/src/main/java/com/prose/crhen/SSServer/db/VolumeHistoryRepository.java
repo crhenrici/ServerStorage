@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 public interface VolumeHistoryRepository extends JpaRepository<VolumeHistory, Long> {
 
-    public List<VolumeHistory> findByVolume(Volume volume);
+    List<VolumeHistory> findByVolume(Volume volume);
 }

@@ -22,7 +22,7 @@ public class Volume {
 	private String name;
 	@Getter
 	@Setter
-	@Column(name = "desc")
+	@Column(name = "description")
 	private String desc;
 	@Getter
 	@Setter

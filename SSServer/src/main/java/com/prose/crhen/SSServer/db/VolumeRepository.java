@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface VolumeRepository extends JpaRepository<Volume, Long> {
 
-    public Volume findByName(String name);
+    Volume findByName(String name);
 
-    public List<Volume> findByServer(Server server);
+    List<Volume> findByServer(Server server);
 }

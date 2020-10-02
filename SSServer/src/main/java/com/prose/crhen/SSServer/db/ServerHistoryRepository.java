@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 public interface ServerHistoryRepository extends JpaRepository<ServerHistory, Long> {
 
-    public List<ServerHistory> findByServer(Server server);
+    List<ServerHistory> findByServer(Server server);
 }
