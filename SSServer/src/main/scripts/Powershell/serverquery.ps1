@@ -6,4 +6,4 @@
         Sort-Object Name |
         Convertto-JSON
 
-Invoke-RestMethod -Method Post -Uri "http://localhost:9010/service/save" -Body ($output)
+Invoke-RestMethod -Method Post -Uri "http://localhost:9010/service/save" -Body ($output) -ContentType 'application/json'
