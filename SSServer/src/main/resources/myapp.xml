@@ -1,0 +1,8 @@
+<service>
+    <id>ServerStorage</id>
+    <name>ServerStorage</name>
+    <description>Server Storage web application for PROSE</description>
+    <executable>java</executable>
+    <arguments>java -jar "C:\Users\cristian\ServerStorage\SSServer-0.0.1-SNAPSHOT.jar"</arguments>
+    <log mode="roll"></log>
+</service>
