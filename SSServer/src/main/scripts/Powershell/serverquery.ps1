@@ -6,4 +6,16 @@
         Sort-Object Name |
         Convertto-JSON
 
-Invoke-RestMethod -Method Post -Uri "http://localhost:9010/service/save" -Body ($output) -ContentType 'application/json'
+Invoke-RestMethod -Method Post -Uri "http://localhost:9010/service/save/volume" -Body ($output) -ContentType 'application/json'
+
+$ramOutput = Get-WmiObject win32_physicalmemory |
+        Select-Object @{n="Capacity";e={$_.Capacity/1GB}} |
+        ConvertTo-Json
+
+$cpuUsage = Get-Counter '\Processor(*)\% Processor Time'|
+        Select-Object -expand CounterSamples |
+        ConvertTo-Json
+
+Invoke-RestMethod -Method Post -Uri "http://localhost:9010/service/save/server" -Body ($ramOutput) -ContentType 'application/json'
+Invoke-RestMethod -Method Post -Uri "http://localhost:9010/service/save/server" -Body ($cpuUsage) -ContentType 'application/json
+'
