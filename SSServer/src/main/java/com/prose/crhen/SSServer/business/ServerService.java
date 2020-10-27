@@ -128,10 +128,6 @@ public class ServerService {
 
 	private void insertVolume(Server server,VolumesUpdateDTO newVolume) {
 		double reserved = Double.parseDouble(newVolume.getCapacityGB()) - Double.parseDouble(newVolume.getFreeSpaceGB());
-		//implementation will be changed
-		if (newVolume.getFreeSpacePercent() == null) {
-			newVolume.setFreeSpacePercent("0");
-		}
 		Volume insertedVolume = new Volume(newVolume.getName(),"", Double.parseDouble(newVolume.getCapacityGB()) , reserved, Double.parseDouble(newVolume.getFreeSpaceGB()), Double.parseDouble(newVolume.getFreeSpacePercent()),server);
 
 		volumeRepository.save(insertedVolume);

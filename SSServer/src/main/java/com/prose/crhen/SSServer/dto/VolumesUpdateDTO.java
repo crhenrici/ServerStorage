@@ -67,7 +67,7 @@ public class VolumesUpdateDTO {
     }
 
     public void setFreeSpacePercent(String freeSpacePercent) {
-        this.freeSpacePercent = freeSpacePercent;
+      this.freeSpacePercent = freeSpacePercent != null ? freeSpacePercent : "0";
     }
 
     @JsonProperty("volumes.Date")
