@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 
-import com.prose.crhen.SSServer.model.VolumeHistory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -75,7 +74,7 @@ public class ServerServiceTest {
 		newVolume.setName("Test");
 		newVolume.setRam("8");
 		newVolume.setSystemName("TestServer");
-		service.save(newVolume);
+		service.saveVolumeDTO(newVolume);
 
 		secondVolume = new VolumesUpdateDTO();
 		secondVolume.setCapacityGB("200");
@@ -100,7 +99,7 @@ public class ServerServiceTest {
 		newVolume.setName("Test");
 		newVolume.setRam("8");
 		newVolume.setSystemName("TestServer");
-		service.save(newVolume);
+		service.saveVolumeDTO(newVolume);
 
 		secondVolume = new VolumesUpdateDTO();
 		secondVolume.setCapacityGB("200");
@@ -112,7 +111,7 @@ public class ServerServiceTest {
 		secondVolume.setName("Testing");
 		secondVolume.setRam("16");
 		secondVolume.setSystemName("TestServer");
-		service.save(secondVolume);
+		service.saveVolumeDTO(secondVolume);
 
 		lastVolume = new VolumesUpdateDTO();
 		lastVolume.setCapacityGB("150");
@@ -137,7 +136,7 @@ public class ServerServiceTest {
 		newVolume.setName("Test");
 		newVolume.setRam("8");
 		newVolume.setSystemName("TestServer");
-		service.save(newVolume);
+		service.saveVolumeDTO(newVolume);
 
 		secondVolume = new VolumesUpdateDTO();
 		secondVolume.setCapacityGB("200");
@@ -149,7 +148,7 @@ public class ServerServiceTest {
 		secondVolume.setName("Testing");
 		secondVolume.setRam("16");
 		secondVolume.setSystemName("TestServer");
-		service.save(secondVolume);
+		service.saveVolumeDTO(secondVolume);
 
 		lastVolume = new VolumesUpdateDTO();
 		lastVolume.setCapacityGB("150");
@@ -161,7 +160,7 @@ public class ServerServiceTest {
 		lastVolume.setName("TestingVolume");
 		lastVolume.setRam("4");
 		lastVolume.setSystemName("TestingServer");
-		service.save(lastVolume);
+		service.saveVolumeDTO(lastVolume);
 
 		updatedVolume = newVolume;
 		updatedVolume.setCpuUsage("32.43");
@@ -173,7 +172,7 @@ public class ServerServiceTest {
 	@Test
 	void saveNewServerTest() {
 		setUpNewServerTest();
-		service.save(newVolume);
+		service.saveVolumeDTO(newVolume);
 		assertEquals(1, serverRepository.count());
 		assertEquals(1, volumeRepository.count());
 	}
@@ -181,7 +180,7 @@ public class ServerServiceTest {
 	@Test
 	void saveExistingServerTest() {
 		setUpExistingServerTest();
-		service.save(secondVolume);
+		service.saveVolumeDTO(secondVolume);
 		assertEquals(2, volumeRepository.count());
 		double fullCapacity = Double.parseDouble(newVolume.getCapacityGB()) + Double.parseDouble(secondVolume.getCapacityGB());
 		Server server = serverRepository.findByName("TestServer");
@@ -193,7 +192,7 @@ public class ServerServiceTest {
 	@Test
 	void saveNewServerAndNewVolume() {
 		setUpNewServerAndNewVolumeTest();
-		service.save(lastVolume);
+		service.saveVolumeDTO(lastVolume);
 		assertEquals(2, serverRepository.count());
 		assertEquals(3, volumeRepository.count());
 		Server testingServer = serverRepository.findByName("TestingServer");
@@ -206,7 +205,7 @@ public class ServerServiceTest {
 	@Test
 	void saveExistingServerAndExistingVolume() {
 		setUpExistingServerAndExistingVolumeTest();
-		service.save(updatedVolume);
+		service.saveVolumeDTO(updatedVolume);
 		List<Volume> volumes = service.getVolumes();
 		Volume volume = volumes.get(0);
 		assertEquals(25, volume.getLatestStorageFree());
