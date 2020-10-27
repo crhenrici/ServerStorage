@@ -1,5 +1,6 @@
 package com.prose.crhen.SSServer.business;
 
+import com.prose.crhen.SSServer.dto.ServerUpdateDTO;
 import com.prose.crhen.SSServer.dto.VolumesUpdateDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,9 +42,18 @@ public class ServerService {
 		List<Volume> volumes = volumeRepository.findAll();
 		return volumes;
 	}
-	
-	//update or save server
-	public void save(VolumesUpdateDTO newServer) {
+
+	public void saveServerDTO(ServerUpdateDTO server) {
+		Optional<Server> serverOptional = Optional.ofNullable(this.serverRepository.findByName(server.getSystemName()));
+		if (serverOptional.isPresent()) {
+			Server updatedServer = serverOptional.get();
+			updatedServer.setRam(server.getRam());
+			updatedServer.setCpuUsage(server.getCpuUsage());
+			saveServerWithHistory(serverOptional.get(), updatedServer);
+		}
+	}
+
+	public void saveVolumeDTO(VolumesUpdateDTO newServer) {
 		Optional<Server> serverFound = Optional.ofNullable(this.serverRepository.findByName(newServer.getSystemName()));
 		if (serverFound.isPresent()) {
 			updateServer(serverFound.get(), newServer);
@@ -82,10 +92,10 @@ public class ServerService {
 			insertVolume(server, newVolume);
 		}
 		Server newServer = calcServerDetails(server);
-		saveServerHistory(server, newServer);
+		saveServerWithHistory(server, newServer);
 	}
 
-	private void saveServerHistory(Server server, Server newServer) {
+	private void saveServerWithHistory(Server server, Server newServer) {
 		ServerHistory serverHistory = new ServerHistory(server.getLatestStorageReserved(), server.getLatestStorageFree(), server.getLatestStorageRatio(), server);
 		serverRepository.save(newServer);
 		serverHistoryRepo.save(serverHistory);
@@ -127,8 +137,6 @@ public class ServerService {
 		volumeRepository.save(insertedVolume);
 	}
 
-
-	//calculate details of the server
 	public Server calcServerDetails(Server server) {
 		 List<Volume> volumes = volumeRepository.findByServer(server);
 

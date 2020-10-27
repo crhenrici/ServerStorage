@@ -2,6 +2,7 @@ package com.prose.crhen.SSServer.controller;
 
 import com.google.common.base.Preconditions;
 import com.prose.crhen.SSServer.business.ServerService;
+import com.prose.crhen.SSServer.dto.ServerUpdateDTO;
 import com.prose.crhen.SSServer.dto.VolumesUpdateDTO;
 import com.prose.crhen.SSServer.model.Server;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,12 +28,21 @@ public class ServerController {
 		return serverList;
 	}
 	
-	@PostMapping("/save")
-	public ResponseEntity<String> saveServer(@RequestBody List<VolumesUpdateDTO> volumes) {
+	@PostMapping("/save/volume")
+	public ResponseEntity<String> saveVolumes(@RequestBody List<VolumesUpdateDTO> volumes) {
 		Preconditions.checkNotNull(volumes, "value can't be null");
 		System.out.println(volumes.toString());
         for (VolumesUpdateDTO volume : volumes) {
-        	service.save(volume);
+        	service.saveVolumeDTO(volume);
+		}
+		return ResponseEntity.status(HttpStatus.OK).build();
+	}
+
+	@PostMapping("/save/server")
+	public ResponseEntity<String> saveServers(@RequestBody List<ServerUpdateDTO> servers) {
+		Preconditions.checkNotNull(servers, "value can't be null");
+		for (ServerUpdateDTO server : servers) {
+			service.saveServerDTO(server);
 		}
 		return ResponseEntity.status(HttpStatus.OK).build();
 	}
