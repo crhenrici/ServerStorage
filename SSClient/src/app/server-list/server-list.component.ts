@@ -31,7 +31,7 @@ export class ServerListComponent implements OnInit {
     });
   }
 
-  sendData(volume: Volume) {
+  sendDataToDetails(volume: Volume) {
     this.sharedData.transmitData(volume);
   }
 

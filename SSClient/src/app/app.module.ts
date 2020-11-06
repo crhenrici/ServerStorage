@@ -4,16 +4,19 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ServerListComponent } from './server-list/server-list.component';
-import { MatTableModule, MatDialogModule, MatSortModule, MatFormFieldModule, MatFormFieldControl, MatButtonModule, MatDividerModule } from '@angular/material';
+import { MatTableModule, MatDialogModule, MatSortModule, MatFormFieldModule, MatButtonModule, MatDividerModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DetailsViewComponent } from './details-view/details-view.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ChartComponent } from './chart/chart.component';
+import { NgxLineChartModule } from 'ngx-line-chart';
 
 @NgModule({
   declarations: [
     AppComponent,
     ServerListComponent,
-    DetailsViewComponent
+    DetailsViewComponent,
+    ChartComponent
   ],
   imports: [
     BrowserModule,
@@ -25,9 +28,10 @@ import { HttpClientModule } from '@angular/common/http';
     MatFormFieldModule,
     NoopAnimationsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgxLineChartModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }
