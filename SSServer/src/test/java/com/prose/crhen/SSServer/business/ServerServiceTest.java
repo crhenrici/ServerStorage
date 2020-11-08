@@ -2,7 +2,10 @@ package com.prose.crhen.SSServer.business;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -48,6 +51,13 @@ public class ServerServiceTest {
 
 	VolumesUpdateDTO updatedVolume;
 
+	Volume volume;
+
+	Volume volume2;
+
+	Volume volume3;
+
+	Server server;
 	
 
 	void setUpNewServerTest() {
@@ -169,6 +179,51 @@ public class ServerServiceTest {
 		updatedVolume.setFreeSpacePercent("25");
 	}
 
+	void setUpCalcServerDetailsTest() {
+		server = new Server();
+		server.setRam(4);
+		server.setCpuUsage(8.00);
+		server.setName("ServerTest");
+
+		volume = new Volume();
+		volume.setName("VolumeTest");
+		volume.setDesc("Some Volume");
+		volume.setFullCapacity(50);
+		volume.setLatestStorageFree(10);
+		volume.setLatestStorageReserved(40);
+		volume.setLatestStorageRatio(80);
+		volume.setServer(server);
+
+		volume2 = new Volume();
+		volume2.setName("Volume2Test");
+		volume2.setDesc("Some Volume2");
+		volume2.setFullCapacity(100);
+		volume2.setLatestStorageFree(50);
+		volume2.setLatestStorageReserved(50);
+		volume2.setLatestStorageRatio(50);
+		volume2.setServer(server);
+
+		volume3 = new Volume();
+		volume3.setName("Volume3Test");
+		volume3.setDesc("Some Volume3");
+		volume3.setFullCapacity(150);
+		volume3.setLatestStorageFree(50);
+		volume3.setLatestStorageReserved(100);
+		volume3.setLatestStorageRatio(66.67);
+		volume3.setServer(server);
+
+		serverRepository.save(server);
+		volumeRepository.save(volume);
+		volumeRepository.save(volume2);
+		volumeRepository.save(volume3);
+
+		Set<Volume> volumeList = new LinkedHashSet<>();
+		volumeList.add(volume);
+		volumeList.add(volume2);
+		volumeList.add(volume3);
+		server.setVolumes(volumeList);
+	}
+
 	@Test
 	void saveNewServerTest() {
 		setUpNewServerTest();
@@ -212,6 +267,17 @@ public class ServerServiceTest {
 		assertEquals(75, volume.getLatestStorageReserved());
 		assertEquals(3, volumeRepository.count());
 		assertEquals(1, volumeHistoryRepository.count());
+	}
+
+	@Test
+	void calcServerDetailsTest() {
+		setUpCalcServerDetailsTest();
+		Server testServer = service.calcServerDetails(server);
+		assertEquals(300, testServer.getFullCapacity());
+		assertEquals(110, testServer.getLatestStorageFree());
+		assertEquals(190, testServer.getLatestStorageReserved());
+		assertEquals(63.33333333333333, testServer.getLatestStorageRatio());
+		assertEquals(server.getRam(), testServer.getRam());
 	}
 
 	@AfterEach
