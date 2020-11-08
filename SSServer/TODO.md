@@ -1,6 +1,7 @@
 ### Todo
 
-- [ ] Create ServerQueryDTO for calculate Fields
+- [x] Create ServerQueryDTO for calculate Fields
+- [ ] Create VolumeQueryDTO
 - [ ] Refactor /servers service to return List of ServerQueryDTO  
 - [ ] Refactor /volumes service to return List of VolumeQueryDTO  
 - [ ] Removed calculated fields from Model
