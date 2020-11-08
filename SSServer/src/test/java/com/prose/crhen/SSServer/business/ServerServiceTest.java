@@ -58,7 +58,15 @@ public class ServerServiceTest {
 
 	Volume volume3;
 
+	Volume volume4;
+
+	Volume volume5;
+
 	Server server;
+
+	Server server2;
+
+	ServerHistory serverHistory;
 	
 
 	void setUpNewServerTest() {
@@ -225,6 +233,100 @@ public class ServerServiceTest {
 		server.setVolumes(volumeList);
 	}
 
+	void setUpGetServersTest() {
+		server = new Server();
+		server.setRam(4);
+		server.setCpuUsage(8.00);
+		server.setName("ServerTest");
+
+		serverHistory = new ServerHistory();
+		serverHistory.setServer(server);
+		serverHistory.setRam(server.getRam());
+		serverHistory.setCpuUsage(server.getCpuUsage());
+
+		Set<ServerHistory> serverHistories = new LinkedHashSet<>();
+		serverHistories.add(serverHistory);
+		server.setServerHistories(serverHistories);
+
+		volume = new Volume();
+		volume.setName("VolumeTest");
+		volume.setDesc("Some Volume");
+		volume.setFullCapacity(50);
+		volume.setLatestStorageFree(10);
+		volume.setLatestStorageReserved(40);
+		volume.setLatestStorageRatio(80);
+		volume.setServer(server);
+
+		volume2 = new Volume();
+		volume2.setName("Volume2Test");
+		volume2.setDesc("Some Volume2");
+		volume2.setFullCapacity(100);
+		volume2.setLatestStorageFree(50);
+		volume2.setLatestStorageReserved(50);
+		volume2.setLatestStorageRatio(50);
+		volume2.setServer(server);
+
+		volume3 = new Volume();
+		volume3.setName("Volume3Test");
+		volume3.setDesc("Some Volume3");
+		volume3.setFullCapacity(150);
+		volume3.setLatestStorageFree(50);
+		volume3.setLatestStorageReserved(100);
+		volume3.setLatestStorageRatio(66.67);
+		volume3.setServer(server);
+
+		Set<Volume> volumeList = new LinkedHashSet<>();
+		volumeList.add(volume);
+		volumeList.add(volume2);
+		volumeList.add(volume3);
+		server.setVolumes(volumeList);
+
+		serverRepository.save(server);
+		volumeRepository.save(volume);
+		volumeRepository.save(volume2);
+		volumeRepository.save(volume3);
+
+		server2 = new Server();
+		server2.setName("TestServer2");
+		server2.setCpuUsage(16.00);
+		server2.setRam(4);
+
+		ServerHistory serverHistory2 = new ServerHistory();
+		serverHistory2.setServer(server2);
+		serverHistory2.setRam(server2.getRam());
+		serverHistory2.setCpuUsage(server2.getCpuUsage());
+
+		Set<ServerHistory> serverHistories2 = new LinkedHashSet<>();
+		server2.setServerHistories(serverHistories2);
+
+		volume4 = new Volume();
+		volume4.setName("Volume4Test");
+		volume4.setDesc("Some Volume4");
+		volume4.setFullCapacity(200);
+		volume4.setLatestStorageFree(50);
+		volume4.setLatestStorageReserved(150);
+		volume4.setLatestStorageRatio(75);
+		volume4.setServer(server2);
+
+		volume5 = new Volume();
+		volume5.setName("Volume5Test");
+		volume5.setDesc("Some Volume5");
+		volume5.setFullCapacity(150);
+		volume5.setLatestStorageFree(25);
+		volume5.setLatestStorageReserved(125);
+		volume5.setLatestStorageRatio(83.33);
+		volume5.setServer(server2);
+
+		Set<Volume> volumeList2 = new LinkedHashSet<>();
+		volumeList.add(volume4);
+		volumeList.add(volume5);
+		server2.setVolumes(volumeList2);
+
+		serverRepository.save(server2);
+		volumeRepository.save(volume4);
+		volumeRepository.save(volume5);
+	}
+
 	@Test
 	void saveNewServerTest() {
 		setUpNewServerTest();
@@ -277,7 +379,20 @@ public class ServerServiceTest {
 		assertEquals(110, testServer.getLatestStorageFree());
 		assertEquals(190, testServer.getLatestStorageReserved());
 		assertEquals(63.33333333333333, testServer.getLatestStorageRatio());
-		assertEquals(server.getRam(), testServer.getRam());
+	}
+
+	@Test
+	void getServersTest() {
+		setUpGetServersTest();
+		List<ServerQueryDTO> serverQueryDTO = service.getServers();
+		assertEquals(2, serverQueryDTO.size());
+		assertEquals(300, serverQueryDTO.get(0).getFullCapacity());
+		assertEquals(server.getName(), serverQueryDTO.get(0).getName());
+		assertEquals(server.getRam(), serverQueryDTO.get(0).getRam());
+		assertEquals(server2.getName(), serverQueryDTO.get(1).getName());
+		assertEquals(350, serverQueryDTO.get(1).getFullCapacity());
+		assertEquals(275, serverQueryDTO.get(1).getLatestStorageReserved());
+
 	}
 
 	@AfterEach

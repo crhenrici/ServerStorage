@@ -46,7 +46,7 @@ public class ServerService {
 	}
 
 	private ServerQueryDTO createServerQuery(Server server) {
-		ServerQueryDTO serverQueryDTO = new ServerQueryDTO();
+		ServerQueryDTO serverQueryDTO = calcServerDetails(server);
 		serverQueryDTO.setName(server.getName());
 		serverQueryDTO.setRam(server.getRam());
 		serverQueryDTO.setCpuUsage(server.getCpuUsage());
@@ -149,7 +149,7 @@ public class ServerService {
 
 	public ServerQueryDTO calcServerDetails(Server server) {
 		 List<Volume> volumes = volumeRepository.findByServer(server);
-		 ServerQueryDTO serverQueryDTO = createServerQuery(server);
+		 ServerQueryDTO serverQueryDTO = new ServerQueryDTO();
 		 serverQueryDTO.setLatestStorageFree(addServerStorageFromVolumes(volumes));
 		 serverQueryDTO.setLatestStorageReserved(addServerReservedFromVolumes(volumes));
 		 serverQueryDTO.setFullCapacity(addServerCapacityFromVolumes(volumes));
