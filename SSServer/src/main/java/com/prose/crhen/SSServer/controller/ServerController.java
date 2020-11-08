@@ -2,6 +2,7 @@ package com.prose.crhen.SSServer.controller;
 
 import com.google.common.base.Preconditions;
 import com.prose.crhen.SSServer.business.ServerService;
+import com.prose.crhen.SSServer.dto.ServerQueryDTO;
 import com.prose.crhen.SSServer.dto.ServerUpdateDTO;
 import com.prose.crhen.SSServer.dto.VolumesUpdateDTO;
 import com.prose.crhen.SSServer.model.Server;
@@ -23,8 +24,8 @@ public class ServerController {
 
 	@GetMapping("/servers")
 	@ResponseBody
-	public List<Server> getAllServer() {
-		List<Server> serverList = service.getServers();
+	public List<ServerQueryDTO> getAllServer() {
+		List<ServerQueryDTO> serverList = service.getServers();
 		return serverList;
 	}
 	

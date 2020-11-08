@@ -1,5 +1,6 @@
 package com.prose.crhen.SSServer.business;
 
+import com.prose.crhen.SSServer.dto.ServerQueryDTO;
 import com.prose.crhen.SSServer.dto.ServerUpdateDTO;
 import com.prose.crhen.SSServer.dto.VolumesUpdateDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import com.prose.crhen.SSServer.model.ServerHistory;
 import com.prose.crhen.SSServer.model.Volume;
 import com.prose.crhen.SSServer.model.VolumeHistory;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -33,9 +35,24 @@ public class ServerService {
 	@Autowired
 	private ServerHistoryRepository serverHistoryRepo;
 	
-	public List<Server> getServers() {
+	public List<ServerQueryDTO> getServers() {
 		List<Server> servers = serverRepository.findAll();
-		return servers;
+		List<ServerQueryDTO> serverQueryDTOS = new ArrayList<>();
+		for (Server server : servers) {
+			ServerQueryDTO serverQueryDTO = createServerQuery(server);
+			serverQueryDTOS.add(serverQueryDTO);
+		}
+		return serverQueryDTOS;
+	}
+
+	private ServerQueryDTO createServerQuery(Server server) {
+		ServerQueryDTO serverQueryDTO = new ServerQueryDTO();
+		serverQueryDTO.setName(server.getName());
+		serverQueryDTO.setRam(server.getRam());
+		serverQueryDTO.setCpuUsage(server.getCpuUsage());
+		serverQueryDTO.setVolumes(server.getVolumes());
+		serverQueryDTO.setServerHistories(server.getServerHistories());
+		return serverQueryDTO;
 	}
 	
 	public List<Volume> getVolumes() {
