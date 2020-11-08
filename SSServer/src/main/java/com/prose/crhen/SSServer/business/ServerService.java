@@ -108,8 +108,8 @@ public class ServerService {
 		} else {
 			insertVolume(server, newVolume);
 		}
-		Server newServer = calcServerDetails(server);
-		saveServerWithHistory(server, newServer);
+//		Server newServer = calcServerDetails(server);
+//		saveServerWithHistory(server, newServer);
 	}
 
 	private void saveServerWithHistory(Server server, Server newServer) {
@@ -150,15 +150,15 @@ public class ServerService {
 		volumeRepository.save(insertedVolume);
 	}
 
-	public Server calcServerDetails(Server server) {
+	public ServerQueryDTO calcServerDetails(Server server) {
 		 List<Volume> volumes = volumeRepository.findByServer(server);
-
-		 server.setLatestStorageFree(addServerStorageFromVolumes(volumes));
-		 server.setLatestStorageReserved(addServerReservedFromVolumes(volumes));
-		 server.setFullCapacity(addServerCapacityFromVolumes(volumes));
-		 server.setLatestStorageRatio(calculateStorageRatio(server));
+		 ServerQueryDTO serverQueryDTO = createServerQuery(server);
+		 serverQueryDTO.setLatestStorageFree(addServerStorageFromVolumes(volumes));
+		 serverQueryDTO.setLatestStorageReserved(addServerReservedFromVolumes(volumes));
+		 serverQueryDTO.setFullCapacity(addServerCapacityFromVolumes(volumes));
+		 serverQueryDTO.setLatestStorageRatio(calculateStorageRatio(serverQueryDTO));
 		 
-		 return server;
+		 return serverQueryDTO;
 	}
 
 	private double addServerStorageFromVolumes(List<Volume> volumes) {
@@ -185,7 +185,7 @@ public class ServerService {
 		return fullCapacity;
 	}
 
-	private double calculateStorageRatio(Server server) {
+	private double calculateStorageRatio(ServerQueryDTO server) {
 		double storageRatio = (server.getLatestStorageReserved()/server.getFullCapacity()) * 100;
 		return storageRatio;
 	}

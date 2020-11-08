@@ -7,6 +7,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.prose.crhen.SSServer.dto.ServerQueryDTO;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -272,7 +273,7 @@ public class ServerServiceTest {
 	@Test
 	void calcServerDetailsTest() {
 		setUpCalcServerDetailsTest();
-		Server testServer = service.calcServerDetails(server);
+		ServerQueryDTO testServer = service.calcServerDetails(server);
 		assertEquals(300, testServer.getFullCapacity());
 		assertEquals(110, testServer.getLatestStorageFree());
 		assertEquals(190, testServer.getLatestStorageReserved());
