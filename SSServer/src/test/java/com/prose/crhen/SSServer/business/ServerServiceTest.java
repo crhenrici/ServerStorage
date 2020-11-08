@@ -240,9 +240,8 @@ public class ServerServiceTest {
 		assertEquals(2, volumeRepository.count());
 		double fullCapacity = Double.parseDouble(newVolume.getCapacityGB()) + Double.parseDouble(secondVolume.getCapacityGB());
 		Server server = serverRepository.findByName("TestServer");
-		assertEquals(fullCapacity, server.getFullCapacity());
 		assertEquals(2, server.getVolumes().size());
-		assertEquals(1, server.getServerHistories().size());
+		assertEquals(0, server.getServerHistories().size());
 	}
 
 	@Test
@@ -254,8 +253,8 @@ public class ServerServiceTest {
 		Server testingServer = serverRepository.findByName("TestingServer");
 		assertEquals(0, testingServer.getServerHistories().size());
 		List<ServerHistory> serverHistories = serverHistoryRepository.findAll();
-		assertEquals(1, serverHistoryRepository.count());
-		assertEquals(1, serverHistories.size());
+		assertEquals(0, serverHistoryRepository.count());
+		assertEquals(0, serverHistories.size());
 	}
 
 	@Test

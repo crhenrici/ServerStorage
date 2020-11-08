@@ -73,7 +73,7 @@ public class ServerService {
 	public void saveVolumeDTO(VolumesUpdateDTO newServer) {
 		Optional<Server> serverFound = Optional.ofNullable(this.serverRepository.findByName(newServer.getSystemName()));
 		if (serverFound.isPresent()) {
-			updateServer(serverFound.get(), newServer);
+			checkForVolume(serverFound.get(), newServer);
 			} else {
 			Server createdServer = createServerToBeInserted(newServer);
 			Volume createdVolume = createVolumeToBeInserted(newServer, createdServer);
@@ -82,8 +82,7 @@ public class ServerService {
 	}
 
 	private Server createServerToBeInserted(VolumesUpdateDTO newVolume) {
-		double reserved = Double.parseDouble(newVolume.getCapacityGB()) - Double.parseDouble(newVolume.getFreeSpaceGB());
-		Server insertedServer = new Server(newVolume.getSystemName(), Double.parseDouble(newVolume.getCapacityGB()), reserved, Double.parseDouble(newVolume.getFreeSpaceGB()), Double.parseDouble(newVolume.getFreeSpacePercent()));
+		Server insertedServer = new Server(newVolume.getSystemName());
 		return insertedServer;
 	}
 
@@ -98,7 +97,7 @@ public class ServerService {
 		volumeRepository.save(insertedVolume);
 	}
 
-	private void updateServer(Server server, VolumesUpdateDTO newVolume) {
+	private void checkForVolume(Server server, VolumesUpdateDTO newVolume) {
 		Optional<Volume> volumeOptional = Optional.ofNullable(volumeRepository.findByName(newVolume.getName()));
 		Volume insertedVolume = null;
 		if (volumeOptional.isPresent()) {
@@ -108,12 +107,10 @@ public class ServerService {
 		} else {
 			insertVolume(server, newVolume);
 		}
-//		Server newServer = calcServerDetails(server);
-//		saveServerWithHistory(server, newServer);
 	}
 
 	private void saveServerWithHistory(Server server, Server newServer) {
-		ServerHistory serverHistory = new ServerHistory(server.getLatestStorageReserved(), server.getLatestStorageFree(), server.getLatestStorageRatio(), server);
+		ServerHistory serverHistory = new ServerHistory(server.getRam(),server.getCpuUsage(), server);
 		serverRepository.save(newServer);
 		serverHistoryRepo.save(serverHistory);
 	}
