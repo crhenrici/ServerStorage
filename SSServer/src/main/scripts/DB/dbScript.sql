@@ -36,6 +36,17 @@ CREATE TABLE volume(
         ON UPDATE RESTRICT
 );
 
+DROP TABLE IF EXISTS volumes;
+CREATE TABLE volumes(
+  id int UNSIGNED NOT NULL AUTO_INCREMENT,
+  volume_id int UNSIGNED NOT NULL,
+  PRIMARY KEY (id),
+  CONSTRAINT `fk_volume_volumes`
+        FOREIGN KEY (volume_id) REFERENCES volume (id)
+        ON DELETE CASCADE
+        ON UPDATE RESTRICT
+);
+
 DROP TABLE IF EXISTS volume_history;
 CREATE TABLE volume_history(
     id int UNSIGNED NOT NULL AUTO_INCREMENT,
