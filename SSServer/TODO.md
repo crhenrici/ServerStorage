@@ -1,12 +1,12 @@
 ### Todo
 
 - [x] Create ServerQueryDTO for calculate Fields
-- [ ] Create VolumeQueryDTO
-- [ ] Refactor /servers service to return List of ServerQueryDTO  
-- [ ] Refactor /volumes service to return List of VolumeQueryDTO  
-- [ ] Removed calculated fields from Model
-- [ ] Adopt Testcases
-- [ ] Delete calculated field from DB script  
+- [x] Create VolumeQueryDTO
+- [x] Refactor /servers service to return List of ServerQueryDTO  
+- [x] Refactor /volumes service to return List of VolumeQueryDTO  
+- [x] Removed calculated fields from Model
+- [x] Adopt Testcases
+- [x] Delete calculated field from DB script  
 - [ ] Two scripts for ServerUpdateDto and VolumeUpdateDto
 - [ ] Establish Flyaway for database migration  https://www.baeldung.com/database-migrations-with-flyway
 - [ ] Zip packaging with Gradle for Installing 
