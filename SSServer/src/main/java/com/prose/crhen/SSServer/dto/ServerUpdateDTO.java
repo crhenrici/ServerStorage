@@ -2,6 +2,7 @@ package com.prose.crhen.SSServer.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Map;
 import java.util.Objects;
 
 public class ServerUpdateDTO {
@@ -10,7 +11,7 @@ public class ServerUpdateDTO {
     private double cpuUsage;
     private String systemName;
 
-    @JsonProperty("ram.Capacity")
+    @JsonProperty("ram")
     public int getRam() {
         return ram;
     }
@@ -19,7 +20,7 @@ public class ServerUpdateDTO {
         this.ram = ram;
     }
 
-    @JsonProperty("cpuusage.CookedValue")
+    @JsonProperty("cpuusage")
     public double getCpuUsage() {
         return cpuUsage;
     }
