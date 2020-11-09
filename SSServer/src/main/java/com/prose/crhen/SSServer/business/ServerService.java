@@ -2,6 +2,7 @@ package com.prose.crhen.SSServer.business;
 
 import com.prose.crhen.SSServer.dto.ServerQueryDTO;
 import com.prose.crhen.SSServer.dto.ServerUpdateDTO;
+import com.prose.crhen.SSServer.dto.VolumeQueryDTO;
 import com.prose.crhen.SSServer.dto.VolumesUpdateDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,8 +40,8 @@ public class ServerService {
 		List<Server> servers = serverRepository.findAll();
 		List<ServerQueryDTO> serverQueryDTOS = new ArrayList<>();
 		for (Server server : servers) {
-			ServerQueryDTO serverQueryDTO = createServerQuery(server);
-			serverQueryDTOS.add(serverQueryDTO);
+			ServerQueryDTO createdServerQuery = createServerQuery(server);
+			serverQueryDTOS.add(createdServerQuery);
 		}
 		return serverQueryDTOS;
 	}
@@ -54,10 +55,22 @@ public class ServerService {
 		serverQueryDTO.setServerHistories(server.getServerHistories());
 		return serverQueryDTO;
 	}
-	
-	public List<Volume> getVolumes() {
+
+	public List<VolumeQueryDTO> getVolumes() {
 		List<Volume> volumes = volumeRepository.findAll();
-		return volumes;
+		List<VolumeQueryDTO> volumeQueryDTOS = new ArrayList<>();
+		for (Volume volume : volumes) {
+			VolumeQueryDTO createdVolumeQuery = createVolumeQuery(volume);
+			volumeQueryDTOS.add(createdVolumeQuery);
+		}
+		return volumeQueryDTOS;
+	}
+
+	private VolumeQueryDTO createVolumeQuery(Volume volume) {
+		VolumeQueryDTO volumeQueryDTO = new VolumeQueryDTO(volume.getName(), volume.getDesc(), volume.getFullCapacity(),
+				volume.getLatestStorageReserved(), volume.getLatestStorageFree(), volume.getLatestStorageRatio(),
+				volume.getServer(), volume.getVolumeHistories());
+		return volumeQueryDTO;
 	}
 
 	public void saveServerDTO(ServerUpdateDTO server) {

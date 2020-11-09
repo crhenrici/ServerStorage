@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.prose.crhen.SSServer.dto.ServerQueryDTO;
+import com.prose.crhen.SSServer.dto.VolumeQueryDTO;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -363,8 +364,8 @@ public class ServerServiceTest {
 	void saveExistingServerAndExistingVolume() {
 		setUpExistingServerAndExistingVolumeTest();
 		service.saveVolumeDTO(updatedVolume);
-		List<Volume> volumes = service.getVolumes();
-		Volume volume = volumes.get(0);
+		List<VolumeQueryDTO> volumes = service.getVolumes();
+		VolumeQueryDTO volume = volumes.get(0);
 		assertEquals(25, volume.getLatestStorageFree());
 		assertEquals(75, volume.getLatestStorageReserved());
 		assertEquals(3, volumeRepository.count());
@@ -392,7 +393,15 @@ public class ServerServiceTest {
 		assertEquals(server2.getName(), serverQueryDTO.get(1).getName());
 		assertEquals(350, serverQueryDTO.get(1).getFullCapacity());
 		assertEquals(275, serverQueryDTO.get(1).getLatestStorageReserved());
+	}
 
+	@Test
+	void getVolumesTest() {
+		setUpGetServersTest();
+		List<VolumeQueryDTO> volumeList = service.getVolumes();
+		assertEquals(5, volumeList.size());
+		assertEquals("Volume5Test", volumeList.get(4).getName());
+		assertEquals("VolumeTest", volumeList.get(0).getName());
 	}
 
 	@AfterEach
