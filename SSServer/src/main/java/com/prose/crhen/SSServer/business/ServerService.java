@@ -77,8 +77,8 @@ public class ServerService {
 		Optional<Server> serverOptional = Optional.ofNullable(this.serverRepository.findByName(server.getSystemName()));
 		if (serverOptional.isPresent()) {
 			Server updatedServer = serverOptional.get();
-			updatedServer.setRam(server.getRam());
-			updatedServer.setCpuUsage(server.getCpuUsage());
+			updatedServer.setRam(server.getRam().getCapacity());
+			updatedServer.setCpuUsage(server.getCpuUsage().getCookedValue());
 			saveServerWithHistory(serverOptional.get(), updatedServer);
 		}
 	}

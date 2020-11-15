@@ -2,34 +2,34 @@ package com.prose.crhen.SSServer.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.Map;
 import java.util.Objects;
 
 public class ServerUpdateDTO {
 
-    private int ram;
-    private double cpuUsage;
+    private CpuUsageDTO cpuUsage;
+
+    private RamDTO ram;
+
     private String systemName;
 
-    @JsonProperty("ram")
-    public int getRam() {
-        return ram;
-    }
-
-    public void setRam(int ram) {
-        this.ram = ram;
-    }
-
     @JsonProperty("cpuusage")
-    public double getCpuUsage() {
+    public CpuUsageDTO getCpuUsage() {
         return cpuUsage;
     }
 
-    public void setCpuUsage(double cpuUsage) {
+    public void setCpuUsage(CpuUsageDTO cpuUsage) {
         this.cpuUsage = cpuUsage;
     }
 
-    @JsonProperty("volumes.SystemName")
+    @JsonProperty("ram")
+    public RamDTO getRam() {
+        return ram;
+    }
+
+    public void setRam(RamDTO ram) {
+        this.ram = ram;
+    }
+
     public String getSystemName() {
         return systemName;
     }
@@ -43,21 +43,21 @@ public class ServerUpdateDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ServerUpdateDTO that = (ServerUpdateDTO) o;
-        return ram == that.ram &&
-                Double.compare(that.cpuUsage, cpuUsage) == 0 &&
+        return Objects.equals(cpuUsage, that.cpuUsage) &&
+                Objects.equals(ram, that.ram) &&
                 Objects.equals(systemName, that.systemName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(ram, cpuUsage, systemName);
+        return Objects.hash(cpuUsage, ram, systemName);
     }
 
     @Override
     public String toString() {
         return "ServerUpdateDTO{" +
-                "ram=" + ram +
-                ", cpuUsage=" + cpuUsage +
+                "cpuUsage=" + cpuUsage +
+                ", ram=" + ram +
                 ", systemName='" + systemName + '\'' +
                 '}';
     }

@@ -3,6 +3,7 @@ package com.prose.crhen.SSServer.controller;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.prose.crhen.SSServer.db.ServerRepository;
+import com.prose.crhen.SSServer.dto.ServerUpdateDTO;
 import com.prose.crhen.SSServer.dto.VolumesUpdateDTO;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -32,7 +33,7 @@ class ServerControllerTest {
     private ServerRepository serverRepository;
 
     @Test
-    void saveTest() throws Exception {
+    void saveVolumeTest() throws Exception {
         FileSystemResourceLoader rl = new FileSystemResourceLoader();
         Resource resource = rl.getResource("classpath:process.txt");
         ObjectMapper mapper = new ObjectMapper();
@@ -44,7 +45,22 @@ class ServerControllerTest {
 
         RestTemplate restTemplate = new RestTemplate();
 
-        final String baseUrl = "http://localhost:" + randomServerPort + "/service/save";
+        final String baseUrl = "http://localhost:" + randomServerPort + "/service/save/volume";
+        restTemplate.postForLocation(baseUrl, result);
+    }
+
+    void saveServerTest() throws Exception {
+        FileSystemResourceLoader rl = new FileSystemResourceLoader();
+        Resource resource = rl.getResource("classpath:serverProcess.txt");
+        ObjectMapper mapper = new ObjectMapper();
+        ServerUpdateDTO result = mapper.readValue(resource.getFile(), new TypeReference<ServerUpdateDTO>() {});
+        System.out.println(result.toString());
+        assertEquals(8, result.getRam().getCapacity());
+        assertEquals(1.4561652284152626, result.getCpuUsage().getCookedValue());
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        final String baseUrl = "http://localhost:" + randomServerPort + "/service/save/server";
         restTemplate.postForLocation(baseUrl, result);
     }
 
