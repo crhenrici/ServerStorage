@@ -16,15 +16,5 @@
     "ram":  {
                 "Capacity":  8
             },
-    "systemname":  [
-                       {
-                           "SystemName":  "NUCWIN"
-                       },
-                       {
-                           "SystemName":  "NUCWIN"
-                       },
-                       {
-                           "SystemName":  "NUCWIN"
-                       }
-                   ]
+    "systemname":  "CHWIWS08"
 }

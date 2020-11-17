@@ -1,24 +1,24 @@
+drop table if exists server;
 create table server
 (
-    id                      bigint not null auto_increment,
-    cpu_usage               double precision,
-    full_capacity           double precision,
-    latest_storage_free     double precision,
-    latest_storage_ratio    double precision,
-    latest_storage_reserved double precision,
-    name                    varchar(255),
-    ram                     integer,
+    id        bigint not null auto_increment,
+    cpu_usage double precision,
+    name      varchar(255),
+    ram       integer,
     primary key (id)
 ) engine = InnoDB;
+
+drop table if exists server_history;
 create table server_history
 (
-    id               bigint not null auto_increment,
-    storage_free     double precision,
-    storage_ratio    double precision,
-    storage_reserved double precision,
-    server_id        bigint not null,
+    id        bigint not null auto_increment,
+    cpu_usage double precision,
+    ram       integer,
+    server_id bigint not null,
     primary key (id)
 ) engine = InnoDB;
+
+drop table if exists volume;
 create table volume
 (
     id                      bigint not null auto_increment,
@@ -31,6 +31,8 @@ create table volume
     server_id               bigint not null,
     primary key (id)
 ) engine = InnoDB;
+
+drop table if exists volume_history;
 create table volume_history
 (
     id               bigint not null auto_increment,
@@ -40,6 +42,7 @@ create table volume_history
     volume_id        bigint not null,
     primary key (id)
 ) engine = InnoDB;
+
 alter table server_history
     add constraint FKsrmo3m2xd3sgc1crffv00g2ro foreign key (server_id) references server (id);
 alter table volume

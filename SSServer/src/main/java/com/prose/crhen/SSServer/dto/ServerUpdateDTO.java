@@ -29,7 +29,7 @@ public class ServerUpdateDTO {
     public void setRam(RamDTO ram) {
         this.ram = ram;
     }
-
+    @JsonProperty("systemname")
     public String getSystemName() {
         return systemName;
     }

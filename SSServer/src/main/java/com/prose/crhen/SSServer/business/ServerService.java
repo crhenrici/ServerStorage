@@ -35,7 +35,14 @@ public class ServerService {
 	
 	@Autowired
 	private ServerHistoryRepository serverHistoryRepo;
-	
+
+	//ONLY FOR DEMONSTRATION
+	public void deleteAll() {
+		serverRepository.deleteAll();
+		volumeHistoryRepo.deleteAll();
+		volumeHistoryRepo.deleteAll();
+		serverHistoryRepo.deleteAll();
+	}
 	public List<ServerQueryDTO> getServers() {
 		List<Server> servers = serverRepository.findAll();
 		List<ServerQueryDTO> serverQueryDTOS = new ArrayList<>();
