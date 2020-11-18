@@ -40,11 +40,9 @@ public class ServerController {
 	}
 
 	@PostMapping("/save/server")
-	public ResponseEntity<String> saveServers(@RequestBody List<ServerUpdateDTO> servers) {
-		Preconditions.checkNotNull(servers, "value can't be null");
-		for (ServerUpdateDTO server : servers) {
-			service.saveServerDTO(server);
-		}
+	public ResponseEntity<String> saveServers(@RequestBody ServerUpdateDTO server) {
+		Preconditions.checkNotNull(server, "value can't be null");
+		service.saveServerDTO(server);
 		return ResponseEntity.status(HttpStatus.OK).build();
 	}
 

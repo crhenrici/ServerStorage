@@ -1,3 +1,6 @@
+drop table if exists volume_history;
+drop table if exists volume;
+drop table if exists server_history;
 drop table if exists server;
 create table server
 (
@@ -8,7 +11,6 @@ create table server
     primary key (id)
 ) engine = InnoDB;
 
-drop table if exists server_history;
 create table server_history
 (
     id        bigint not null auto_increment,
@@ -18,7 +20,6 @@ create table server_history
     primary key (id)
 ) engine = InnoDB;
 
-drop table if exists volume;
 create table volume
 (
     id                      bigint not null auto_increment,
@@ -32,7 +33,6 @@ create table volume
     primary key (id)
 ) engine = InnoDB;
 
-drop table if exists volume_history;
 create table volume_history
 (
     id               bigint not null auto_increment,

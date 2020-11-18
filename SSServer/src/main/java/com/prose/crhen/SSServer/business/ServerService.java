@@ -83,10 +83,14 @@ public class ServerService {
 	public void saveServerDTO(ServerUpdateDTO server) {
 		Optional<Server> serverOptional = Optional.ofNullable(this.serverRepository.findByName(server.getSystemName()));
 		if (serverOptional.isPresent()) {
+			saveServerHistory(serverOptional.get());
 			Server updatedServer = serverOptional.get();
 			updatedServer.setRam(server.getRam().getCapacity());
 			updatedServer.setCpuUsage(server.getCpuUsage().getCookedValue());
-			saveServerWithHistory(serverOptional.get(), updatedServer);
+			serverRepository.save(updatedServer);
+		} else {
+			Server insertedServer = new Server(server.getSystemName(), server.getRam().getCapacity(), server.getCpuUsage().getCookedValue());
+			serverRepository.save(insertedServer);
 		}
 	}
 
@@ -95,13 +99,13 @@ public class ServerService {
 		if (serverFound.isPresent()) {
 			checkForVolume(serverFound.get(), newServer);
 			} else {
-			Server createdServer = createServerToBeInserted(newServer);
+			Server createdServer = createServerToBeInsertedOffVolume(newServer);
 			Volume createdVolume = createVolumeToBeInserted(newServer, createdServer);
 			insertServerAndVolume(createdServer, createdVolume);
 		}
 	}
 
-	private Server createServerToBeInserted(VolumesUpdateDTO newVolume) {
+	private Server createServerToBeInsertedOffVolume(VolumesUpdateDTO newVolume) {
 		Server insertedServer = new Server(newVolume.getSystemName());
 		return insertedServer;
 	}
@@ -129,9 +133,8 @@ public class ServerService {
 		}
 	}
 
-	private void saveServerWithHistory(Server server, Server newServer) {
+	private void saveServerHistory(Server server) {
 		ServerHistory serverHistory = new ServerHistory(server.getRam(),server.getCpuUsage(), server);
-		serverRepository.save(newServer);
 		serverHistoryRepo.save(serverHistory);
 	}
 
