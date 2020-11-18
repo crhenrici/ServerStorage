@@ -1,5 +1,6 @@
 package com.prose.crhen.SSServer.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,6 +23,7 @@ public class ServerHistory {
     @Setter
     @Column(name = "cpu_usage")
     private double cpuUsage;
+    @JsonIgnore
     @Getter
     @Setter
     @ManyToOne(fetch = FetchType.EAGER, optional = false)

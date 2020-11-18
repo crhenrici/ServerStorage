@@ -16,10 +16,8 @@ import com.prose.crhen.SSServer.model.ServerHistory;
 import com.prose.crhen.SSServer.model.Volume;
 import com.prose.crhen.SSServer.model.VolumeHistory;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Service
 public class ServerService {
@@ -74,7 +72,7 @@ public class ServerService {
 	}
 
 	private VolumeQueryDTO createVolumeQuery(Volume volume) {
-		VolumeQueryDTO volumeQueryDTO = new VolumeQueryDTO(volume.getName(), volume.getDesc(), volume.getFullCapacity(),
+		VolumeQueryDTO volumeQueryDTO = new VolumeQueryDTO(volume.getName(), volume.getDesc(), volume.getDate() , volume.getFullCapacity(),
 				volume.getLatestStorageReserved(), volume.getLatestStorageFree(), volume.getLatestStorageRatio(),
 				volume.getServer(), volume.getVolumeHistories());
 		return volumeQueryDTO;
@@ -112,8 +110,14 @@ public class ServerService {
 
 	private Volume createVolumeToBeInserted(VolumesUpdateDTO newVolume, Server insertedServer) {
 		double reserved = Double.parseDouble(newVolume.getCapacityGB()) - Double.parseDouble(newVolume.getFreeSpaceGB());
-		Volume insertedVolume = new Volume(newVolume.getName(),"", Double.parseDouble(newVolume.getCapacityGB()) , reserved, Double.parseDouble(newVolume.getFreeSpaceGB()), Double.parseDouble(newVolume.getFreeSpacePercent()),insertedServer);
+		java.sql.Date sqlDate = getSqlDate();
+		Volume insertedVolume = new Volume(newVolume.getName(),"" , sqlDate , Double.parseDouble(newVolume.getCapacityGB()) , reserved, Double.parseDouble(newVolume.getFreeSpaceGB()), Double.parseDouble(newVolume.getFreeSpacePercent()),insertedServer);
 		return insertedVolume;
+	}
+
+	private java.sql.Date getSqlDate() {
+		Date currentDate = new Date();
+		return new java.sql.Date(currentDate.getTime());
 	}
 
 	private void insertServerAndVolume(Server insertedServer, Volume insertedVolume) {
@@ -150,22 +154,25 @@ public class ServerService {
 
 	private Volume getVolumeToBeInserted(Volume updatedVolume, VolumesUpdateDTO newVolume) {
 		Volume insertedVolume = updatedVolume;
+		java.sql.Date sqlDate = getSqlDate();
 		double reserved = Double.parseDouble(newVolume.getCapacityGB()) - Double.parseDouble(newVolume.getFreeSpaceGB());
 		insertedVolume.setLatestStorageFree(Double.parseDouble(newVolume.getFreeSpaceGB()));
 		insertedVolume.setLatestStorageRatio(Double.parseDouble(newVolume.getFreeSpacePercent()));
 		insertedVolume.setLatestStorageReserved(reserved);
+		insertedVolume.setDate(sqlDate);
 		return insertedVolume;
 	}
 
 	private void saveVolumeHistory(VolumesUpdateDTO newVolume) {
 		Volume latestVolume = volumeRepository.findByName(newVolume.getName());
-		VolumeHistory volumeHistory = new VolumeHistory(latestVolume.getLatestStorageReserved(), latestVolume.getLatestStorageFree(), latestVolume.getLatestStorageRatio(), latestVolume);
+		VolumeHistory volumeHistory = new VolumeHistory(latestVolume.getDate(), latestVolume.getLatestStorageReserved(), latestVolume.getLatestStorageFree(), latestVolume.getLatestStorageRatio(), latestVolume);
 		volumeHistoryRepo.save(volumeHistory);
 	}
 
 	private void insertVolume(Server server,VolumesUpdateDTO newVolume) {
 		double reserved = Double.parseDouble(newVolume.getCapacityGB()) - Double.parseDouble(newVolume.getFreeSpaceGB());
-		Volume insertedVolume = new Volume(newVolume.getName(),"", Double.parseDouble(newVolume.getCapacityGB()) , reserved, Double.parseDouble(newVolume.getFreeSpaceGB()), Double.parseDouble(newVolume.getFreeSpacePercent()),server);
+		java.sql.Date sqlDate = getSqlDate();
+		Volume insertedVolume = new Volume(newVolume.getName(),"", sqlDate , Double.parseDouble(newVolume.getCapacityGB()) , reserved, Double.parseDouble(newVolume.getFreeSpaceGB()), Double.parseDouble(newVolume.getFreeSpacePercent()),server);
 
 		volumeRepository.save(insertedVolume);
 	}

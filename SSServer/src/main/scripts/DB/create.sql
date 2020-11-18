@@ -10,7 +10,6 @@ create table server
     ram       integer,
     primary key (id)
 ) engine = InnoDB;
-
 create table server_history
 (
     id        bigint not null auto_increment,
@@ -19,10 +18,10 @@ create table server_history
     server_id bigint not null,
     primary key (id)
 ) engine = InnoDB;
-
 create table volume
 (
     id                      bigint not null auto_increment,
+    date                    date,
     description             varchar(255),
     full_capacity           double precision,
     latest_storage_free     double precision,
@@ -32,17 +31,16 @@ create table volume
     server_id               bigint not null,
     primary key (id)
 ) engine = InnoDB;
-
 create table volume_history
 (
     id               bigint not null auto_increment,
+    date             date,
     storage_free     double precision,
     storage_ratio    double precision,
     storage_reserved double precision,
     volume_id        bigint not null,
     primary key (id)
 ) engine = InnoDB;
-
 alter table server_history
     add constraint FKsrmo3m2xd3sgc1crffv00g2ro foreign key (server_id) references server (id);
 alter table volume

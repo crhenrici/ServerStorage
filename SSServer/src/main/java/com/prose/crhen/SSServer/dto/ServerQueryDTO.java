@@ -1,5 +1,6 @@
 package com.prose.crhen.SSServer.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.prose.crhen.SSServer.model.ServerHistory;
 import com.prose.crhen.SSServer.model.Volume;
 import lombok.Getter;
