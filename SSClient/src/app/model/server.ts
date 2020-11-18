@@ -2,7 +2,6 @@ import { Volume } from './volume';
 import { ServerHistory } from './serverHistory';
 
 export interface Server {
-  id: number;
   name: string;
   fullCapacity: number;
   latestStorageReserved: number;

@@ -14,7 +14,7 @@ export class ServerListComponent implements OnInit {
   volume: Volume[];
 
   dataSource: MatTableDataSource<Volume>;
-  displayedColumns = ['actions', 'id', 'name', 'desc', 'fullCapacity', 'storageReserved', 'storageFree', 'storageRatio'];
+  displayedColumns = ['actions', 'name', 'fullCapacity', 'storageReserved', 'storageFree', 'storageRatio', 'parentServer'];
 
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
@@ -33,6 +33,11 @@ export class ServerListComponent implements OnInit {
 
   sendDataToDetails(volume: Volume) {
     this.sharedData.transmitData(volume);
+    this.sendDataToChart(this.volume);
+  }
+
+  sendDataToChart(volumes: Volume[]) {
+    this.sharedData.transmitDataToChart(volumes);
   }
 
   generatePDF() {

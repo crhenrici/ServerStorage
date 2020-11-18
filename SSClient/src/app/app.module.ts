@@ -8,7 +8,7 @@ import { MatTableModule, MatDialogModule, MatSortModule, MatFormFieldModule, Mat
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DetailsViewComponent } from './details-view/details-view.component';
 import { HttpClientModule } from '@angular/common/http';
-import { ChartComponent } from './chart/chart.component';
+import { ChartComponent } from './details-view/chart/chart.component';
 import { NgxLineChartModule } from 'ngx-line-chart';
 
 @NgModule({

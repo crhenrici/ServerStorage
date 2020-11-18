@@ -1,20 +1,20 @@
 <div class="container">
     <h2>Detailed view {{ volume.name }} </h2>
-    <div class="row">
+    <!-- <div class="row">
       <label class="col" for="id">Id</label>
       <span class="col">{{ volume.id }}</span>
-    </div>
+    </div> -->
     <mat-divider></mat-divider>
     <div class="row">
       <label class="col" for="name">Name</label>
       <span class="col">{{ volume.name }} </span>
     </div>
     <mat-divider></mat-divider>
-    <div class="row">
+    <!-- <div class="row">
       <label class="col" for="name">Description</label>
       <span name="desc" id="desc" class="col">{{ volume.desc }} </span>
       <button mat-stroked-button type="button" (click)="onEdit()">Edit</button>
-    </div>
+    </div> -->
     <mat-divider></mat-divider>
     <div class="row">
       <label class="col" for="fullCapacity">Full Capacity (in GB)</label>
@@ -23,32 +23,36 @@
     <mat-divider></mat-divider>
     <div class="row">
       <label class="col" for="storageReserved">Storage Reserved (in GB)</label>
-      <span class="col">{{ volume.storageReserved }}</span>
+      <span class="col">{{ volume.latestStorageReserved }}</span>
     </div>
     <mat-divider></mat-divider>
     <div class="row">
       <label class="col" for="storageFree">Storage Free (in GB)</label>
-      <span class="col">{{ volume.storageFree }}</span>
+      <span class="col">{{ volume.latestStorageFree }}</span>
     </div>
     <mat-divider></mat-divider>
     <div class="row">
       <label class="col" for="storageRatio">Storage Ratio (in GB)</label>
-      <span class="col">{{ volume.storageRatio }}</span>
+      <span class="col">{{ volume.latestStorageRatio }}</span>
     </div>
     <mat-divider></mat-divider>
     <div class="row">
       <label for="ram" class="col">Ram (in GB)</label>
-      <span class="col">{{ volume.ram }}</span>
+      <span class="col">{{ volume.server.ram }}</span>
     </div>
     <mat-divider></mat-divider>
     <div class="row">
       <label for="cpuUsage" class="col">Cpu Usage (in %)</label>
-      <span class="col">{{ volume.cpuUsage }}</span>
+      <span class="col">{{ volume.server.cpuUsage }}</span>
     </div>
     <mat-divider></mat-divider>
     <div class="row">
       <label for="server" class="col">Parent Server</label>
       <span class="col">{{ volume.server.name }}</span>
+    </div>
+    <mat-divider></mat-divider>
+    <div style="width: 600px; height: 450px;">
+      <app-chart></app-chart>
     </div>
     <button mat-stroked-button type="submit" routerLink="">Back</button>
 </div>

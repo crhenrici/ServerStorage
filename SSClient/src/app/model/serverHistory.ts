@@ -1,8 +1,8 @@
 import { Server } from './server';
 
 export interface ServerHistory {
-    freeStorage: number;
-    storageReserved: number;
-    storageRatio: number;
+    id: number;
+    ram: number;
+    cpuUsage: number;
     server: Server;
 }
