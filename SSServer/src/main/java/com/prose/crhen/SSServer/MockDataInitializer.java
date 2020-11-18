@@ -32,30 +32,32 @@ public class MockDataInitializer implements CommandLineRunner {
     public void run(String... args) throws Exception {
         service.deleteAll();
         logger.info("I am here");
-        FileSystemResourceLoader rl = new FileSystemResourceLoader();
+        loadServerIntoDB("classpath:testdata/serverProcess.txt");
+        loadVolumesIntoDB("classpath:testdata/volumeProcess.txt");
+        loadServerIntoDB("classpath:testdata/serverProcess1.txt");
+        loadServerIntoDB("classpath:testdata/serverProcess2.txt");
+        loadVolumesIntoDB("classpath:testdata/volumeProcess1.txt");
+        loadServerIntoDB("classpath:testdata/serverProcess3.txt");
+        loadVolumesIntoDB("classpath:testdata/volumeProcess2.txt");
+        loadVolumesIntoDB("classpath:testdata/volumeProcess3.txt");
+        loadVolumesIntoDB("classpath:testdata/volumeProcess4.txt");
+        loadVolumesIntoDB("classpath:testdata/volumeProcess5.txt");
+    }
 
-        Resource resource = rl.getResource("classpath:testdata/serverProcess.txt");
+    private void loadServerIntoDB(String classpath) throws Exception{
+        FileSystemResourceLoader rl = new FileSystemResourceLoader();
+        Resource resource = rl.getResource(classpath);
         ObjectMapper mapper = new ObjectMapper();
         ServerUpdateDTO serverResult = mapper.readValue(resource.getFile(), new TypeReference<ServerUpdateDTO>() {});
         service.saveServerDTO(serverResult);
+    }
 
-        resource = rl.getResource("classpath:testdata/volumeProcess.txt");
+    private void loadVolumesIntoDB(String classpath) throws Exception {
+        FileSystemResourceLoader rl = new FileSystemResourceLoader();
+        Resource resource = rl.getResource(classpath);
+        ObjectMapper mapper = new ObjectMapper();
         List<VolumesUpdateDTO> result = mapper.readValue(resource.getFile(), new TypeReference<List<VolumesUpdateDTO>>() {});
         for (VolumesUpdateDTO volumesUpdateDTO : result) {
-            service.saveVolumeDTO(volumesUpdateDTO);
-        }
-
-        resource = rl.getResource("classpath:testdata/serverProcess1.txt");
-        ServerUpdateDTO serverResult2 =  mapper.readValue(resource.getFile(), new TypeReference<ServerUpdateDTO>() {});
-        service.saveServerDTO(serverResult2);
-
-        resource = rl.getResource("classpath:testdata/serverProcess2.txt");
-        ServerUpdateDTO serverResult3 = mapper.readValue(resource.getFile(), new TypeReference<ServerUpdateDTO>() {});
-        service.saveServerDTO(serverResult3);
-
-        resource = rl.getResource("classpath:testdata/volumeProcess1.txt");
-        List<VolumesUpdateDTO> volumeResults = mapper.readValue(resource.getFile(), new TypeReference<List<VolumesUpdateDTO>>() {});
-        for (VolumesUpdateDTO volumesUpdateDTO : volumeResults) {
             service.saveVolumeDTO(volumesUpdateDTO);
         }
     }
