@@ -33,11 +33,6 @@ export class ServerListComponent implements OnInit {
 
   sendDataToDetails(volume: Volume) {
     this.sharedData.transmitData(volume);
-    this.sendDataToChart(this.volume);
-  }
-
-  sendDataToChart(volumes: Volume[]) {
-    this.sharedData.transmitDataToChart(volumes);
   }
 
   generatePDF() {

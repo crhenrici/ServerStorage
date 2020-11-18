@@ -9,11 +9,12 @@ import { VolumeChartData } from '../../VolumeChartData';
   styleUrls: ['./chart.component.css']
 })
 export class ChartComponent implements OnInit {
-  data:any[];
-  chartData: Volume[];
-  chartResult: VolumeChartData[] = [{name: '', points: [{ x: 2, y: 2}]}];
+  data: any[];
+  @Input()
+  chartData: Volume;
+  chartResult: VolumeChartData[] = [{ name: '', points: [{ x: 2, y: 2 }] }];
 
-  view: any[] = [700, 300];
+  view: any[] = [700, 600];
 
   // options
   legend: boolean = true;
@@ -32,29 +33,24 @@ export class ChartComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.sharedData.volumes$.subscribe(
-      data => {
-        this.chartData = data;
-      }
-    );
     console.log('chartData ', this.chartData);
-   // Object.assign(this.chartData);
-    this.chartData.forEach((vol, i) => {
-      this.chartResult[i].name = vol.name;
-      let index = 0;
-      vol.volumeHistories.forEach((point) => {
-        this.chartResult[i].points[index] = {x: 0, y: 0};
-        this.chartResult[i].points[index].x = point.date.getDate();
-        this.chartResult[i].points[index].y = point.storageRatio;
-        index++;
-      });
+    // Object.assign(this.chartData);
+    this.chartResult[0].name = this.chartData.name;
+    let index = 0;
+    this.chartData.volumeHistories.forEach((vol) => {
+      this.chartResult[0].points[index] = { x: 0, y: 0};
+      console.log('Date before converted ', vol.date);
+      this.chartResult[0].points[index].x = new Date(vol.date).getTime();
+      console.log('Date after converted ', new Date(vol.date).getTime());
+      this.chartResult[0].points[index].y = vol.storageRatio;
+      index++;
     });
   }
 
   formatXAxisValue(value: number) {
-    let date = new Date();
-    return date.setDate(value);
-}
+    const date = new Date(value * 1000);
+    return date;
+  }
 
 }
 
