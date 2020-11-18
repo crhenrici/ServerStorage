@@ -1,0 +1,20 @@
+{
+    "cpuusage":  {
+                     "Path":  "\\\\nucwin\\processor(_total)\\% processor time",
+                     "InstanceName":  "_total",
+                     "CookedValue":  0.167164858498602875,
+                     "RawValue":  806174511718,
+                     "SecondValue":  122499325591112792,
+                     "MultipleCount":  3,
+                     "CounterType":  528957824,
+                     "Timestamp":  "\/Date(1605458959111)\/",
+                     "Timestamp100NSec":  122499361591110000,
+                     "Status":  0,
+                     "DefaultScale":  0,
+                     "TimeBase":  20000000
+                 },
+    "ram":  {
+                "Capacity":  9
+            },
+    "systemname":  "CHWIWS08"
+}

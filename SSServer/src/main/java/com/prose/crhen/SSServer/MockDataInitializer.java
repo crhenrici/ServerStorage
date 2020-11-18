@@ -33,11 +33,29 @@ public class MockDataInitializer implements CommandLineRunner {
         service.deleteAll();
         logger.info("I am here");
         FileSystemResourceLoader rl = new FileSystemResourceLoader();
-        Resource resource = rl.getResource("classpath:testdata/process.txt");
+
+        Resource resource = rl.getResource("classpath:testdata/serverProcess.txt");
         ObjectMapper mapper = new ObjectMapper();
-        JsonNode node = mapper.readTree(resource.getFile());
+        ServerUpdateDTO serverResult = mapper.readValue(resource.getFile(), new TypeReference<ServerUpdateDTO>() {});
+        service.saveServerDTO(serverResult);
+
+        resource = rl.getResource("classpath:testdata/volumeProcess.txt");
         List<VolumesUpdateDTO> result = mapper.readValue(resource.getFile(), new TypeReference<List<VolumesUpdateDTO>>() {});
         for (VolumesUpdateDTO volumesUpdateDTO : result) {
+            service.saveVolumeDTO(volumesUpdateDTO);
+        }
+
+        resource = rl.getResource("classpath:testdata/serverProcess1.txt");
+        ServerUpdateDTO serverResult2 =  mapper.readValue(resource.getFile(), new TypeReference<ServerUpdateDTO>() {});
+        service.saveServerDTO(serverResult2);
+
+        resource = rl.getResource("classpath:testdata/serverProcess2.txt");
+        ServerUpdateDTO serverResult3 = mapper.readValue(resource.getFile(), new TypeReference<ServerUpdateDTO>() {});
+        service.saveServerDTO(serverResult3);
+
+        resource = rl.getResource("classpath:testdata/volumeProcess1.txt");
+        List<VolumesUpdateDTO> volumeResults = mapper.readValue(resource.getFile(), new TypeReference<List<VolumesUpdateDTO>>() {});
+        for (VolumesUpdateDTO volumesUpdateDTO : volumeResults) {
             service.saveVolumeDTO(volumesUpdateDTO);
         }
     }
