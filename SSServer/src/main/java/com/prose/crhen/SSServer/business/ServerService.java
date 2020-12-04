@@ -55,6 +55,7 @@ public class ServerService {
 		ServerQueryDTO serverQueryDTO = calcServerDetails(server);
 		serverQueryDTO.setName(server.getName());
 		serverQueryDTO.setRam(server.getRam());
+		serverQueryDTO.setRamUsage(server.getRamUsage());
 		serverQueryDTO.setCpuUsage(server.getCpuUsage());
 		serverQueryDTO.setVolumes(server.getVolumes());
 		serverQueryDTO.setServerHistories(server.getServerHistories());
@@ -84,10 +85,11 @@ public class ServerService {
 			saveServerHistory(serverOptional.get());
 			Server updatedServer = serverOptional.get();
 			updatedServer.setRam(server.getRam().getCapacity());
+			updatedServer.setRamUsage(server.getRamUsage());
 			updatedServer.setCpuUsage(server.getCpuUsage().getCookedValue());
 			serverRepository.save(updatedServer);
 		} else {
-			Server insertedServer = new Server(server.getSystemName(), server.getRam().getCapacity(), server.getCpuUsage().getCookedValue());
+			Server insertedServer = new Server(server.getSystemName(), server.getRam().getCapacity(), server.getRamUsage() , server.getCpuUsage().getCookedValue());
 			serverRepository.save(insertedServer);
 		}
 	}
@@ -138,7 +140,7 @@ public class ServerService {
 	}
 
 	private void saveServerHistory(Server server) {
-		ServerHistory serverHistory = new ServerHistory(server.getRam(),server.getCpuUsage(), server);
+		ServerHistory serverHistory = new ServerHistory(server.getRam(), server.getRamUsage(), server.getCpuUsage(), server);
 		serverHistoryRepo.save(serverHistory);
 	}
 

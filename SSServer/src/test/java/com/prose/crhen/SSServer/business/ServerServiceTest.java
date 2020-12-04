@@ -237,12 +237,14 @@ public class ServerServiceTest {
 	void setUpGetServersTest() {
 		server = new Server();
 		server.setRam(4);
+		server.setRamUsage(3.45);
 		server.setCpuUsage(8.00);
 		server.setName("ServerTest");
 
 		serverHistory = new ServerHistory();
 		serverHistory.setServer(server);
 		serverHistory.setRam(server.getRam());
+		serverHistory.setRamUsage(server.getRamUsage());
 		serverHistory.setCpuUsage(server.getCpuUsage());
 
 		Set<ServerHistory> serverHistories = new LinkedHashSet<>();
@@ -291,10 +293,12 @@ public class ServerServiceTest {
 		server2.setName("TestServer2");
 		server2.setCpuUsage(16.00);
 		server2.setRam(4);
+		server2.setRamUsage(3.78);
 
 		ServerHistory serverHistory2 = new ServerHistory();
 		serverHistory2.setServer(server2);
 		serverHistory2.setRam(server2.getRam());
+		serverHistory2.setRamUsage(server2.getRamUsage());
 		serverHistory2.setCpuUsage(server2.getCpuUsage());
 
 		Set<ServerHistory> serverHistories2 = new LinkedHashSet<>();
@@ -390,6 +394,7 @@ public class ServerServiceTest {
 		assertEquals(300, serverQueryDTO.get(0).getFullCapacity());
 		assertEquals(server.getName(), serverQueryDTO.get(0).getName());
 		assertEquals(server.getRam(), serverQueryDTO.get(0).getRam());
+		assertEquals(server.getRamUsage(), serverQueryDTO.get(0).getRamUsage());
 		assertEquals(server2.getName(), serverQueryDTO.get(1).getName());
 		assertEquals(350, serverQueryDTO.get(1).getFullCapacity());
 		assertEquals(275, serverQueryDTO.get(1).getLatestStorageReserved());

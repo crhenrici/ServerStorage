@@ -27,6 +27,10 @@ public class Server {
 	private int ram;
 	@Getter
 	@Setter
+	@Column(name = "ram_usage", nullable = true)
+	private double ramUsage;
+	@Getter
+	@Setter
 	@Column(name = "cpu_usage", nullable = true)
 	private double cpuUsage;
 	@Getter
@@ -48,10 +52,11 @@ public class Server {
 		this.name = name;
 	}
 
-	public Server(String name, int ram, double cpuUsage) {
+	public Server(String name, int ram, double ramUsage , double cpuUsage) {
 		super();
 		this.name = name;
 		this.ram = ram;
+		this.ramUsage = ramUsage;
 		this.cpuUsage = cpuUsage;
 	}
 
@@ -62,6 +67,7 @@ public class Server {
 		Server server = (Server) o;
 		return id == server.id &&
 				ram == server.ram &&
+				Double.compare(server.ramUsage, ramUsage) == 0 &&
 				Double.compare(server.cpuUsage, cpuUsage) == 0 &&
 				Objects.equals(name, server.name) &&
 				Objects.equals(volumes, server.volumes) &&
@@ -70,7 +76,7 @@ public class Server {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, name, ram, cpuUsage, volumes, serverHistories);
+		return Objects.hash(id, name, ram, ramUsage, cpuUsage, volumes, serverHistories);
 	}
 
 	@Override
@@ -79,6 +85,7 @@ public class Server {
 				"id=" + id +
 				", name='" + name + '\'' +
 				", ram=" + ram +
+				", ramUsage=" + ramUsage +
 				", cpuUsage=" + cpuUsage +
 				", volumes=" + volumes +
 				", serverHistories=" + serverHistories +
