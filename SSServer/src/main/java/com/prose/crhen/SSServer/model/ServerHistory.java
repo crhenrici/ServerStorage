@@ -21,6 +21,10 @@ public class ServerHistory {
     private int ram;
     @Getter
     @Setter
+    @Column(name = "ram_usage")
+    private double ramUsage;
+    @Getter
+    @Setter
     @Column(name = "cpu_usage")
     private double cpuUsage;
     @JsonIgnore
@@ -33,8 +37,9 @@ public class ServerHistory {
     public ServerHistory() {
     }
 
-    public ServerHistory(int ram, double cpuUsage,Server server) {
+    public ServerHistory(int ram, double ramUsage , double cpuUsage,Server server) {
         this.ram = ram;
+        this.ramUsage = ramUsage;
         this.cpuUsage = cpuUsage;
         this.server = server;
     }
@@ -44,6 +49,7 @@ public class ServerHistory {
         return "ServerHistory{" +
                 "id=" + id +
                 ", ram=" + ram +
+                ", ramUsage=" + ramUsage +
                 ", cpuUsage=" + cpuUsage +
                 ", server=" + server +
                 '}';

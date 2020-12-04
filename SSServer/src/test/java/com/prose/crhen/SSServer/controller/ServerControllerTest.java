@@ -141,6 +141,7 @@ class ServerControllerTest {
 
         assertEquals(result.getSystemName(), resultServer.getName());
         assertEquals(result.getRam().getCapacity(), resultServer.getRam());
+        assertEquals(result.getRamUsage(), resultServer.getRamUsage());
         assertEquals(result.getCpuUsage().getCookedValue(), resultServer.getCpuUsage());
     }
 
@@ -179,6 +180,7 @@ class ServerControllerTest {
         System.out.println(serverHistory.getCpuUsage());
         System.out.println(serverHistory.getRam());
         assertEquals(result.getRam().getCapacity(), serverHistory.getRam());
+        assertEquals(result.getRamUsage(), serverHistory.getRamUsage());
     }
 
     @AfterEach

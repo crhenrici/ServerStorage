@@ -8,6 +8,7 @@ create table server
     cpu_usage double precision,
     name      varchar(255),
     ram       integer,
+    ram_usage double precision,
     primary key (id)
 ) engine = InnoDB;
 create table server_history
@@ -15,6 +16,7 @@ create table server_history
     id        bigint not null auto_increment,
     cpu_usage double precision,
     ram       integer,
+    ram_usage double precision,
     server_id bigint not null,
     primary key (id)
 ) engine = InnoDB;
