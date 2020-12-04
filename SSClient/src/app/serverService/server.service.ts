@@ -1,4 +1,4 @@
-import { Volume } from './../model/volume';
+import { Server } from './../model/server';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
@@ -21,8 +21,8 @@ export class ServerService {
 
   public getALL(): Observable<any> {
     const url = `${this.httpUrl}/servers`;
-    return this.http.get<Volume[]>(url, httpOptions).pipe(
-      map(res => res as Volume[]),
+    return this.http.get<Server[]>(url, httpOptions).pipe(
+      map(res => res as Server[]),
       catchError(this.handleError)
     );
   }

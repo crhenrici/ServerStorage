@@ -54,6 +54,7 @@ public class JSONTest {
         assertEquals(8, result.getRam().getCapacity());
         assertEquals(0.067164858498602875, result.getCpuUsage().getCookedValue());
         assertEquals(906174511718l, result.getCpuUsage().getRawValue());
+        assertEquals(7.8718795776367188, result.getRamUsage());
         assertEquals(132499325591112792l, result.getCpuUsage().getSecondValue());
         assertEquals("\\\\nucwin\\processor(_total)\\% processor time", result.getCpuUsage().getPath());
         assertEquals( "/Date(1605458959111)/", result.getCpuUsage().getTimestamp());

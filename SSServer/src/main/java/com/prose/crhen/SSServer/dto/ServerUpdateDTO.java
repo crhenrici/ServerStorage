@@ -10,6 +10,8 @@ public class ServerUpdateDTO {
 
     private RamDTO ram;
 
+    private double ramUsage;
+
     private String systemName;
 
     @JsonProperty("cpuusage")
@@ -29,6 +31,16 @@ public class ServerUpdateDTO {
     public void setRam(RamDTO ram) {
         this.ram = ram;
     }
+
+    @JsonProperty("ramusage")
+    public Double getRamUsage() {
+        return ramUsage;
+    }
+
+    public void setRamUsage(double ramUsage) {
+        this.ramUsage = ramUsage;
+    }
+
     @JsonProperty("systemname")
     public String getSystemName() {
         return systemName;
@@ -43,14 +55,15 @@ public class ServerUpdateDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ServerUpdateDTO that = (ServerUpdateDTO) o;
-        return Objects.equals(cpuUsage, that.cpuUsage) &&
+        return Double.compare(that.ramUsage, ramUsage) == 0 &&
+                Objects.equals(cpuUsage, that.cpuUsage) &&
                 Objects.equals(ram, that.ram) &&
                 Objects.equals(systemName, that.systemName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cpuUsage, ram, systemName);
+        return Objects.hash(cpuUsage, ram, ramUsage, systemName);
     }
 
     @Override
@@ -58,6 +71,7 @@ public class ServerUpdateDTO {
         return "ServerUpdateDTO{" +
                 "cpuUsage=" + cpuUsage +
                 ", ram=" + ram +
+                ", ramUsage=" + ramUsage +
                 ", systemName='" + systemName + '\'' +
                 '}';
     }

@@ -25,8 +25,8 @@ public class ServerController {
 
 	@GetMapping("/servers")
 	@ResponseBody
-	public List<VolumeQueryDTO> getAllVolumes() {
-		List<VolumeQueryDTO> serverList = service.getVolumes();
+	public List<ServerQueryDTO> getAllVolumes() {
+		List<ServerQueryDTO> serverList = service.getServers();
 		return serverList;
 	}
 	

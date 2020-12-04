@@ -1,0 +1,19 @@
+<div>
+    <table style="width: 75%;">
+        <tr>
+            <th>Number of serves</th>
+            <th>Overall Capacity [GB]</th>
+            <th>Storage used [GB]</th>
+            <th>Storage free [GB]</th>
+            <th>Free capacity [%]</th>
+        </tr>
+        <tr>
+            <td>{{ numberOfServers }}</td>
+            <td>{{ server.fullCapacity}}</td>
+            <td>{{ server.latestStorageReserved }}</td>
+            <td>{{ server.latestStorageFree }}</td>
+            <td>{{ server.latestStorageRatio }}</td>
+        </tr>
+    </table>
+    <button mat-stroked-button  [routerLink]="['/servers']">View Details</button>
+</div>

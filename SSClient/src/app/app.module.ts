@@ -10,13 +10,17 @@ import { DetailsViewComponent } from './details-view/details-view.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ChartComponent } from './details-view/chart/chart.component';
 import { NgxLineChartModule } from 'ngx-line-chart';
+import { VolumeListComponent } from './volume-list/volume-list.component';
+import { OverallViewComponent } from './overall-view/overall-view.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ServerListComponent,
     DetailsViewComponent,
-    ChartComponent
+    ChartComponent,
+    VolumeListComponent,
+    OverallViewComponent
   ],
   imports: [
     BrowserModule,
