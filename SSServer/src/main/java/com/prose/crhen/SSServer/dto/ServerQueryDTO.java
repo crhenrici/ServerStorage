@@ -1,5 +1,6 @@
 package com.prose.crhen.SSServer.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.prose.crhen.SSServer.model.ServerHistory;
 import com.prose.crhen.SSServer.model.Volume;
 import lombok.Getter;
@@ -30,6 +31,9 @@ public class ServerQueryDTO {
     private int ram;
     @Getter
     @Setter
+    private double ramUsage;
+    @Getter
+    @Setter
     private double cpuUsage;
     @Getter
     @Setter
@@ -42,13 +46,14 @@ public class ServerQueryDTO {
 
     }
 
-    public ServerQueryDTO(String name, double fullCapacity, double latestStorageReserved, double latestStorageFree, double latestStorageRatio, int ram, double cpuUsage, Set<Volume> volumes, Set<ServerHistory> serverHistories) {
+    public ServerQueryDTO(String name, double fullCapacity, double latestStorageReserved, double latestStorageFree, double latestStorageRatio, int ram, double ramUsage, double cpuUsage, Set<Volume> volumes, Set<ServerHistory> serverHistories) {
         this.name = name;
         this.fullCapacity = fullCapacity;
         this.latestStorageReserved = latestStorageReserved;
         this.latestStorageFree = latestStorageFree;
         this.latestStorageRatio = latestStorageRatio;
         this.ram = ram;
+        this.ramUsage = ramUsage;
         this.cpuUsage = cpuUsage;
         this.volumes = volumes;
         this.serverHistories = serverHistories;
@@ -64,6 +69,7 @@ public class ServerQueryDTO {
                 Double.compare(that.latestStorageFree, latestStorageFree) == 0 &&
                 Double.compare(that.latestStorageRatio, latestStorageRatio) == 0 &&
                 ram == that.ram &&
+                Double.compare(that.ramUsage, ramUsage) == 0 &&
                 Double.compare(that.cpuUsage, cpuUsage) == 0 &&
                 Objects.equals(name, that.name) &&
                 Objects.equals(volumes, that.volumes) &&
@@ -72,7 +78,7 @@ public class ServerQueryDTO {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, fullCapacity, latestStorageReserved, latestStorageFree, latestStorageRatio, ram, cpuUsage, volumes, serverHistories);
+        return Objects.hash(name, fullCapacity, latestStorageReserved, latestStorageFree, latestStorageRatio, ram, ramUsage, cpuUsage, volumes, serverHistories);
     }
 
     @Override
@@ -84,6 +90,7 @@ public class ServerQueryDTO {
                 ", latestStorageFree=" + latestStorageFree +
                 ", latestStorageRatio=" + latestStorageRatio +
                 ", ram=" + ram +
+                ", ramUsage=" + ramUsage +
                 ", cpuUsage=" + cpuUsage +
                 ", volumes=" + volumes +
                 ", serverHistories=" + serverHistories +

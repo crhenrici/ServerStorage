@@ -13,8 +13,8 @@ public class VolumesUpdateDTO {
     private String freeSpaceGB;
     private String freeSpacePercent;
     private String date;
-    private String ram;
-    private String cpuUsage;
+//    private String ram;
+//    private String cpuUsage;
 
     @JsonProperty("SystemName")
     public String getSystemName() {
@@ -79,21 +79,22 @@ public class VolumesUpdateDTO {
         this.date = date;
     }
 
-    public String getRam() {
-        return ram;
-    }
+//    public String getRam() {
+//        return ram;
+//    }
+//
+//    public void setRam(String ram) {
+//        this.ram = ram;
+//    }
+//
+//    public String getCpuUsage() {
+//        return cpuUsage;
+//    }
+//
+//    public void setCpuUsage(String cpuUsage) {
+//        this.cpuUsage = cpuUsage;
+//    }
 
-    public void setRam(String ram) {
-        this.ram = ram;
-    }
-
-    public String getCpuUsage() {
-        return cpuUsage;
-    }
-
-    public void setCpuUsage(String cpuUsage) {
-        this.cpuUsage = cpuUsage;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -106,14 +107,12 @@ public class VolumesUpdateDTO {
                 Objects.equals(capacityGB, that.capacityGB) &&
                 Objects.equals(freeSpaceGB, that.freeSpaceGB) &&
                 Objects.equals(freeSpacePercent, that.freeSpacePercent) &&
-                Objects.equals(date, that.date) &&
-                Objects.equals(ram, that.ram) &&
-                Objects.equals(cpuUsage, that.cpuUsage);
+                Objects.equals(date, that.date);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(systemName, name, driveLetter, capacityGB, freeSpaceGB, freeSpacePercent, date, ram, cpuUsage);
+        return Objects.hash(systemName, name, driveLetter, capacityGB, freeSpaceGB, freeSpacePercent, date);
     }
 
     @Override
@@ -126,8 +125,6 @@ public class VolumesUpdateDTO {
                 ", freeSpaceGB='" + freeSpaceGB + '\'' +
                 ", freeSpacePercent='" + freeSpacePercent + '\'' +
                 ", date='" + date + '\'' +
-                ", ram='" + ram + '\'' +
-                ", cpuUsage='" + cpuUsage + '\'' +
                 '}';
     }
 }

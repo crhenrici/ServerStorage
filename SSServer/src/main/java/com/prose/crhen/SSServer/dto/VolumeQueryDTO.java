@@ -5,6 +5,7 @@ import com.prose.crhen.SSServer.model.VolumeHistory;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.sql.Date;
 import java.util.Objects;
 import java.util.Set;
 
@@ -18,7 +19,10 @@ public class VolumeQueryDTO {
     private String desc;
     @Getter
     @Setter
-    private double fullCapcacity;
+    private Date date;
+    @Getter
+    @Setter
+    private double fullCapacity;
     @Getter
     @Setter
     private double latestStorageReserved;
@@ -35,10 +39,22 @@ public class VolumeQueryDTO {
     @Setter
     private Set<VolumeHistory> volumeHistories;
 
-    public VolumeQueryDTO(String name, String desc, double fullCapcacity, double latestStorageReserved, double latestStorageFree, double latestStorageRatio, Server server, Set<VolumeHistory> volumeHistories) {
+    public VolumeQueryDTO(String name, String desc, double fullCapacity, double latestStorageReserved, double latestStorageFree, double latestStorageRatio, Server server, Set<VolumeHistory> volumeHistories) {
         this.name = name;
         this.desc = desc;
-        this.fullCapcacity = fullCapcacity;
+        this.fullCapacity = fullCapacity;
+        this.latestStorageReserved = latestStorageReserved;
+        this.latestStorageFree = latestStorageFree;
+        this.latestStorageRatio = latestStorageRatio;
+        this.server = server;
+        this.volumeHistories = volumeHistories;
+    }
+
+    public VolumeQueryDTO(String name, String desc, Date date, double fullCapacity, double latestStorageReserved, double latestStorageFree, double latestStorageRatio, Server server, Set<VolumeHistory> volumeHistories) {
+        this.name = name;
+        this.desc = desc;
+        this.date = date;
+        this.fullCapacity = fullCapacity;
         this.latestStorageReserved = latestStorageReserved;
         this.latestStorageFree = latestStorageFree;
         this.latestStorageRatio = latestStorageRatio;
@@ -51,19 +67,20 @@ public class VolumeQueryDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         VolumeQueryDTO that = (VolumeQueryDTO) o;
-        return Double.compare(that.fullCapcacity, fullCapcacity) == 0 &&
+        return Double.compare(that.fullCapacity, fullCapacity) == 0 &&
                 Double.compare(that.latestStorageReserved, latestStorageReserved) == 0 &&
                 Double.compare(that.latestStorageFree, latestStorageFree) == 0 &&
                 Double.compare(that.latestStorageRatio, latestStorageRatio) == 0 &&
                 Objects.equals(name, that.name) &&
                 Objects.equals(desc, that.desc) &&
+                Objects.equals(date, that.date) &&
                 Objects.equals(server, that.server) &&
                 Objects.equals(volumeHistories, that.volumeHistories);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, desc, fullCapcacity, latestStorageReserved, latestStorageFree, latestStorageRatio, server, volumeHistories);
+        return Objects.hash(name, desc, date, fullCapacity, latestStorageReserved, latestStorageFree, latestStorageRatio, server, volumeHistories);
     }
 
     @Override
@@ -71,7 +88,8 @@ public class VolumeQueryDTO {
         return "VolumeQueryDTO{" +
                 "name='" + name + '\'' +
                 ", desc='" + desc + '\'' +
-                ", fullCapcacity=" + fullCapcacity +
+                ", date=" + date +
+                ", fullCapacity=" + fullCapacity +
                 ", latestStorageReserved=" + latestStorageReserved +
                 ", latestStorageFree=" + latestStorageFree +
                 ", latestStorageRatio=" + latestStorageRatio +

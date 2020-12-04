@@ -4,44 +4,37 @@
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
       <mat-cell *matCellDef="let volume"><button mat-stroked-button (click)="sendDataToDetails(volume)" [routerLink]="['/details-view', volume.id]">View Details</button></mat-cell>
     </ng-container>
-    <ng-container matColumnDef="id">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
-      <mat-cell *matCellDef="let volume"> {{ volume.id }}</mat-cell>
-    </ng-container>
     <ng-container matColumnDef="name">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
       <mat-cell *matCellDef="let volume"> {{ volume.name }}</mat-cell>
     </ng-container>
-    <ng-container matColumnDef="desc">
+    <!-- <ng-container matColumnDef="desc">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Description</mat-header-cell>
       <mat-cell *matCellDef="let volume"> {{ volume.desc }}</mat-cell>
-    </ng-container>
+    </ng-container> -->
     <ng-container matColumnDef="fullCapacity">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Full Capacity</mat-header-cell>
       <mat-cell *matCellDef="let volume"> {{ volume.fullCapacity }}</mat-cell>
     </ng-container>
     <ng-container matColumnDef="storageReserved">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Storage Reserved</mat-header-cell>
-      <mat-cell *matCellDef="let volume"> {{ volume.storageReserved }}</mat-cell>
+      <mat-cell *matCellDef="let volume"> {{ volume.latestStorageReserved }}</mat-cell>
     </ng-container>
     <ng-container matColumnDef="storageFree">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Storage Free</mat-header-cell>
-      <mat-cell *matCellDef="let volume"> {{ volume.storageFree }}</mat-cell>
+      <mat-cell *matCellDef="let volume"> {{ volume.latestStorageFree }}</mat-cell>
     </ng-container>
     <ng-container matColumnDef="storageRatio">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Storage Ratio</mat-header-cell>
-      <mat-cell *matCellDef="let volume"> {{ volume.storagetRatio }}</mat-cell>
+      <mat-cell *matCellDef="let volume"> {{ volume.latestStorageRatio }}</mat-cell>
     </ng-container>
-    <ng-container>
+    <ng-container matColumnDef="parentServer">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Parent Server</mat-header-cell>
       <mat-cell *matCellDef="let volume">{{ volume.server.name }}</mat-cell>
     </ng-container>
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns; let volume" [ngClass]="{'data-affected': row.storageRatio >= 75}" ></mat-row>
   </mat-table>
-  <div style="width: 600px; height: 300px;">
-    <app-chart></app-chart>
-  </div>
   <button class="button" mat-stroked-button (click)="generatePDF()">Generate PDF</button>
 </div>
 

@@ -1,15 +1,15 @@
 import { Server } from './server';
+import { VolumeHistory } from './volumeHistory';
 
 
 export interface Volume {
-  id: number;
-  serverId: number;
   name: string;
   desc: string;
-  storageCapacity: number;
-  storageReserved: number;
-  storageFree: number;
-  storagetRatio: number;
+  date: Date;
+  fullCapacity: number;
+  latestStorageReserved: number;
+  latestStorageFree: number;
+  latestStoragetRatio: number;
   server: Server;
-  volumeHistories: Set<Volume>;
+  volumeHistories: Set<VolumeHistory>;
 }

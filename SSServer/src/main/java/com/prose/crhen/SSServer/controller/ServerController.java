@@ -4,6 +4,7 @@ import com.google.common.base.Preconditions;
 import com.prose.crhen.SSServer.business.ServerService;
 import com.prose.crhen.SSServer.dto.ServerQueryDTO;
 import com.prose.crhen.SSServer.dto.ServerUpdateDTO;
+import com.prose.crhen.SSServer.dto.VolumeQueryDTO;
 import com.prose.crhen.SSServer.dto.VolumesUpdateDTO;
 import com.prose.crhen.SSServer.model.Server;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class ServerController {
 
 	@GetMapping("/servers")
 	@ResponseBody
-	public List<ServerQueryDTO> getAllServer() {
+	public List<ServerQueryDTO> getAllVolumes() {
 		List<ServerQueryDTO> serverList = service.getServers();
 		return serverList;
 	}
@@ -40,11 +41,9 @@ public class ServerController {
 	}
 
 	@PostMapping("/save/server")
-	public ResponseEntity<String> saveServers(@RequestBody List<ServerUpdateDTO> servers) {
-		Preconditions.checkNotNull(servers, "value can't be null");
-		for (ServerUpdateDTO server : servers) {
-			service.saveServerDTO(server);
-		}
+	public ResponseEntity<String> saveServers(@RequestBody ServerUpdateDTO server) {
+		Preconditions.checkNotNull(server, "value can't be null");
+		service.saveServerDTO(server);
 		return ResponseEntity.status(HttpStatus.OK).build();
 	}
 

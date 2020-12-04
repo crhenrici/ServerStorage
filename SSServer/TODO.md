@@ -8,8 +8,12 @@
 - [x] Adopt Testcases
 - [x] Delete calculated field from DB script  
 - [x] Two scripts for ServerUpdateDto and VolumeUpdateDto
+- [x] Create new Server when server inserted first
+- [x] Adapt testcase
 - [ ] Establish Flyaway for database migration  https://www.baeldung.com/database-migrations-with-flyway
-- [ ] Zip packaging with Gradle for Installing 
+- [ ] Initial install package
+- [ ] Update install
+- [ ] packaging with Angular application
 - [ ] Identify Client UI Navigation and required Rest Queries 
 
   

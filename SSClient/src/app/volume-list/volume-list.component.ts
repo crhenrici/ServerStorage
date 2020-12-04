@@ -1,16 +1,15 @@
-import { Volume } from './../model/volume';
-import { ServerService } from '../serverService/server.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatSort } from '@angular/material';
+import { MatSort, MatTableDataSource } from '@angular/material';
+import { Volume } from '../model/volume';
+import { ServerService } from '../serverService/server.service';
 import { SharedDataService } from '../sharedData/shared-data.service';
 
-
 @Component({
-  selector: 'app-server-list',
-  templateUrl: './server-list.component.html',
-  styleUrls: ['./server-list.component.css']
+  selector: 'app-volume-list',
+  templateUrl: './volume-list.component.html',
+  styleUrls: ['./volume-list.component.css']
 })
-export class ServerListComponent implements OnInit {
+export class VolumeListComponent implements OnInit {
   volume: Volume[];
 
   dataSource: MatTableDataSource<Volume>;
@@ -33,9 +32,5 @@ export class ServerListComponent implements OnInit {
 
   sendDataToDetails(volume: Volume) {
     this.sharedData.transmitData(volume);
-  }
-
-  generatePDF() {
-
   }
 }

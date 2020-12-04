@@ -16,6 +16,5 @@
     "ram":  {
                 "Capacity":  8
             },
-    "ramusage":  7.8718795776367188,
-    "systemname":  "NUCWIN"
+    "systemname":  "CHWIWS08"
 }

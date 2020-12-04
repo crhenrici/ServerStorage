@@ -23,7 +23,7 @@ public class JSONTest {
     @Test
     void testProcessData() throws IOException {
         FileSystemResourceLoader rl = new FileSystemResourceLoader();
-        Resource resource = rl.getResource("classpath:process.txt");
+        Resource resource = rl.getResource("classpath:volumeProcess.txt");
         ObjectMapper mapper = new ObjectMapper();
         List result = mapper.readValue(resource.getFile(), List.class);
         System.out.println(result.toString());
@@ -35,7 +35,7 @@ public class JSONTest {
     @Test
     void testProcessDataWithObject() throws IOException {
         FileSystemResourceLoader rl = new FileSystemResourceLoader();
-        Resource resource = rl.getResource("classpath:process.txt");
+        Resource resource = rl.getResource("classpath:volumeProcess.txt");
         ObjectMapper mapper = new ObjectMapper();
         List<VolumesUpdateDTO> result = mapper.readValue(resource.getFile(), new TypeReference<List<VolumesUpdateDTO>>() {});
         System.out.println(result.toString());
@@ -49,14 +49,14 @@ public class JSONTest {
         FileSystemResourceLoader rl = new FileSystemResourceLoader();
         Resource resource = rl.getResource("classpath:serverProcess.txt");
         ObjectMapper mapper = new ObjectMapper();
-        JsonNode node = mapper.readTree(resource.getFile());
         ServerUpdateDTO result = mapper.readValue(resource.getFile(), new TypeReference<ServerUpdateDTO>() {});
         System.out.println(result.toString());
         assertEquals(8, result.getRam().getCapacity());
-        assertEquals(1.4561652284152626, result.getCpuUsage().getCookedValue());
-        assertEquals(21912167402343l, result.getCpuUsage().getRawValue());
-        assertEquals(132493982124985873l, result.getCpuUsage().getSecondValue());
+        assertEquals(0.067164858498602875, result.getCpuUsage().getCookedValue());
+        assertEquals(906174511718l, result.getCpuUsage().getRawValue());
+        assertEquals(7.8718795776367188, result.getRamUsage());
+        assertEquals(132499325591112792l, result.getCpuUsage().getSecondValue());
         assertEquals("\\\\nucwin\\processor(_total)\\% processor time", result.getCpuUsage().getPath());
-        assertEquals( "/Date(1604924612498)/", result.getCpuUsage().getTimestamp());
+        assertEquals( "/Date(1605458959111)/", result.getCpuUsage().getTimestamp());
     }
 }

@@ -2,9 +2,11 @@ package com.prose.crhen.SSServer.model;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.sql.Date;
 import java.util.Set;
 
 @Entity
@@ -26,6 +28,10 @@ public class Volume {
 	private String desc;
 	@Getter
 	@Setter
+	@Column(name = "date")
+	private Date date;
+	@Getter
+	@Setter
 	@Column(name = "full_capacity")
 	private double fullCapacity;
 	@Getter
@@ -40,6 +46,7 @@ public class Volume {
 	@Setter
 	@Column(name = "latest_storage_ratio")
 	private double latestStorageRatio;
+	@JsonIgnore
 	@Getter
 	@Setter
 	@ManyToOne(fetch = FetchType.EAGER, optional = false)
@@ -65,14 +72,30 @@ public class Volume {
 		this.server = server;
 	}
 
+	public Volume(String name, String desc, Date date, double fullCapacity, double latestStorageReserved, double latestStorageFree, double latestStorageRatio, Server server) {
+		this.name = name;
+		this.desc = desc;
+		this.date = date;
+		this.fullCapacity = fullCapacity;
+		this.latestStorageReserved = latestStorageReserved;
+		this.latestStorageFree = latestStorageFree;
+		this.latestStorageRatio = latestStorageRatio;
+		this.server = server;
+	}
+
 	@Override
 	public String toString() {
-		return "Volume [id=" + id + ", name=" + name + ", desc=" + desc + ", fullCapacity=" + fullCapacity
-				+ ", latestStorageReserved=" + latestStorageReserved + ", latestStorageFree=" + latestStorageFree
-				+ ", latestStorageRatio=" + latestStorageRatio + ", server=" + server + "]";
+		return "Volume{" +
+				"id=" + id +
+				", name='" + name + '\'' +
+				", desc='" + desc + '\'' +
+				", date=" + date +
+				", fullCapacity=" + fullCapacity +
+				", latestStorageReserved=" + latestStorageReserved +
+				", latestStorageFree=" + latestStorageFree +
+				", latestStorageRatio=" + latestStorageRatio +
+				", server=" + server +
+				", volumeHistories=" + volumeHistories +
+				'}';
 	}
-	
-	
-
-
 }
