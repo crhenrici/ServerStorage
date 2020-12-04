@@ -2,10 +2,7 @@ package com.prose.crhen.SSServer.controller;
 
 import com.google.common.base.Preconditions;
 import com.prose.crhen.SSServer.business.ServerService;
-import com.prose.crhen.SSServer.dto.ServerQueryDTO;
-import com.prose.crhen.SSServer.dto.ServerUpdateDTO;
-import com.prose.crhen.SSServer.dto.VolumeQueryDTO;
-import com.prose.crhen.SSServer.dto.VolumesUpdateDTO;
+import com.prose.crhen.SSServer.dto.*;
 import com.prose.crhen.SSServer.model.Server;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,6 +19,13 @@ public class ServerController {
 
 	@Autowired
 	private ServerService service;
+
+	@GetMapping("/overview")
+	@ResponseBody
+	public ServerOverviewDTO getServerOverview() {
+		ServerOverviewDTO serverOverviewDTO = service.getServerOverviewDTO();
+		return  serverOverviewDTO;
+	}
 
 	@GetMapping("/servers")
 	@ResponseBody

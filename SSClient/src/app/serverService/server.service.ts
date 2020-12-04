@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map} from 'rxjs/operators';
+import { ServerOverviewDTO } from '../model/serverOverviewDTO';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -26,6 +27,14 @@ export class ServerService {
       catchError(this.handleError)
     );
   }
+
+  public getOverview(): Observable<any> {
+    const url = `${this.httpUrl}/servers`;
+    return this.http.get<ServerOverviewDTO>(url, httpOptions).pipe(
+      map(res => res as ServerOverviewDTO),
+      catchError(this.handleError)
+    );
+    }
 
   private handleError(error: HttpErrorResponse) {
     console.error('Error message:', error.error.message);
