@@ -1,6 +1,8 @@
 package com.prose.crhen.SSServer.business;
 
+import com.prose.crhen.SSServer.dto.ServerQueryDTO;
 import com.prose.crhen.SSServer.dto.ServerUpdateDTO;
+import com.prose.crhen.SSServer.dto.VolumeQueryDTO;
 import com.prose.crhen.SSServer.dto.VolumesUpdateDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,7 @@ import com.prose.crhen.SSServer.model.ServerHistory;
 import com.prose.crhen.SSServer.model.Volume;
 import com.prose.crhen.SSServer.model.VolumeHistory;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -33,22 +36,49 @@ public class ServerService {
 	@Autowired
 	private ServerHistoryRepository serverHistoryRepo;
 	
-	public List<Server> getServers() {
+	public List<ServerQueryDTO> getServers() {
 		List<Server> servers = serverRepository.findAll();
-		return servers;
+		List<ServerQueryDTO> serverQueryDTOS = new ArrayList<>();
+		for (Server server : servers) {
+			ServerQueryDTO createdServerQuery = createServerQuery(server);
+			serverQueryDTOS.add(createdServerQuery);
+		}
+		return serverQueryDTOS;
 	}
-	
-	public List<Volume> getVolumes() {
+
+	private ServerQueryDTO createServerQuery(Server server) {
+		ServerQueryDTO serverQueryDTO = calcServerDetails(server);
+		serverQueryDTO.setName(server.getName());
+		serverQueryDTO.setRam(server.getRam());
+		serverQueryDTO.setCpuUsage(server.getCpuUsage());
+		serverQueryDTO.setVolumes(server.getVolumes());
+		serverQueryDTO.setServerHistories(server.getServerHistories());
+		return serverQueryDTO;
+	}
+
+	public List<VolumeQueryDTO> getVolumes() {
 		List<Volume> volumes = volumeRepository.findAll();
-		return volumes;
+		List<VolumeQueryDTO> volumeQueryDTOS = new ArrayList<>();
+		for (Volume volume : volumes) {
+			VolumeQueryDTO createdVolumeQuery = createVolumeQuery(volume);
+			volumeQueryDTOS.add(createdVolumeQuery);
+		}
+		return volumeQueryDTOS;
+	}
+
+	private VolumeQueryDTO createVolumeQuery(Volume volume) {
+		VolumeQueryDTO volumeQueryDTO = new VolumeQueryDTO(volume.getName(), volume.getDesc(), volume.getFullCapacity(),
+				volume.getLatestStorageReserved(), volume.getLatestStorageFree(), volume.getLatestStorageRatio(),
+				volume.getServer(), volume.getVolumeHistories());
+		return volumeQueryDTO;
 	}
 
 	public void saveServerDTO(ServerUpdateDTO server) {
 		Optional<Server> serverOptional = Optional.ofNullable(this.serverRepository.findByName(server.getSystemName()));
 		if (serverOptional.isPresent()) {
 			Server updatedServer = serverOptional.get();
-			updatedServer.setRam(server.getRam());
-			updatedServer.setCpuUsage(server.getCpuUsage());
+			updatedServer.setRam(server.getRam().getCapacity());
+			updatedServer.setCpuUsage(server.getCpuUsage().getCookedValue());
 			saveServerWithHistory(serverOptional.get(), updatedServer);
 		}
 	}
@@ -56,7 +86,7 @@ public class ServerService {
 	public void saveVolumeDTO(VolumesUpdateDTO newServer) {
 		Optional<Server> serverFound = Optional.ofNullable(this.serverRepository.findByName(newServer.getSystemName()));
 		if (serverFound.isPresent()) {
-			updateServer(serverFound.get(), newServer);
+			checkForVolume(serverFound.get(), newServer);
 			} else {
 			Server createdServer = createServerToBeInserted(newServer);
 			Volume createdVolume = createVolumeToBeInserted(newServer, createdServer);
@@ -65,8 +95,7 @@ public class ServerService {
 	}
 
 	private Server createServerToBeInserted(VolumesUpdateDTO newVolume) {
-		double reserved = Double.parseDouble(newVolume.getCapacityGB()) - Double.parseDouble(newVolume.getFreeSpaceGB());
-		Server insertedServer = new Server(newVolume.getSystemName(), Double.parseDouble(newVolume.getCapacityGB()), reserved, Double.parseDouble(newVolume.getFreeSpaceGB()), Double.parseDouble(newVolume.getFreeSpacePercent()));
+		Server insertedServer = new Server(newVolume.getSystemName());
 		return insertedServer;
 	}
 
@@ -81,7 +110,7 @@ public class ServerService {
 		volumeRepository.save(insertedVolume);
 	}
 
-	private void updateServer(Server server, VolumesUpdateDTO newVolume) {
+	private void checkForVolume(Server server, VolumesUpdateDTO newVolume) {
 		Optional<Volume> volumeOptional = Optional.ofNullable(volumeRepository.findByName(newVolume.getName()));
 		Volume insertedVolume = null;
 		if (volumeOptional.isPresent()) {
@@ -91,12 +120,10 @@ public class ServerService {
 		} else {
 			insertVolume(server, newVolume);
 		}
-		Server newServer = calcServerDetails(server);
-		saveServerWithHistory(server, newServer);
 	}
 
 	private void saveServerWithHistory(Server server, Server newServer) {
-		ServerHistory serverHistory = new ServerHistory(server.getLatestStorageReserved(), server.getLatestStorageFree(), server.getLatestStorageRatio(), server);
+		ServerHistory serverHistory = new ServerHistory(server.getRam(),server.getCpuUsage(), server);
 		serverRepository.save(newServer);
 		serverHistoryRepo.save(serverHistory);
 	}
@@ -133,15 +160,15 @@ public class ServerService {
 		volumeRepository.save(insertedVolume);
 	}
 
-	public Server calcServerDetails(Server server) {
+	public ServerQueryDTO calcServerDetails(Server server) {
 		 List<Volume> volumes = volumeRepository.findByServer(server);
-
-		 server.setLatestStorageFree(addServerStorageFromVolumes(volumes));
-		 server.setLatestStorageReserved(addServerReservedFromVolumes(volumes));
-		 server.setFullCapacity(addServerCapacityFromVolumes(volumes));
-		 server.setLatestStorageRatio(calculateStorageRatio(server));
+		 ServerQueryDTO serverQueryDTO = new ServerQueryDTO();
+		 serverQueryDTO.setLatestStorageFree(addServerStorageFromVolumes(volumes));
+		 serverQueryDTO.setLatestStorageReserved(addServerReservedFromVolumes(volumes));
+		 serverQueryDTO.setFullCapacity(addServerCapacityFromVolumes(volumes));
+		 serverQueryDTO.setLatestStorageRatio(calculateStorageRatio(serverQueryDTO));
 		 
-		 return server;
+		 return serverQueryDTO;
 	}
 
 	private double addServerStorageFromVolumes(List<Volume> volumes) {
@@ -168,7 +195,7 @@ public class ServerService {
 		return fullCapacity;
 	}
 
-	private double calculateStorageRatio(Server server) {
+	private double calculateStorageRatio(ServerQueryDTO server) {
 		double storageRatio = (server.getLatestStorageReserved()/server.getFullCapacity()) * 100;
 		return storageRatio;
 	}

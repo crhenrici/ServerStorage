@@ -2,8 +2,13 @@ package com.prose.crhen.SSServer.business;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
+import com.prose.crhen.SSServer.dto.ServerQueryDTO;
+import com.prose.crhen.SSServer.dto.VolumeQueryDTO;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -48,6 +53,21 @@ public class ServerServiceTest {
 
 	VolumesUpdateDTO updatedVolume;
 
+	Volume volume;
+
+	Volume volume2;
+
+	Volume volume3;
+
+	Volume volume4;
+
+	Volume volume5;
+
+	Server server;
+
+	Server server2;
+
+	ServerHistory serverHistory;
 	
 
 	void setUpNewServerTest() {
@@ -169,6 +189,145 @@ public class ServerServiceTest {
 		updatedVolume.setFreeSpacePercent("25");
 	}
 
+	void setUpCalcServerDetailsTest() {
+		server = new Server();
+		server.setRam(4);
+		server.setCpuUsage(8.00);
+		server.setName("ServerTest");
+
+		volume = new Volume();
+		volume.setName("VolumeTest");
+		volume.setDesc("Some Volume");
+		volume.setFullCapacity(50);
+		volume.setLatestStorageFree(10);
+		volume.setLatestStorageReserved(40);
+		volume.setLatestStorageRatio(80);
+		volume.setServer(server);
+
+		volume2 = new Volume();
+		volume2.setName("Volume2Test");
+		volume2.setDesc("Some Volume2");
+		volume2.setFullCapacity(100);
+		volume2.setLatestStorageFree(50);
+		volume2.setLatestStorageReserved(50);
+		volume2.setLatestStorageRatio(50);
+		volume2.setServer(server);
+
+		volume3 = new Volume();
+		volume3.setName("Volume3Test");
+		volume3.setDesc("Some Volume3");
+		volume3.setFullCapacity(150);
+		volume3.setLatestStorageFree(50);
+		volume3.setLatestStorageReserved(100);
+		volume3.setLatestStorageRatio(66.67);
+		volume3.setServer(server);
+
+		serverRepository.save(server);
+		volumeRepository.save(volume);
+		volumeRepository.save(volume2);
+		volumeRepository.save(volume3);
+
+		Set<Volume> volumeList = new LinkedHashSet<>();
+		volumeList.add(volume);
+		volumeList.add(volume2);
+		volumeList.add(volume3);
+		server.setVolumes(volumeList);
+	}
+
+	void setUpGetServersTest() {
+		server = new Server();
+		server.setRam(4);
+		server.setCpuUsage(8.00);
+		server.setName("ServerTest");
+
+		serverHistory = new ServerHistory();
+		serverHistory.setServer(server);
+		serverHistory.setRam(server.getRam());
+		serverHistory.setCpuUsage(server.getCpuUsage());
+
+		Set<ServerHistory> serverHistories = new LinkedHashSet<>();
+		serverHistories.add(serverHistory);
+		server.setServerHistories(serverHistories);
+
+		volume = new Volume();
+		volume.setName("VolumeTest");
+		volume.setDesc("Some Volume");
+		volume.setFullCapacity(50);
+		volume.setLatestStorageFree(10);
+		volume.setLatestStorageReserved(40);
+		volume.setLatestStorageRatio(80);
+		volume.setServer(server);
+
+		volume2 = new Volume();
+		volume2.setName("Volume2Test");
+		volume2.setDesc("Some Volume2");
+		volume2.setFullCapacity(100);
+		volume2.setLatestStorageFree(50);
+		volume2.setLatestStorageReserved(50);
+		volume2.setLatestStorageRatio(50);
+		volume2.setServer(server);
+
+		volume3 = new Volume();
+		volume3.setName("Volume3Test");
+		volume3.setDesc("Some Volume3");
+		volume3.setFullCapacity(150);
+		volume3.setLatestStorageFree(50);
+		volume3.setLatestStorageReserved(100);
+		volume3.setLatestStorageRatio(66.67);
+		volume3.setServer(server);
+
+		Set<Volume> volumeList = new LinkedHashSet<>();
+		volumeList.add(volume);
+		volumeList.add(volume2);
+		volumeList.add(volume3);
+		server.setVolumes(volumeList);
+
+		serverRepository.save(server);
+		volumeRepository.save(volume);
+		volumeRepository.save(volume2);
+		volumeRepository.save(volume3);
+
+		server2 = new Server();
+		server2.setName("TestServer2");
+		server2.setCpuUsage(16.00);
+		server2.setRam(4);
+
+		ServerHistory serverHistory2 = new ServerHistory();
+		serverHistory2.setServer(server2);
+		serverHistory2.setRam(server2.getRam());
+		serverHistory2.setCpuUsage(server2.getCpuUsage());
+
+		Set<ServerHistory> serverHistories2 = new LinkedHashSet<>();
+		server2.setServerHistories(serverHistories2);
+
+		volume4 = new Volume();
+		volume4.setName("Volume4Test");
+		volume4.setDesc("Some Volume4");
+		volume4.setFullCapacity(200);
+		volume4.setLatestStorageFree(50);
+		volume4.setLatestStorageReserved(150);
+		volume4.setLatestStorageRatio(75);
+		volume4.setServer(server2);
+
+		volume5 = new Volume();
+		volume5.setName("Volume5Test");
+		volume5.setDesc("Some Volume5");
+		volume5.setFullCapacity(150);
+		volume5.setLatestStorageFree(25);
+		volume5.setLatestStorageReserved(125);
+		volume5.setLatestStorageRatio(83.33);
+		volume5.setServer(server2);
+
+		Set<Volume> volumeList2 = new LinkedHashSet<>();
+		volumeList.add(volume4);
+		volumeList.add(volume5);
+		server2.setVolumes(volumeList2);
+
+		serverRepository.save(server2);
+		volumeRepository.save(volume4);
+		volumeRepository.save(volume5);
+	}
+
 	@Test
 	void saveNewServerTest() {
 		setUpNewServerTest();
@@ -184,9 +343,8 @@ public class ServerServiceTest {
 		assertEquals(2, volumeRepository.count());
 		double fullCapacity = Double.parseDouble(newVolume.getCapacityGB()) + Double.parseDouble(secondVolume.getCapacityGB());
 		Server server = serverRepository.findByName("TestServer");
-		assertEquals(fullCapacity, server.getFullCapacity());
 		assertEquals(2, server.getVolumes().size());
-		assertEquals(1, server.getServerHistories().size());
+		assertEquals(0, server.getServerHistories().size());
 	}
 
 	@Test
@@ -198,20 +356,52 @@ public class ServerServiceTest {
 		Server testingServer = serverRepository.findByName("TestingServer");
 		assertEquals(0, testingServer.getServerHistories().size());
 		List<ServerHistory> serverHistories = serverHistoryRepository.findAll();
-		assertEquals(1, serverHistoryRepository.count());
-		assertEquals(1, serverHistories.size());
+		assertEquals(0, serverHistoryRepository.count());
+		assertEquals(0, serverHistories.size());
 	}
 
 	@Test
 	void saveExistingServerAndExistingVolume() {
 		setUpExistingServerAndExistingVolumeTest();
 		service.saveVolumeDTO(updatedVolume);
-		List<Volume> volumes = service.getVolumes();
-		Volume volume = volumes.get(0);
+		List<VolumeQueryDTO> volumes = service.getVolumes();
+		VolumeQueryDTO volume = volumes.get(0);
 		assertEquals(25, volume.getLatestStorageFree());
 		assertEquals(75, volume.getLatestStorageReserved());
 		assertEquals(3, volumeRepository.count());
 		assertEquals(1, volumeHistoryRepository.count());
+	}
+
+	@Test
+	void calcServerDetailsTest() {
+		setUpCalcServerDetailsTest();
+		ServerQueryDTO testServer = service.calcServerDetails(server);
+		assertEquals(300, testServer.getFullCapacity());
+		assertEquals(110, testServer.getLatestStorageFree());
+		assertEquals(190, testServer.getLatestStorageReserved());
+		assertEquals(63.33333333333333, testServer.getLatestStorageRatio());
+	}
+
+	@Test
+	void getServersTest() {
+		setUpGetServersTest();
+		List<ServerQueryDTO> serverQueryDTO = service.getServers();
+		assertEquals(2, serverQueryDTO.size());
+		assertEquals(300, serverQueryDTO.get(0).getFullCapacity());
+		assertEquals(server.getName(), serverQueryDTO.get(0).getName());
+		assertEquals(server.getRam(), serverQueryDTO.get(0).getRam());
+		assertEquals(server2.getName(), serverQueryDTO.get(1).getName());
+		assertEquals(350, serverQueryDTO.get(1).getFullCapacity());
+		assertEquals(275, serverQueryDTO.get(1).getLatestStorageReserved());
+	}
+
+	@Test
+	void getVolumesTest() {
+		setUpGetServersTest();
+		List<VolumeQueryDTO> volumeList = service.getVolumes();
+		assertEquals(5, volumeList.size());
+		assertEquals("Volume5Test", volumeList.get(4).getName());
+		assertEquals("VolumeTest", volumeList.get(0).getName());
 	}
 
 	@AfterEach

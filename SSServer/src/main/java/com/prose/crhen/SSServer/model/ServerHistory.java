@@ -16,16 +16,12 @@ public class ServerHistory {
     private long id;
     @Getter
     @Setter
-    @Column(name = "storage_free")
-    private double storageFree;
+    @Column(name = "ram")
+    private int ram;
     @Getter
     @Setter
-    @Column(name = "storage_reserved")
-    private double storageReserved;
-    @Getter
-    @Setter
-    @Column(name = "storage_ratio")
-    private double storageRatio;
+    @Column(name = "cpu_usage")
+    private double cpuUsage;
     @Getter
     @Setter
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
@@ -35,10 +31,9 @@ public class ServerHistory {
     public ServerHistory() {
     }
 
-    public ServerHistory(double storageFree, double storageReserved, double storageRatio, Server server) {
-        this.storageFree = storageFree;
-        this.storageReserved = storageReserved;
-        this.storageRatio = storageRatio;
+    public ServerHistory(int ram, double cpuUsage,Server server) {
+        this.ram = ram;
+        this.cpuUsage = cpuUsage;
         this.server = server;
     }
 
@@ -46,9 +41,8 @@ public class ServerHistory {
     public String toString() {
         return "ServerHistory{" +
                 "id=" + id +
-                ", storageFree=" + storageFree +
-                ", storageReserved=" + storageReserved +
-                ", storageRatio=" + storageRatio +
+                ", ram=" + ram +
+                ", cpuUsage=" + cpuUsage +
                 ", server=" + server +
                 '}';
     }

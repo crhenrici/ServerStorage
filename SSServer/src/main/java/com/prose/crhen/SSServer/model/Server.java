@@ -5,6 +5,7 @@ import javax.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -20,22 +21,6 @@ public class Server {
 	@Setter
 	@Column(name = "name")
 	private String name;
-	@Getter
-	@Setter
-	@Column(name = "full_capacity")
-	private double fullCapacity;
-	@Getter
-	@Setter
-	@Column(name = "latest_storage_reserved")
-	private double latestStorageReserved;
-	@Getter
-	@Setter
-	@Column(name = "latest_storage_free")
-	private double latestStorageFree;
-	@Getter
-	@Setter
-	@Column(name = "latest_storage_ratio")
-	private double latestStorageRatio;
 	@Getter
 	@Setter
 	@Column(name = "ram", nullable = true)
@@ -59,23 +44,33 @@ public class Server {
 
 	}
 
-	public Server(String name, double fullCapacity, double latestStorageReserved, double latestStorageFree, double latestStorageRatio) {
+	public Server(String name) {
 		this.name = name;
-		this.fullCapacity = fullCapacity;
-		this.latestStorageReserved = latestStorageReserved;
-		this.latestStorageFree = latestStorageFree;
-		this.latestStorageRatio = latestStorageRatio;
 	}
 
-	public Server(String name, double fullCapacity, double latestStorageReserved, double latestStorageFree, double latestStorageRatio, int ram, double cpuUsage) {
+	public Server(String name, int ram, double cpuUsage) {
 		super();
 		this.name = name;
-		this.fullCapacity = fullCapacity;
-		this.latestStorageReserved = latestStorageReserved;
-		this.latestStorageFree = latestStorageFree;
-		this.latestStorageRatio = latestStorageRatio;
 		this.ram = ram;
 		this.cpuUsage = cpuUsage;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Server server = (Server) o;
+		return id == server.id &&
+				ram == server.ram &&
+				Double.compare(server.cpuUsage, cpuUsage) == 0 &&
+				Objects.equals(name, server.name) &&
+				Objects.equals(volumes, server.volumes) &&
+				Objects.equals(serverHistories, server.serverHistories);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, name, ram, cpuUsage, volumes, serverHistories);
 	}
 
 	@Override
@@ -83,12 +78,10 @@ public class Server {
 		return "Server{" +
 				"id=" + id +
 				", name='" + name + '\'' +
-				", fullCapacity=" + fullCapacity +
-				", storageReserved=" + latestStorageReserved +
-				", storageFree=" + latestStorageFree +
-				", storageRatio=" + latestStorageRatio +
 				", ram=" + ram +
 				", cpuUsage=" + cpuUsage +
+				", volumes=" + volumes +
+				", serverHistories=" + serverHistories +
 				'}';
 	}
 }

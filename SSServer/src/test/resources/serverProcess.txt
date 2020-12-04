@@ -1,0 +1,19 @@
+{
+    "cpuusage":  {
+                     "Path":  "\\\\nucwin\\processor(_total)\\% processor time",
+                     "InstanceName":  "_total",
+                     "CookedValue":  1.4561652284152626,
+                     "RawValue":  21912167402343,
+                     "SecondValue":  132493982124985873,
+                     "MultipleCount":  1,
+                     "CounterType":  558957824,
+                     "Timestamp":  "\/Date(1604924612498)\/",
+                     "Timestamp100NSec":  132494018124980000,
+                     "Status":  0,
+                     "DefaultScale":  0,
+                     "TimeBase":  10000000
+                 },
+    "ram":  {
+                "Capacity":  8
+            }
+}

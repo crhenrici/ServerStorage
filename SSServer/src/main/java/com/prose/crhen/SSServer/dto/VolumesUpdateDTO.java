@@ -16,7 +16,7 @@ public class VolumesUpdateDTO {
     private String ram;
     private String cpuUsage;
 
-    @JsonProperty("volumes.SystemName")
+    @JsonProperty("SystemName")
     public String getSystemName() {
         return systemName;
     }
@@ -25,7 +25,7 @@ public class VolumesUpdateDTO {
         this.systemName = systemName;
     }
 
-    @JsonProperty("volumes.Name")
+    @JsonProperty("Name")
     public String getName() {
         return name;
     }
@@ -34,7 +34,7 @@ public class VolumesUpdateDTO {
         this.name = name;
     }
 
-    @JsonProperty("volumes.DriveLetter")
+    @JsonProperty("DriveLetter")
     public String getDriveLetter() {
         return driveLetter;
     }
@@ -43,7 +43,7 @@ public class VolumesUpdateDTO {
         this.driveLetter = driveLetter;
     }
 
-    @JsonProperty("volumes.CapacityGB")
+    @JsonProperty("CapacityGB")
     public String getCapacityGB() {
         return capacityGB;
     }
@@ -52,7 +52,7 @@ public class VolumesUpdateDTO {
         this.capacityGB = capacityGB;
     }
 
-    @JsonProperty("volumes.FreeSpaceGB")
+    @JsonProperty("FreeSpaceGB")
     public String getFreeSpaceGB() {
         return freeSpaceGB;
     }
@@ -61,7 +61,7 @@ public class VolumesUpdateDTO {
         this.freeSpaceGB = freeSpaceGB;
     }
 
-    @JsonProperty("volumes.FreeSpacePercent")
+    @JsonProperty("FreeSpacePercent")
     public String getFreeSpacePercent() {
         return freeSpacePercent;
     }
@@ -70,7 +70,7 @@ public class VolumesUpdateDTO {
       this.freeSpacePercent = freeSpacePercent != null ? freeSpacePercent : "0";
     }
 
-    @JsonProperty("volumes.Date")
+    @JsonProperty("Date")
     public String getDate() {
         return date;
     }

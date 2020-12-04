@@ -10,10 +10,6 @@ CREATE TABLE server(
     id int UNSIGNED NOT NULL AUTO_INCREMENT,
     name varchar(50),
     desc varchar(255),
-    full_capacity double,
-    storage_reserved double,
-    storage_free double,
-    storage_ratio double,
     ram int,
     cpu_usage double,
     PRIMARY KEY (id)
@@ -54,9 +50,6 @@ DROP TABLE IF EXISTS server_history;
 CREATE TABLE server_history(
     id int UNSIGNED NOT NULL AUTO_INCREMENT,
 	server_id int UNSIGNED NOT NULL,
-	storage_free double,
-	storage_reserved double,
-	storage_ratio double,
 	PRIMARY KEY (id),
 	CONSTRAINT `fk_server_server_history`
 		FOREIGN KEY (server_id) REFERENCES server (id)

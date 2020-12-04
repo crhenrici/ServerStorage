@@ -1,7 +1,11 @@
 package com.prose.crhen.SSServer.rest;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.prose.crhen.SSServer.dto.CpuUsageDTO;
+import com.prose.crhen.SSServer.dto.RamDTO;
+import com.prose.crhen.SSServer.dto.ServerUpdateDTO;
 import com.prose.crhen.SSServer.dto.VolumesUpdateDTO;
 import org.junit.jupiter.api.Test;
 import org.springframework.core.io.FileSystemResourceLoader;
@@ -38,5 +42,21 @@ public class JSONTest {
         assertEquals(5, result.size());
         VolumesUpdateDTO o = result.get(0);
         o.getSystemName().equals("CHWIWS08");
+    }
+
+    @Test
+    void testProcessDataWithObjectServer() throws IOException {
+        FileSystemResourceLoader rl = new FileSystemResourceLoader();
+        Resource resource = rl.getResource("classpath:serverProcess.txt");
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode node = mapper.readTree(resource.getFile());
+        ServerUpdateDTO result = mapper.readValue(resource.getFile(), new TypeReference<ServerUpdateDTO>() {});
+        System.out.println(result.toString());
+        assertEquals(8, result.getRam().getCapacity());
+        assertEquals(1.4561652284152626, result.getCpuUsage().getCookedValue());
+        assertEquals(21912167402343l, result.getCpuUsage().getRawValue());
+        assertEquals(132493982124985873l, result.getCpuUsage().getSecondValue());
+        assertEquals("\\\\nucwin\\processor(_total)\\% processor time", result.getCpuUsage().getPath());
+        assertEquals( "/Date(1604924612498)/", result.getCpuUsage().getTimestamp());
     }
 }
