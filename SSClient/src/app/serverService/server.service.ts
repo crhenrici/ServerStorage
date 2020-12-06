@@ -29,7 +29,7 @@ export class ServerService {
   }
 
   public getOverview(): Observable<any> {
-    const url = `${this.httpUrl}/servers`;
+    const url = `${this.httpUrl}/overview`;
     return this.http.get<ServerOverviewDTO>(url, httpOptions).pipe(
       map(res => res as ServerOverviewDTO),
       catchError(this.handleError)

@@ -70,6 +70,7 @@ public class ServerService {
 
 	private ServerQueryDTO createServerQuery(Server server) {
 		ServerQueryDTO serverQueryDTO = calcServerDetails(server);
+		serverQueryDTO.setId(server.getId());
 		serverQueryDTO.setName(server.getName());
 		serverQueryDTO.setRam(server.getRam());
 		serverQueryDTO.setRamUsage(server.getRamUsage());

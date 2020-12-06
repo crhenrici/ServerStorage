@@ -8,11 +8,11 @@
             <th>Free capacity [%]</th>
         </tr>
         <tr>
-            <td>{{ numberOfServers }}</td>
-            <td>{{ server.fullCapacity}}</td>
-            <td>{{ server.latestStorageReserved }}</td>
-            <td>{{ server.latestStorageFree }}</td>
-            <td>{{ server.latestStorageRatio }}</td>
+            <td>{{ server.numberOfServers }}</td>
+            <td>{{ server.totalCapacity}}</td>
+            <td>{{ server.totalCapacityUsed }}</td>
+            <td>{{ server.totalCapacityFree }}</td>
+            <td>{{ server.totalUsedCapacityRatio }}</td>
         </tr>
     </table>
     <button mat-stroked-button  [routerLink]="['/servers']">View Details</button>

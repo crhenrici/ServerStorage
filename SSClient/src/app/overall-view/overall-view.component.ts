@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { data } from '../mockdata';
 import { Server } from '../model/server';
+import { ServerOverviewDTO } from '../model/serverOverviewDTO';
 import { ServerService } from '../serverService/server.service';
 
 @Component({
@@ -10,28 +11,15 @@ import { ServerService } from '../serverService/server.service';
 })
 export class OverallViewComponent implements OnInit {
 
-  server: Server;
-
-  numberOfServers: number;
+  server: ServerOverviewDTO;
 
   constructor(private service: ServerService) { }
 
   ngOnInit() {
-    this.service.getALL().subscribe(data => {
-      const servers = data;
-      this.numberOfServers = servers.length;
-      this.countUpDetails(servers);
+    this.service.getOverview().subscribe(data => {
+      this.server = data;
     });
   }
 
-  countUpDetails(servers: Server[]) {
-    this.server = servers[0];
-    servers.forEach(data => {
-      this.server.fullCapacity += data.fullCapacity;
-      this.server.latestStorageReserved += data.latestStorageReserved;
-      this.server.latestStorageFree += data.latestStorageFree;
-    });
-    this.server.latestStorageRatio = (this.server.latestStorageReserved / this.server.fullCapacity) * 100;
-  }
 
 }
