@@ -28,14 +28,9 @@
         <mat-header-cell *matHeaderCellDef mat-sort-header>Storage Ratio</mat-header-cell>
         <mat-cell *matCellDef="let volume"> {{ volume.latestStorageRatio }}</mat-cell>
       </ng-container>
-      <ng-container matColumnDef="parentServer">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Parent Server</mat-header-cell>
-        <mat-cell *matCellDef="let volume">{{ volume.server.name }}</mat-cell>
-      </ng-container>
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns; let volume" [ngClass]="{'data-affected': row.storageRatio >= 75}" ></mat-row>
     </mat-table>
-    <button class="button" mat-stroked-button (click)="generatePDF()">Generate PDF</button>
   </div>
   
   
