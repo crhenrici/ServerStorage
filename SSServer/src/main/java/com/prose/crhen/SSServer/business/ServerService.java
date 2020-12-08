@@ -90,6 +90,16 @@ public class ServerService {
 		return volumeQueryDTOS;
 	}
 
+	public List<VolumeQueryDTO> getVolumesFromServer(Server server) {
+		List<Volume> volumes = volumeRepository.findByServer(server);
+		List<VolumeQueryDTO> volumeQueryDTOS = new ArrayList<>();
+		for (Volume volume : volumes) {
+			VolumeQueryDTO createdVolumeQuery = createVolumeQuery(volume);
+			volumeQueryDTOS.add(createdVolumeQuery);
+		}
+		return volumeQueryDTOS;
+	}
+
 	private VolumeQueryDTO createVolumeQuery(Volume volume) {
 		VolumeQueryDTO volumeQueryDTO = new VolumeQueryDTO(volume.getName(), volume.getDesc(), volume.getDate() , volume.getFullCapacity(),
 				volume.getLatestStorageReserved(), volume.getLatestStorageFree(), volume.getLatestStorageRatio(),

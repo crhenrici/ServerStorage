@@ -1,5 +1,7 @@
 package com.prose.crhen.SSServer.controller;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Preconditions;
 import com.prose.crhen.SSServer.business.ServerService;
 import com.prose.crhen.SSServer.dto.*;
@@ -29,9 +31,16 @@ public class ServerController {
 
 	@GetMapping("/servers")
 	@ResponseBody
-	public List<ServerQueryDTO> getAllVolumes() {
+	public List<ServerQueryDTO> getAllServers() {
 		List<ServerQueryDTO> serverList = service.getServers();
 		return serverList;
+	}
+
+	@GetMapping("/volumes")
+	@ResponseBody
+	public List<VolumeQueryDTO> getAllVolumesFromServer(@RequestParam(value = "server") Server server) {
+		List<VolumeQueryDTO> volumeList = service.getVolumesFromServer(server);
+		return volumeList;
 	}
 	
 	@PostMapping("/save/volume")
