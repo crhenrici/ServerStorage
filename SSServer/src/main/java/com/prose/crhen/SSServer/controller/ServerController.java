@@ -38,8 +38,8 @@ public class ServerController {
 
 	@GetMapping("/volumes")
 	@ResponseBody
-	public List<VolumeQueryDTO> getAllVolumesFromServer(@RequestParam(value = "server") Server server) {
-		List<VolumeQueryDTO> volumeList = service.getVolumesFromServer(server);
+	public List<VolumeQueryDTO> getAllVolumesFromServer(@RequestParam String serverName) {
+		List<VolumeQueryDTO> volumeList = service.getVolumesFromServer(serverName);
 		return volumeList;
 	}
 	

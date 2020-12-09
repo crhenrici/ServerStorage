@@ -90,7 +90,8 @@ public class ServerService {
 		return volumeQueryDTOS;
 	}
 
-	public List<VolumeQueryDTO> getVolumesFromServer(Server server) {
+	public List<VolumeQueryDTO> getVolumesFromServer(String serverName) {
+		Server server = serverRepository.findByName(serverName);
 		List<Volume> volumes = volumeRepository.findByServer(server);
 		List<VolumeQueryDTO> volumeQueryDTOS = new ArrayList<>();
 		for (Volume volume : volumes) {
