@@ -16,5 +16,6 @@
     "ram":  {
                 "Capacity":  8
             },
+    "ramusage":  7.32,
     "systemname":  "CHWIWS08"
 }
