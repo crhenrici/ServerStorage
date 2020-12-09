@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { data } from '../mockdata';
-import { Server } from '../model/server';
 import { ServerOverviewDTO } from '../model/serverOverviewDTO';
 import { ServerService } from '../serverService/server.service';
 

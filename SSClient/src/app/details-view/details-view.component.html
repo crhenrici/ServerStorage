@@ -1,9 +1,5 @@
 <div class="container">
-    <h2>Detailed view {{ volume.name }} </h2>
-    <!-- <div class="row">
-      <label class="col" for="id">Id</label>
-      <span class="col">{{ volume.id }}</span>
-    </div> -->
+    <h2>{{ volume.server.name }} - drive {{ volume.name }} </h2>
     <mat-divider></mat-divider>
     <div class="row">
       <label class="col" for="name">Name</label>
@@ -17,32 +13,27 @@
     </div> -->
     <mat-divider></mat-divider>
     <div class="row">
-      <label class="col" for="fullCapacity">Full Capacity (in GB)</label>
+      <label class="col" for="fullCapacity">Overall Capacity [GB]</label>
       <span class="col">{{ volume.fullCapacity }}</span>
     </div>
     <mat-divider></mat-divider>
     <div class="row">
-      <label class="col" for="storageReserved">Storage Reserved (in GB)</label>
+      <label class="col" for="storageReserved">Storage used [GB]</label>
       <span class="col">{{ volume.latestStorageReserved }}</span>
     </div>
     <mat-divider></mat-divider>
     <div class="row">
-      <label class="col" for="storageFree">Storage Free (in GB)</label>
+      <label class="col" for="storageFree">Storage Free [GB]</label>
       <span class="col">{{ volume.latestStorageFree }}</span>
     </div>
     <mat-divider></mat-divider>
     <div class="row">
-      <label class="col" for="storageRatio">Storage Ratio (in GB)</label>
+      <label class="col" for="storageRatio">Free capacity [%]</label>
       <span class="col">{{ volume.latestStorageRatio }}</span>
     </div>
     <mat-divider></mat-divider>
     <div class="row">
-      <label for="ram" class="col">Ram (in GB)</label>
-      <span class="col">{{ volume.server.ram }}</span>
-    </div>
-    <mat-divider></mat-divider>
-    <div class="row">
-      <label for="cpuUsage" class="col">Cpu Usage (in %)</label>
+      <label for="cpuUsage" class="col">Cpu Usage [%]</label>
       <span class="col">{{ volume.server.cpuUsage }}</span>
     </div>
     <mat-divider></mat-divider>

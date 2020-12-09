@@ -14,8 +14,6 @@ export class ChartComponent implements OnInit {
   chartData: Volume;
   chartResult: VolumeChartData[] = [{ name: '', points: [{ x: 2, y: 2 }] }];
 
-  view: any[] = [700, 600];
-
   // options
   legend: boolean = true;
   showLabels: boolean = true;
@@ -39,16 +37,14 @@ export class ChartComponent implements OnInit {
     let index = 0;
     this.chartData.volumeHistories.forEach((vol) => {
       this.chartResult[0].points[index] = { x: 0, y: 0};
-      console.log('Date before converted ', vol.date);
       this.chartResult[0].points[index].x = new Date(vol.date).getTime();
-      console.log('Date after converted ', new Date(vol.date).getTime());
       this.chartResult[0].points[index].y = vol.storageRatio;
       index++;
     });
   }
 
   formatXAxisValue(value: number) {
-    const date = new Date(value * 1000);
+    const date = new Date(value);
     return date;
   }
 

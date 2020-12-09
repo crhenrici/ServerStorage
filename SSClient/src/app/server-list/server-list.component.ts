@@ -23,7 +23,8 @@ export class ServerListComponent implements OnInit {
   server: Server[];
 
   dataSource: MatTableDataSource<Server>;
-  displayedColumns = ['name', 'fullCapacity', 'storageReserved', 'storageFree', 'storageRatio'];
+  displayedColumns = ['name', 'fullCapacity', 'storageReserved', 'storageFree', 'storageRatio', 'storageRam',
+  'storageRamUsage', 'storageCpuUsage', 'storageDesc'];
   expandedElement: any;
 
   @ViewChild(MatSort, {static: true}) sort: MatSort;

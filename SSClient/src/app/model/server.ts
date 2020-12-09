@@ -9,6 +9,7 @@ export interface Server {
   latestStorageFree: number;
   latestStorageRatio: number;
   ram: number;
+  ramUsage: number;
   cpuUsage: number;
   volumes: Set<Volume>;
   serverHistories: Set<ServerHistory>;

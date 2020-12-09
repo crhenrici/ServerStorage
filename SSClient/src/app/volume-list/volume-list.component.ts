@@ -16,7 +16,7 @@ export class VolumeListComponent implements OnInit {
   server: Server;
 
   dataSource: MatTableDataSource<Volume>;
-  displayedColumns = ['actions', 'name', 'fullCapacity', 'storageReserved', 'storageFree', 'storageRatio'];
+  displayedColumns = ['actions', 'name', 'fullCapacity', 'storageReserved', 'storageFree', 'storageRatio', 'storageDesc', 'storageLabel'];
 
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
@@ -24,11 +24,8 @@ export class VolumeListComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('Server for request: ', this.server);
     this.service.getVolumes(this.server).subscribe(data => {
       this.volume = data;
-      console.log('Data: ', data);
-      console.log('Volumes: ', this.volume);
       this.dataSource = new MatTableDataSource(this.volume);
       this.dataSource.sort = this.sort;
     });

@@ -38,7 +38,7 @@ export class ServerService {
     }
 
   public getVolumes(server: Server): Observable<any> {
-    const url = `${this.httpUrl}/volumes?server=${server}`;
+    const url = `${this.httpUrl}/volumes?serverName=${server.name}`;
     return this.http.get<Volume[]>(url, httpOptions).pipe(
       map(res =>  res as Volume[]),
       catchError(this.handleError)

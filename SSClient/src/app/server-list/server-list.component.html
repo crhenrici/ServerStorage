@@ -1,7 +1,7 @@
 <div>
   <table mat-table [dataSource]="dataSource" matSort multiTemplateDataRows>
     <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Server name</th>
       <td mat-cell *matCellDef="let server"> {{ server.name }}</td>
     </ng-container>
     <!-- <ng-container matColumnDef="desc">
@@ -9,27 +9,43 @@
       <mat-cell *matCellDef="let volume"> {{ volume.desc }}</mat-cell>
     </ng-container> -->
     <ng-container matColumnDef="fullCapacity">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Full Capacity</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Overall Capacity [GB]</th>
       <td mat-cell *matCellDef="let server"> {{ server.fullCapacity }}</td>
     </ng-container>
     <ng-container matColumnDef="storageReserved">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Storage Reserved</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Storage used [GB]</th>
       <td mat-cell *matCellDef="let server"> {{ server.latestStorageReserved }}</td>
     </ng-container>
     <ng-container matColumnDef="storageFree">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Storage Free</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Storage Free [GB]</th>
       <td mat-cell *matCellDef="let server"> {{ server.latestStorageFree }}</td>
     </ng-container>
     <ng-container matColumnDef="storageRatio">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Storage Ratio</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Free Capacity [%]</th>
       <td mat-cell *matCellDef="let server"> {{ server.latestStorageRatio }}</td>
+    </ng-container>
+    <ng-container matColumnDef="storageRam">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>RAM [GB]</th>
+      <td mat-cell *matCellDef="let server">{{ server.ram }}</td>
+    </ng-container>
+    <ng-container matColumnDef="storageRamUsage">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>RAM Usage [%]</th>
+      <td mat-cell *matCellDef="let server">{{ server.ramUsage }}</td>
+    </ng-container>
+    <ng-container matColumnDef="storageCpuUsage">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>CPU Usage [%]</th>
+      <td mat-cell *matCellDef="let server">{{ server.cpuUsage }}</td>
+    </ng-container>
+    <ng-container matColumnDef="storageDesc">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Server/network description</th>
+      <td mat-cell *matCellDef="let server"></td>
     </ng-container>
 
     <ng-container matColumnDef="expandedDetail">
-      <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+      <td mat-cell *matCellDef="let server" [attr.colspan]="displayedColumns.length">
         <div class="element-detail"
-            [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-            <app-volume-list [server]="element"></app-volume-list>
+            [@detailExpand]="server == expandedElement ? 'expanded' : 'collapsed'">
+            <app-volume-list [server]="server"></app-volume-list>
           </div>
         </td>
     </ng-container>
