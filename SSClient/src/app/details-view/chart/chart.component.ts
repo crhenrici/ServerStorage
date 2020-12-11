@@ -12,7 +12,7 @@ export class ChartComponent implements OnInit {
   data: any[];
   @Input()
   chartData: Volume;
-  chartResult: VolumeChartData[] = [{ name: '', points: [{ x: 2, y: 2 }] }];
+  chartResult: VolumeChartData[] = [{ name: '', series: [{ name: "2", value: 2 }] }];
 
   // options
   legend: boolean = true;
@@ -22,8 +22,8 @@ export class ChartComponent implements OnInit {
   yAxis: boolean = true;
   showYAxisLabel: boolean = true;
   showXAxisLabel: boolean = true;
-  xAxisLabel: string = 'Year';
-  yAxisLabel: string = 'Population';
+  xAxisLabel: string = 'Date';
+  yAxisLabel: string = 'Storage Usage [%]';
   timeline: boolean = true;
 
 
@@ -36,9 +36,9 @@ export class ChartComponent implements OnInit {
     this.chartResult[0].name = this.chartData.name;
     let index = 0;
     this.chartData.volumeHistories.forEach((vol) => {
-      this.chartResult[0].points[index] = { x: 0, y: 0};
-      this.chartResult[0].points[index].x = new Date(vol.date).getTime();
-      this.chartResult[0].points[index].y = vol.storageRatio;
+      this.chartResult[0].series[index] = { name: "0", value: 0};
+      this.chartResult[0].series[index].name = new Date(vol.date).toDateString();
+      this.chartResult[0].series[index].value = vol.storageRatio;
       index++;
     });
   }

@@ -1,6 +1,9 @@
 <div>
-    <img src="assets/img/serverIcon.png" alt="serverIcon" height="50">
-    <h2>Count</h2>
+    <div>
+        <img src="assets/img/serverIcon.png" alt="serverIcon" height="50">
+        <h4>Count</h4>
+        <p>{{ server.numberOfServers }}</p>
+    </div>
    <br>
     <button mat-stroked-button  [routerLink]="['/servers']">View Servers</button>
 </div>
