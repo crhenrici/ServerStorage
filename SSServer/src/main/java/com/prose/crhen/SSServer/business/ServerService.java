@@ -72,9 +72,18 @@ public class ServerService {
 	}
 
 	private VolumeQueryDTO createVolumeQuery(Volume volume) {
-		VolumeQueryDTO volumeQueryDTO = new VolumeQueryDTO(volume.getName(), volume.getDesc(), volume.getDate() , volume.getFullCapacity(),
-				volume.getLatestStorageReserved(), volume.getLatestStorageFree(), volume.getLatestStorageRatio(),
-				volume.getServer(), volume.getVolumeHistories());
+		VolumeQueryDTO volumeQueryDTO = VolumeQueryDTO
+				.builder()
+				.name(volume.getName())
+				.desc(volume.getDesc())
+				.date(volume.getDate())
+				.fullCapacity(volume.getFullCapacity())
+				.latestStorageReserved(volume.getLatestStorageReserved())
+				.latestStorageFree(volume.getLatestStorageFree())
+				.latestStorageRatio(volume.getLatestStorageRatio())
+				.server(volume.getServer())
+				.volumeHistories(volume.getVolumeHistories())
+				.build();
 		return volumeQueryDTO;
 	}
 

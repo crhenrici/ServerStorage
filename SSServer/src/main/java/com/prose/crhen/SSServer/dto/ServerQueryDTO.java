@@ -15,8 +15,6 @@ import lombok.Value;
 import java.util.Objects;
 import java.util.Set;
 
-@JsonDeserialize(builder = ServerQueryDTO.ServerQueryDTOBuilder.class)
-@JsonNaming(PropertyNamingStrategy.UpperCamelCaseStrategy.class)
 @Value
 @Builder
 public class ServerQueryDTO {
@@ -32,8 +30,6 @@ public class ServerQueryDTO {
     Set<Volume> volumes;
     Set<ServerHistory> serverHistories;
 
-    @JsonNaming(PropertyNamingStrategy.UpperCamelCaseStrategy.class)
-    @JsonPOJOBuilder(withPrefix = "")
     public static class ServerQueryDTOBuilder {
     }
 }
