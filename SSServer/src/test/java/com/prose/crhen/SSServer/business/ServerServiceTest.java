@@ -71,122 +71,117 @@ public class ServerServiceTest {
 	
 
 	void setUpNewServerTest() {
-		newVolume = new VolumesUpdateDTO();
-		newVolume.setCapacityGB("100");
-		//newVolume.setCpuUsage("28.75");
-		newVolume.setDate("10-08-2020");
-		newVolume.setDriveLetter("D");
-		newVolume.setFreeSpaceGB("50");
-		newVolume.setFreeSpacePercent("50");
-		newVolume.setName("Test");
-		//newVolume.setRam("8");
-		newVolume.setSystemName("TestServer");
+		newVolume = VolumesUpdateDTO.builder()
+		.capacityGB("100")
+		.date("10-8-2020")
+		.driveLetter("D")
+		.freeSpaceGB("50")
+		.freeSpacePercent("50")
+		.name("Test")
+		.systemName("TestServer")
+		.build();
 	}
 
 	void setUpExistingServerTest() {
-		newVolume = new VolumesUpdateDTO();
-		newVolume.setCapacityGB("100");
-		//newVolume.setCpuUsage("28.75");
-		newVolume.setDate("10-08-2020");
-		newVolume.setDriveLetter("D");
-		newVolume.setFreeSpaceGB("50");
-		newVolume.setFreeSpacePercent("50");
-		newVolume.setName("Test");
-		//newVolume.setRam("8");
-		newVolume.setSystemName("TestServer");
+		newVolume = VolumesUpdateDTO.builder()
+				.capacityGB("100")
+				.date("10-8-2020")
+				.driveLetter("D")
+				.freeSpaceGB("50")
+				.freeSpacePercent("50")
+				.name("Test")
+				.systemName("TestServer")
+				.build();
 		service.saveVolumeDTO(newVolume);
 
-		secondVolume = new VolumesUpdateDTO();
-		secondVolume.setCapacityGB("200");
-		//secondVolume.setCpuUsage("15.75");
-		secondVolume.setDate("12-08-2020");
-		secondVolume.setDriveLetter("E");
-		secondVolume.setFreeSpaceGB("50");
-		secondVolume.setFreeSpacePercent("25");
-		secondVolume.setName("Testing");
-		//secondVolume.setRam("16");
-		secondVolume.setSystemName("TestServer");
+		secondVolume = VolumesUpdateDTO.builder()
+		.capacityGB("200")
+		.date("12-08-2020")
+		.driveLetter("E")
+		.freeSpaceGB("50")
+		.freeSpacePercent("25")
+		.name("Testing")
+		.systemName("TestServer")
+		.build();
 	}
 
 	void setUpNewServerAndNewVolumeTest() {
-		newVolume = new VolumesUpdateDTO();
-		newVolume.setCapacityGB("100");
-		//newVolume.setCpuUsage("28.75");
-		newVolume.setDate("10-08-2020");
-		newVolume.setDriveLetter("D");
-		newVolume.setFreeSpaceGB("50");
-		newVolume.setFreeSpacePercent("50");
-		newVolume.setName("Test");
-		//newVolume.setRam("8");
-		newVolume.setSystemName("TestServer");
+		newVolume = VolumesUpdateDTO.builder()
+				.capacityGB("100")
+				.date("10-8-2020")
+				.driveLetter("D")
+				.freeSpaceGB("50")
+				.freeSpacePercent("50")
+				.name("Test")
+				.systemName("TestServer")
+				.build();
 		service.saveVolumeDTO(newVolume);
 
-		secondVolume = new VolumesUpdateDTO();
-		secondVolume.setCapacityGB("200");
-		//secondVolume.setCpuUsage("15.75");
-		secondVolume.setDate("12-08-2020");
-		secondVolume.setDriveLetter("E");
-		secondVolume.setFreeSpaceGB("50");
-		secondVolume.setFreeSpacePercent("25");
-		secondVolume.setName("Testing");
-		//secondVolume.setRam("16");
-		secondVolume.setSystemName("TestServer");
+		secondVolume = VolumesUpdateDTO.builder()
+				.capacityGB("200")
+				.date("12-08-2020")
+				.driveLetter("E")
+				.freeSpaceGB("50")
+				.freeSpacePercent("25")
+				.name("Testing")
+				.systemName("TestServer")
+				.build();
 		service.saveVolumeDTO(secondVolume);
 
-		lastVolume = new VolumesUpdateDTO();
-		lastVolume.setCapacityGB("150");
-		//lastVolume.setCpuUsage("12.65");
-		lastVolume.setDate("14-08-2020");
-		lastVolume.setDriveLetter("f");
-		lastVolume.setFreeSpaceGB("50");
-		lastVolume.setFreeSpacePercent("33.33");
-		lastVolume.setName("TestingVolume");
-		//lastVolume.setRam("4");
-		lastVolume.setSystemName("TestingServer");
+		lastVolume = VolumesUpdateDTO.builder()
+		.capacityGB("150")
+		.date("14-08-2020")
+		.driveLetter("f")
+		.freeSpaceGB("50")
+		.freeSpacePercent("33.33")
+		.name("TestingVolume")
+		.systemName("TestingServer")
+		.build();
 	}
 
 	void setUpExistingServerAndExistingVolumeTest() {
-		newVolume = new VolumesUpdateDTO();
-		newVolume.setCapacityGB("100");
-		//newVolume.setCpuUsage("28.75");
-		newVolume.setDate("10-08-2020");
-		newVolume.setDriveLetter("D");
-		newVolume.setFreeSpaceGB("50");
-		newVolume.setFreeSpacePercent("50");
-		newVolume.setName("Test");
-		//newVolume.setRam("8");
-		newVolume.setSystemName("TestServer");
+		newVolume = VolumesUpdateDTO.builder()
+				.capacityGB("100")
+				.date("10-8-2020")
+				.driveLetter("D")
+				.freeSpaceGB("50")
+				.freeSpacePercent("50")
+				.name("Test")
+				.systemName("TestServer")
+				.build();
 		service.saveVolumeDTO(newVolume);
 
-		secondVolume = new VolumesUpdateDTO();
-		secondVolume.setCapacityGB("200");
-		//secondVolume.setCpuUsage("15.75");
-		secondVolume.setDate("12-08-2020");
-		secondVolume.setDriveLetter("E");
-		secondVolume.setFreeSpaceGB("50");
-		secondVolume.setFreeSpacePercent("25");
-		secondVolume.setName("Testing");
-		//secondVolume.setRam("16");
-		secondVolume.setSystemName("TestServer");
+		secondVolume = VolumesUpdateDTO.builder()
+				.capacityGB("200")
+				.date("12-08-2020")
+				.driveLetter("E")
+				.freeSpaceGB("50")
+				.freeSpacePercent("25")
+				.name("Testing")
+				.systemName("TestServer")
+				.build();
 		service.saveVolumeDTO(secondVolume);
 
-		lastVolume = new VolumesUpdateDTO();
-		lastVolume.setCapacityGB("150");
-		//lastVolume.setCpuUsage("12.65");
-		lastVolume.setDate("14-08-2020");
-		lastVolume.setDriveLetter("f");
-		lastVolume.setFreeSpaceGB("50");
-		lastVolume.setFreeSpacePercent("33.33");
-		lastVolume.setName("TestingVolume");
-		//lastVolume.setRam("4");
-		lastVolume.setSystemName("TestingServer");
+		lastVolume = VolumesUpdateDTO.builder()
+				.capacityGB("150")
+				.date("14-08-2020")
+				.driveLetter("f")
+				.freeSpaceGB("50")
+				.freeSpacePercent("33.33")
+				.name("TestingVolume")
+				.systemName("TestingServer")
+				.build();
 		service.saveVolumeDTO(lastVolume);
 
-		updatedVolume = newVolume;
-		//updatedVolume.setCpuUsage("32.43");
-		updatedVolume.setDate("2020-08-20");
-		updatedVolume.setFreeSpaceGB("25");
-		updatedVolume.setFreeSpacePercent("25");
+		updatedVolume = VolumesUpdateDTO.builder()
+				.capacityGB("100")
+				.date("2020-08-20")
+				.driveLetter("D")
+				.freeSpaceGB("25")
+				.freeSpacePercent("25")
+				.name("Test")
+				.systemName("TestServer")
+				.build();
 	}
 
 	void setUpCalcServerDetailsTest() {
