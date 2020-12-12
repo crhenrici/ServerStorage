@@ -1,10 +1,7 @@
 package com.prose.crhen.SSServer.rest;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.prose.crhen.SSServer.dto.CpuUsageDTO;
-import com.prose.crhen.SSServer.dto.RamDTO;
 import com.prose.crhen.SSServer.dto.ServerUpdateDTO;
 import com.prose.crhen.SSServer.dto.VolumesUpdateDTO;
 import org.junit.jupiter.api.Test;

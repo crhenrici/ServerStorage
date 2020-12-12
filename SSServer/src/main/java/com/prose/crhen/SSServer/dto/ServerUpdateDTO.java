@@ -1,78 +1,31 @@
 package com.prose.crhen.SSServer.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import lombok.Builder;
+import lombok.Value;
 
 import java.util.Objects;
 
+@JsonDeserialize(builder = ServerUpdateDTO.ServerUpdateDTOBuilder.class)
+@JsonNaming(PropertyNamingStrategy.UpperCamelCaseStrategy.class)
+@Value
+@Builder
 public class ServerUpdateDTO {
 
-    private CpuUsageDTO cpuUsage;
+    CpuUsageDTO cpuUsage;
 
-    private RamDTO ram;
+    RamDTO ram;
 
-    private double ramUsage;
+    double ramUsage;
 
-    private String systemName;
+    String systemName;
 
-    @JsonProperty("cpuusage")
-    public CpuUsageDTO getCpuUsage() {
-        return cpuUsage;
-    }
-
-    public void setCpuUsage(CpuUsageDTO cpuUsage) {
-        this.cpuUsage = cpuUsage;
-    }
-
-    @JsonProperty("ram")
-    public RamDTO getRam() {
-        return ram;
-    }
-
-    public void setRam(RamDTO ram) {
-        this.ram = ram;
-    }
-
-    @JsonProperty("ramusage")
-    public Double getRamUsage() {
-        return ramUsage;
-    }
-
-    public void setRamUsage(double ramUsage) {
-        this.ramUsage = ramUsage;
-    }
-
-    @JsonProperty("systemname")
-    public String getSystemName() {
-        return systemName;
-    }
-
-    public void setSystemName(String systemName) {
-        this.systemName = systemName;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ServerUpdateDTO that = (ServerUpdateDTO) o;
-        return Double.compare(that.ramUsage, ramUsage) == 0 &&
-                Objects.equals(cpuUsage, that.cpuUsage) &&
-                Objects.equals(ram, that.ram) &&
-                Objects.equals(systemName, that.systemName);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(cpuUsage, ram, ramUsage, systemName);
-    }
-
-    @Override
-    public String toString() {
-        return "ServerUpdateDTO{" +
-                "cpuUsage=" + cpuUsage +
-                ", ram=" + ram +
-                ", ramUsage=" + ramUsage +
-                ", systemName='" + systemName + '\'' +
-                '}';
+    @JsonNaming(PropertyNamingStrategy.UpperCamelCaseStrategy.class)
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class ServerUpdateDTOBuilder {
     }
 }

@@ -16,7 +16,6 @@ import com.prose.crhen.SSServer.model.ServerHistory;
 import com.prose.crhen.SSServer.model.Volume;
 import com.prose.crhen.SSServer.model.VolumeHistory;
 
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
@@ -52,14 +51,14 @@ public class ServerService {
 	}
 
 	private ServerQueryDTO createServerQuery(Server server) {
-		ServerQueryDTO serverQueryDTO = calcServerDetails(server);
-		serverQueryDTO.setName(server.getName());
-		serverQueryDTO.setRam(server.getRam());
-		serverQueryDTO.setRamUsage(server.getRamUsage());
-		serverQueryDTO.setCpuUsage(server.getCpuUsage());
-		serverQueryDTO.setVolumes(server.getVolumes());
-		serverQueryDTO.setServerHistories(server.getServerHistories());
-		return serverQueryDTO;
+		ServerQueryDTO.ServerQueryDTOBuilder serverQueryDTOBuilder = calcServerDetails(server);
+		serverQueryDTOBuilder.name(server.getName())
+				.ram(server.getRam())
+				.ramUsage(server.getRamUsage())
+				.cpuUsage(server.getCpuUsage())
+				.volumes(server.getVolumes())
+				.serverHistories(server.getServerHistories());
+		return serverQueryDTOBuilder.build();
 	}
 
 	public List<VolumeQueryDTO> getVolumes() {
@@ -179,15 +178,18 @@ public class ServerService {
 		volumeRepository.save(insertedVolume);
 	}
 
-	public ServerQueryDTO calcServerDetails(Server server) {
+	public ServerQueryDTO.ServerQueryDTOBuilder calcServerDetails(Server server) {
 		 List<Volume> volumes = volumeRepository.findByServer(server);
-		 ServerQueryDTO serverQueryDTO = new ServerQueryDTO();
-		 serverQueryDTO.setLatestStorageFree(addServerStorageFromVolumes(volumes));
-		 serverQueryDTO.setLatestStorageReserved(addServerReservedFromVolumes(volumes));
-		 serverQueryDTO.setFullCapacity(addServerCapacityFromVolumes(volumes));
-		 serverQueryDTO.setLatestStorageRatio(calculateStorageRatio(serverQueryDTO));
-		 
-		 return serverQueryDTO;
+		double fullCapacity = addServerCapacityFromVolumes(volumes);
+		double latestStorageFree = addServerStorageFromVolumes(volumes);
+		double latestStorageRatio = calculateStorageRatio(fullCapacity, latestStorageFree);
+		double latestStorageReserved = addServerReservedFromVolumes(volumes);
+		ServerQueryDTO.ServerQueryDTOBuilder  serverQueryDTOBuilder = ServerQueryDTO.builder()
+				 .latestStorageFree(latestStorageFree)
+				 .latestStorageReserved(latestStorageReserved)
+				 .fullCapacity(fullCapacity)
+				 .latestStorageRatio(latestStorageRatio);
+		 return serverQueryDTOBuilder;
 	}
 
 	private double addServerStorageFromVolumes(List<Volume> volumes) {
@@ -214,8 +216,8 @@ public class ServerService {
 		return fullCapacity;
 	}
 
-	private double calculateStorageRatio(ServerQueryDTO server) {
-		double storageRatio = (server.getLatestStorageReserved()/server.getFullCapacity()) * 100;
+	private double calculateStorageRatio(double fullCapacity, double latestStorageFree) {
+		double storageRatio = (latestStorageFree/fullCapacity) * 100;
 		return storageRatio;
 	}
 

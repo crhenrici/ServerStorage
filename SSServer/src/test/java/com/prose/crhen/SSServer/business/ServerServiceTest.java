@@ -379,11 +379,11 @@ public class ServerServiceTest {
 	@Test
 	void calcServerDetailsTest() {
 		setUpCalcServerDetailsTest();
-		ServerQueryDTO testServer = service.calcServerDetails(server);
+		ServerQueryDTO testServer = service.calcServerDetails(server).build();
 		assertEquals(300, testServer.getFullCapacity());
 		assertEquals(110, testServer.getLatestStorageFree());
 		assertEquals(190, testServer.getLatestStorageReserved());
-		assertEquals(63.33333333333333, testServer.getLatestStorageRatio());
+		assertEquals(36.666666666666664, testServer.getLatestStorageRatio());
 	}
 
 	@Test
