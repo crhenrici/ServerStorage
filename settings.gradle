@@ -1,0 +1,3 @@
+rootProject.name = 'ServerStorage'
+
+include 'SSServer', 'SSClient'
