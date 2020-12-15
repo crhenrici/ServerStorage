@@ -1,5 +1,5 @@
 export interface ServerOverviewDTO {
-    numberOfServer: number;
+    numberOfServers: number;
     totalCapacity: number;
     totalCapacityUsed: number;
     totalCapacityFree: number;

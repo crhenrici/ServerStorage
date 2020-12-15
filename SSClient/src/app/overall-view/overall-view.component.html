@@ -1,9 +1,27 @@
-<div>
-    <div>
-        <img src="assets/img/serverIcon.png" alt="serverIcon" height="50">
-        <h4>Count</h4>
-        <p>{{ server.numberOfServers }}</p>
+<div class="container">
+    <div class="left">
+        <div class="container">
+            <img style="margin-right: 15px;" src="assets/img/serverIcon.png" alt="serverIcon" height="50">
+            <h4>Count: {{ server.numberOfServers}} </h4>
+        </div>
+       <br>
+       <div class="container">
+           <h4>Overall capacity [GB]: {{ server.totalCapacity }}</h4>
+       </div>
+       <div class="container">
+           <h4>Storage used [GB]: {{ server.totalCapacityUsed }}</h4>
+       </div>
+       <div class="container">
+           <h4>Storage free [GB]: {{ server.totalCapacityFree }}</h4>
+       </div>
+       <div class="container">
+           <h4>Storage ratio [%]: {{ server.totalUsedCapacityRatio }}</h4>
+       </div>
     </div>
-   <br>
-    <button mat-stroked-button  [routerLink]="['/servers']">View Servers</button>
+    <div class="right">
+      <app-pie-chart></app-pie-chart>
+    </div>
 </div>
+<div class="container">
+    <button mat-stroked-button  [routerLink]="['/servers']">View Servers</button>
+   </div>

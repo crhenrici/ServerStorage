@@ -1,3 +1,21 @@
 .data-cell {
     padding: 5px;
 }
+
+.container {
+    display: flex;
+}
+
+.item {
+    margin: 5px;
+}
+
+.left {
+    float: left;
+    width: 30%;
+}
+
+.right {
+    float: right;
+    width: 70%;
+}

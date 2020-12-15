@@ -12,6 +12,7 @@ import { ChartComponent } from './details-view/chart/chart.component';
 import { VolumeListComponent } from './volume-list/volume-list.component';
 import { OverallViewComponent } from './overall-view/overall-view.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { PieChartComponent } from './overall-view/pie-chart/pie-chart.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     DetailsViewComponent,
     ChartComponent,
     VolumeListComponent,
-    OverallViewComponent
+    OverallViewComponent,
+    PieChartComponent
   ],
   imports: [
     BrowserModule,

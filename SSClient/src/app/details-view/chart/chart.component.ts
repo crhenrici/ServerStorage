@@ -14,6 +14,8 @@ export class ChartComponent implements OnInit {
   chartData: Volume;
   chartResult: VolumeChartData[] = [{ name: '', series: [{ name: "2", value: 2 }] }];
 
+  view: any[] = [700, 400];
+
   // options
   legend: boolean = true;
   showLabels: boolean = true;
@@ -22,8 +24,8 @@ export class ChartComponent implements OnInit {
   yAxis: boolean = true;
   showYAxisLabel: boolean = true;
   showXAxisLabel: boolean = true;
-  xAxisLabel: string = 'Date';
-  yAxisLabel: string = 'Storage Usage [%]';
+  xAxisLabel: string = 'Year';
+  yAxisLabel: string = 'Population';
   timeline: boolean = true;
 
 
@@ -31,14 +33,15 @@ export class ChartComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('chartData ', this.chartData);
-    // Object.assign(this.chartData);
     this.chartResult[0].name = this.chartData.name;
     let index = 0;
-    this.chartData.volumeHistories.forEach((vol) => {
+    var volumeHistories = Array.from(this.chartData.volumeHistories).sort((a,b) => {
+      return new Date(a.date).getTime() - new Date(b.date).getTime();
+    });
+    this.chartData.volumeHistories.forEach(() => {
       this.chartResult[0].series[index] = { name: "0", value: 0};
-      this.chartResult[0].series[index].name = new Date(vol.date).toDateString();
-      this.chartResult[0].series[index].value = vol.storageRatio;
+      this.chartResult[0].series[index].name = new Date(volumeHistories[index].date).toDateString();
+      this.chartResult[0].series[index].value = volumeHistories[index].storageRatio;
       index++;
     });
   }
