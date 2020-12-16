@@ -2,7 +2,7 @@
     <mat-table [dataSource]="dataSource" matSort >
       <ng-container matColumnDef="actions">
         <mat-header-cell *matHeaderCellDef></mat-header-cell>
-        <mat-cell *matCellDef="let volume"><button mat-stroked-button (click)="sendDataToDetails(volume)" [routerLink]="['/details-view', volume.id]">View Details</button></mat-cell>
+        <mat-cell *matCellDef="let volume"><button mat-stroked-button (click)="sendDataToDetails(volume)" [routerLink]="['/details-view', volume.name]">View Details</button></mat-cell>
       </ng-container>
       <ng-container matColumnDef="name">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Network name</mat-header-cell>

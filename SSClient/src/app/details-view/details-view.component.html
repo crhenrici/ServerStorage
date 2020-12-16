@@ -1,6 +1,11 @@
 <div class="container">
-    <h2>{{ volume.server.name }} - drive {{ volume.name }} </h2>
-    <mat-divider></mat-divider>
+  <mat-card style="margin-top: 30px;">
+    <mat-card-header>
+      <mat-card-title>
+        <h2 style="color: #db0a5b;">{{ volume.server.name }} - drive {{ volume.name }} </h2>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content style="margin-left: 20px;">
     <div class="row">
       <label class="col" for="name">Name</label>
       <span class="col">{{ volume.name }} </span>
@@ -41,8 +46,9 @@
       <label for="server" class="col">Parent Server</label>
       <span class="col">{{ volume.server.name }}</span>
     </div>
-    <mat-divider></mat-divider>
-    <div style="width: 600px; height: 400px;">
+    </mat-card-content>
+    </mat-card>
+    <div class="chart">
       <app-chart [chartData]="volume"></app-chart>
     </div>
     <button mat-stroked-button type="submit" routerLink="/servers">Back</button>

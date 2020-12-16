@@ -15,7 +15,7 @@ export class PieChartComponent implements OnInit {
   readonly STORAGE_USED_LABEL = "Storage used [GB]";
   readonly STORAGE_FREE_LABEL = "Storage free [GB]";
 
-  view: any = [500, 500];
+  view: any = [500, 600];
   gradient: boolean = true;
   showLegend: boolean = true;
   showLabels: boolean = true;
@@ -23,7 +23,7 @@ export class PieChartComponent implements OnInit {
   legendPosition: string = 'below';
 
   colorScheme = {
-    domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
+    domain: ['#333f48', '#db0a5b']
   };
 
   constructor(private shared: SharedDataService) { }
