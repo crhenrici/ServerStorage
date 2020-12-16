@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Volume } from 'src/app/model/volume';
-import { SharedDataService } from 'src/app/sharedData/shared-data.service';
 import { VolumeChartData } from '../../VolumeChartData';
 
 @Component({
@@ -29,7 +28,7 @@ export class ChartComponent implements OnInit {
   timeline: boolean = true;
 
 
-  constructor(private sharedData: SharedDataService) {
+  constructor() {
   }
 
   ngOnInit() {
@@ -45,11 +44,5 @@ export class ChartComponent implements OnInit {
       index++;
     });
   }
-
-  formatXAxisValue(value: number) {
-    const date = new Date(value);
-    return date;
-  }
-
 }
 
