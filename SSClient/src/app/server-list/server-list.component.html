@@ -50,7 +50,7 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;" 
     matRipple
     class="element-row"
-    [ngClass]="{'data-affected': row.storageRatio >= 75}"
+    [ngClass]="{'data-affected': row.storageRatio >= 95}"
     [class.expanded-row]="expandedElement === row"
     (click)="expandedElement = expandedElement === row ? null : row"></tr>
 

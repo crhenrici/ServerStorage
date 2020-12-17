@@ -1,4 +1,3 @@
-import { Volume } from './../model/volume';
 import { ServerService } from '../serverService/server.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort } from '@angular/material';
