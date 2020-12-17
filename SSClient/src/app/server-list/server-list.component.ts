@@ -39,8 +39,4 @@ export class ServerListComponent implements OnInit {
       this.dataSource.sort = this.sort;
     });
   }
-
-  generatePDF() {
-
-  }
 }

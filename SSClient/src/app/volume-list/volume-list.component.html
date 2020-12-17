@@ -8,10 +8,6 @@
         <mat-header-cell *matHeaderCellDef mat-sort-header>Network name</mat-header-cell>
         <mat-cell *matCellDef="let volume"> {{ volume.name }}</mat-cell>
       </ng-container>
-      <!-- <ng-container matColumnDef="desc">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Description</mat-header-cell>
-        <mat-cell *matCellDef="let volume"> {{ volume.desc }}</mat-cell>
-      </ng-container> -->
       <ng-container matColumnDef="fullCapacity">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Overall Capacity [GB]</mat-header-cell>
         <mat-cell *matCellDef="let volume"> {{ volume.fullCapacity }}</mat-cell>
@@ -21,11 +17,11 @@
         <mat-cell *matCellDef="let volume"> {{ volume.latestStorageReserved }}</mat-cell>
       </ng-container>
       <ng-container matColumnDef="storageFree">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Storage Free</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Storage Free [GB]</mat-header-cell>
         <mat-cell *matCellDef="let volume"> {{ volume.latestStorageFree }}</mat-cell>
       </ng-container>
       <ng-container matColumnDef="storageRatio">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Free Capacity [GB]</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Free Capacity [%]</mat-header-cell>
         <mat-cell *matCellDef="let volume"> {{ volume.latestStorageRatio }}</mat-cell>
       </ng-container>
       <ng-container matColumnDef="storageDesc">
@@ -37,7 +33,7 @@
         <mat-cell *matCellDef="let volume"></mat-cell>
       </ng-container>
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns; let volume" [ngClass]="{'data-affected': row.storageRatio >= 75}" ></mat-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns; let volume" [ngClass]="{'data-affected': row.latestStorageRatio >= 95}" ></mat-row>
     </mat-table>
   </div>
   
