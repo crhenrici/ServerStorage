@@ -45,6 +45,14 @@ export class ServerService {
     );
   }
 
+  public postVolume(volume: Volume) {
+    const url = `${this.httpUrl}/save/volume`;
+    this.http.post<Volume>(url, volume, httpOptions).pipe(
+      map(res => console.log(res)),
+      catchError(this.handleError)
+    );
+  }
+
   private handleError(error: HttpErrorResponse) {
     console.error('Error message:', error.error.message);
     console.error('Error status:', error.status);

@@ -40,6 +40,13 @@
       <label for="server" class="col">Parent Server</label>
       <span class="col">{{ volume.server.name }}</span>
     </div>
+    <div class="row">
+      <label class="col">Network Description</label>
+      <span *ngIf="!isEdit" class="col">{{ volume.desc }}</span>
+      <input class="col" *ngIf="isEdit" matInput type="text" [(ngModel)]="volume.desc">
+      <button *ngIf="!isEdit" mat-icon-button (click)="onEdit()" aria-label="Edit"><mat-icon>edit</mat-icon></button>
+      <button *ngIf="isEdit" mat-icon-button (click)="onSave()" aria-label="Save"><mat-icon>save</mat-icon></button>
+    </div>
     </mat-card-content>
     </mat-card>
     <div class="chart">

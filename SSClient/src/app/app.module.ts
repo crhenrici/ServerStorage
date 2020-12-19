@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ServerListComponent } from './server-list/server-list.component';
-import { MatTableModule, MatDialogModule, MatSortModule, MatFormFieldModule, MatButtonModule, MatDividerModule, MatToolbarModule, MatCardModule, MatTabsModule } from '@angular/material';
+import { MatTableModule, MatDialogModule, MatSortModule, MatFormFieldModule, MatButtonModule, MatDividerModule, MatToolbarModule, MatCardModule, MatTabsModule, MatIconModule, MatInputModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DetailsViewComponent } from './details-view/details-view.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -13,6 +13,7 @@ import { VolumeListComponent } from './volume-list/volume-list.component';
 import { OverallViewComponent } from './overall-view/overall-view.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { PieChartComponent } from './overall-view/pie-chart/pie-chart.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,9 @@ import { PieChartComponent } from './overall-view/pie-chart/pie-chart.component'
     MatToolbarModule,
     MatCardModule,
     MatTabsModule,
+    MatIconModule,
+    MatInputModule,
+    FormsModule,
     NoopAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
