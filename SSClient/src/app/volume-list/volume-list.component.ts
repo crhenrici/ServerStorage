@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatSort, MatTableDataSource } from '@angular/material';
+import { Server } from '../model/server';
 import { Volume } from '../model/volume';
 import { ServerService } from '../serverService/server.service';
 import { SharedDataService } from '../sharedData/shared-data.service';
@@ -11,9 +12,11 @@ import { SharedDataService } from '../sharedData/shared-data.service';
 })
 export class VolumeListComponent implements OnInit {
   volume: Volume[];
+  @Input()
+  server: Server;
 
   dataSource: MatTableDataSource<Volume>;
-  displayedColumns = ['actions', 'name', 'fullCapacity', 'storageReserved', 'storageFree', 'storageRatio', 'parentServer'];
+  displayedColumns = ['actions', 'name', 'fullCapacity', 'storageReserved', 'storageFree', 'storageRatio', 'storageDesc', 'storageLabel'];
 
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
@@ -21,10 +24,8 @@ export class VolumeListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.service.getALL().subscribe(data => {
+    this.service.getVolumes(this.server).subscribe(data => {
       this.volume = data;
-      console.log('Data: ', data);
-      console.log('Volumes: ', this.volume);
       this.dataSource = new MatTableDataSource(this.volume);
       this.dataSource.sort = this.sort;
     });

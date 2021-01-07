@@ -7,7 +7,7 @@ import { ServerListComponent } from './server-list/server-list.component';
 const routes: Routes = [
   {path: '', component: OverallViewComponent},
   {path: 'servers', component: ServerListComponent},
-  { path: 'details-view/:id', component: DetailsViewComponent}
+  { path: 'details-view/:name', component: DetailsViewComponent}
 ];
 
 @NgModule({

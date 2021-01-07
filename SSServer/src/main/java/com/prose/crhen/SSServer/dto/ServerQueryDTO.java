@@ -13,6 +13,9 @@ public class ServerQueryDTO {
 
     @Getter
     @Setter
+    private long id;
+    @Getter
+    @Setter
     private String name;
     @Getter
     @Setter
@@ -46,7 +49,8 @@ public class ServerQueryDTO {
 
     }
 
-    public ServerQueryDTO(String name, double fullCapacity, double latestStorageReserved, double latestStorageFree, double latestStorageRatio, int ram, double ramUsage, double cpuUsage, Set<Volume> volumes, Set<ServerHistory> serverHistories) {
+    public ServerQueryDTO(long id, String name, double fullCapacity, double latestStorageReserved, double latestStorageFree, double latestStorageRatio, int ram, double ramUsage, double cpuUsage, Set<Volume> volumes, Set<ServerHistory> serverHistories) {
+        this.id = id;
         this.name = name;
         this.fullCapacity = fullCapacity;
         this.latestStorageReserved = latestStorageReserved;
@@ -64,7 +68,8 @@ public class ServerQueryDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ServerQueryDTO that = (ServerQueryDTO) o;
-        return Double.compare(that.fullCapacity, fullCapacity) == 0 &&
+        return id == that.id &&
+                Double.compare(that.fullCapacity, fullCapacity) == 0 &&
                 Double.compare(that.latestStorageReserved, latestStorageReserved) == 0 &&
                 Double.compare(that.latestStorageFree, latestStorageFree) == 0 &&
                 Double.compare(that.latestStorageRatio, latestStorageRatio) == 0 &&
@@ -78,13 +83,14 @@ public class ServerQueryDTO {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, fullCapacity, latestStorageReserved, latestStorageFree, latestStorageRatio, ram, ramUsage, cpuUsage, volumes, serverHistories);
+        return Objects.hash(id, name, fullCapacity, latestStorageReserved, latestStorageFree, latestStorageRatio, ram, ramUsage, cpuUsage, volumes, serverHistories);
     }
 
     @Override
     public String toString() {
         return "ServerQueryDTO{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", fullCapacity=" + fullCapacity +
                 ", latestStorageReserved=" + latestStorageReserved +
                 ", latestStorageFree=" + latestStorageFree +

@@ -409,6 +409,15 @@ public class ServerServiceTest {
 		assertEquals("VolumeTest", volumeList.get(0).getName());
 	}
 
+	@Test
+	void getVolumesFromServerTest() {
+		setUpGetServersTest();
+		List<VolumeQueryDTO> volumeQueryDTOS = service.getVolumesFromServer("ServerTest");
+		assertEquals(3, volumeQueryDTOS.size());
+		assertEquals("VolumeTest", volumeQueryDTOS.get(0).getName());
+		assertEquals("Volume3Test", volumeQueryDTOS.get(2).getName());
+	}
+
 	@AfterEach
 	void tearDown() {
 		serverRepository.deleteAll();

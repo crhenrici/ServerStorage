@@ -1,4 +1,4 @@
 export interface VolumeChartData {
     name: string;
-    points: { x: number, y: number}[];
+    series: { name: string, value: number}[];
 }

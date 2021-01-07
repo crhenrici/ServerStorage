@@ -1,9 +1,6 @@
 package com.prose.crhen.SSServer.business;
 
-import com.prose.crhen.SSServer.dto.ServerQueryDTO;
-import com.prose.crhen.SSServer.dto.ServerUpdateDTO;
-import com.prose.crhen.SSServer.dto.VolumeQueryDTO;
-import com.prose.crhen.SSServer.dto.VolumesUpdateDTO;
+import com.prose.crhen.SSServer.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,6 +38,26 @@ public class ServerService {
 		volumeHistoryRepo.deleteAll();
 		serverHistoryRepo.deleteAll();
 	}
+
+	public ServerOverviewDTO getServerOverviewDTO() {
+		List<Server> servers = serverRepository.findAll();
+		List<Volume> volumes = null;
+		double totalCapacity = 0;
+		double totalCapacityUsed = 0;
+		double totalCapacityFree = 0;
+		for (Server server : servers) {
+			volumes = volumeRepository.findByServer(server);
+		}
+		for (Volume volume : volumes) {
+			totalCapacity += volume.getFullCapacity();
+			totalCapacityUsed += volume.getLatestStorageReserved();
+			totalCapacityFree += volume.getLatestStorageFree();
+		}
+		double totalUsedCapacityRatio = (totalCapacityUsed/totalCapacity) * 100;
+		ServerOverviewDTO serverOverviewDTO = new ServerOverviewDTO(servers.size(), totalCapacity, totalCapacityUsed, totalCapacityFree, totalUsedCapacityRatio);
+		return  serverOverviewDTO;
+	}
+
 	public List<ServerQueryDTO> getServers() {
 		List<Server> servers = serverRepository.findAll();
 		List<ServerQueryDTO> serverQueryDTOS = new ArrayList<>();
@@ -53,6 +70,7 @@ public class ServerService {
 
 	private ServerQueryDTO createServerQuery(Server server) {
 		ServerQueryDTO serverQueryDTO = calcServerDetails(server);
+		serverQueryDTO.setId(server.getId());
 		serverQueryDTO.setName(server.getName());
 		serverQueryDTO.setRam(server.getRam());
 		serverQueryDTO.setRamUsage(server.getRamUsage());
@@ -64,6 +82,17 @@ public class ServerService {
 
 	public List<VolumeQueryDTO> getVolumes() {
 		List<Volume> volumes = volumeRepository.findAll();
+		List<VolumeQueryDTO> volumeQueryDTOS = new ArrayList<>();
+		for (Volume volume : volumes) {
+			VolumeQueryDTO createdVolumeQuery = createVolumeQuery(volume);
+			volumeQueryDTOS.add(createdVolumeQuery);
+		}
+		return volumeQueryDTOS;
+	}
+
+	public List<VolumeQueryDTO> getVolumesFromServer(String serverName) {
+		Server server = serverRepository.findByName(serverName);
+		List<Volume> volumes = volumeRepository.findByServer(server);
 		List<VolumeQueryDTO> volumeQueryDTOS = new ArrayList<>();
 		for (Volume volume : volumes) {
 			VolumeQueryDTO createdVolumeQuery = createVolumeQuery(volume);

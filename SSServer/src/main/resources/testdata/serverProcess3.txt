@@ -16,5 +16,6 @@
     "ram":  {
                 "Capacity":  12
             },
+    "ramusage":  11.78,
     "systemname":  "CHWIWS09"
 }

@@ -4,14 +4,16 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ServerListComponent } from './server-list/server-list.component';
-import { MatTableModule, MatDialogModule, MatSortModule, MatFormFieldModule, MatButtonModule, MatDividerModule } from '@angular/material';
+import { MatTableModule, MatDialogModule, MatSortModule, MatFormFieldModule, MatButtonModule, MatDividerModule, MatToolbarModule, MatCardModule, MatTabsModule, MatIconModule, MatInputModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DetailsViewComponent } from './details-view/details-view.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ChartComponent } from './details-view/chart/chart.component';
-import { NgxLineChartModule } from 'ngx-line-chart';
 import { VolumeListComponent } from './volume-list/volume-list.component';
 import { OverallViewComponent } from './overall-view/overall-view.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { PieChartComponent } from './overall-view/pie-chart/pie-chart.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,8 @@ import { OverallViewComponent } from './overall-view/overall-view.component';
     DetailsViewComponent,
     ChartComponent,
     VolumeListComponent,
-    OverallViewComponent
+    OverallViewComponent,
+    PieChartComponent
   ],
   imports: [
     BrowserModule,
@@ -30,10 +33,16 @@ import { OverallViewComponent } from './overall-view/overall-view.component';
     MatButtonModule,
     MatDividerModule,
     MatFormFieldModule,
+    MatToolbarModule,
+    MatCardModule,
+    MatTabsModule,
+    MatIconModule,
+    MatInputModule,
+    FormsModule,
     NoopAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
-    NgxLineChartModule
+    NgxChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent],
