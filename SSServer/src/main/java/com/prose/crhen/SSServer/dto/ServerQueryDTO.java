@@ -31,5 +31,6 @@ public class ServerQueryDTO {
     Set<ServerHistory> serverHistories;
 
     public static class ServerQueryDTOBuilder {
+
     }
 }

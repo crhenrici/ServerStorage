@@ -7,3 +7,19 @@
   .example-full-width {
     width: 100%;
   }
+
+.chart {
+  margin-top: 30px;
+  width: 600px;
+  height: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+label {
+  padding-top: 10px;
+}
+
+span {
+  padding-top: 10px;
+}

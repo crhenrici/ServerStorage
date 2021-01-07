@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Volume } from 'src/app/model/volume';
-import { SharedDataService } from 'src/app/sharedData/shared-data.service';
 import { VolumeChartData } from '../../VolumeChartData';
 
 @Component({
@@ -12,9 +11,9 @@ export class ChartComponent implements OnInit {
   data: any[];
   @Input()
   chartData: Volume;
-  chartResult: VolumeChartData[] = [{ name: '', points: [{ x: 2, y: 2 }] }];
+  chartResult: VolumeChartData[] = [{ name: '', series: [{ name: "2", value: 2 }] }];
 
-  view: any[] = [700, 600];
+  view: any[] = [700, 400];
 
   // options
   legend: boolean = true;
@@ -24,33 +23,26 @@ export class ChartComponent implements OnInit {
   yAxis: boolean = true;
   showYAxisLabel: boolean = true;
   showXAxisLabel: boolean = true;
-  xAxisLabel: string = 'Year';
-  yAxisLabel: string = 'Population';
+  xAxisLabel: string = 'Date';
+  yAxisLabel: string = 'Free Capacity [%]';
   timeline: boolean = true;
 
 
-  constructor(private sharedData: SharedDataService) {
+  constructor() {
   }
 
   ngOnInit() {
-    console.log('chartData ', this.chartData);
-    // Object.assign(this.chartData);
     this.chartResult[0].name = this.chartData.name;
     let index = 0;
-    this.chartData.volumeHistories.forEach((vol) => {
-      this.chartResult[0].points[index] = { x: 0, y: 0};
-      console.log('Date before converted ', vol.date);
-      this.chartResult[0].points[index].x = new Date(vol.date).getTime();
-      console.log('Date after converted ', new Date(vol.date).getTime());
-      this.chartResult[0].points[index].y = vol.storageRatio;
+    var volumeHistories = Array.from(this.chartData.volumeHistories).sort((a,b) => {
+      return new Date(a.date).getTime() - new Date(b.date).getTime();
+    });
+    this.chartData.volumeHistories.forEach(() => {
+      this.chartResult[0].series[index] = { name: "0", value: 0};
+      this.chartResult[0].series[index].name = new Date(volumeHistories[index].date).toDateString();
+      this.chartResult[0].series[index].value = volumeHistories[index].storageRatio;
       index++;
     });
   }
-
-  formatXAxisValue(value: number) {
-    const date = new Date(value * 1000);
-    return date;
-  }
-
 }
 

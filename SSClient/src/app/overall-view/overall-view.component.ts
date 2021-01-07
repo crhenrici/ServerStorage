@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { data } from '../mockdata';
-import { Server } from '../model/server';
+import { ServerOverviewDTO } from '../model/serverOverviewDTO';
+import { OverviewPieChartData } from '../OverviewPieChartData';
 import { ServerService } from '../serverService/server.service';
+import { SharedDataService } from '../sharedData/shared-data.service';
 
 @Component({
   selector: 'app-overall-view',
@@ -10,28 +11,22 @@ import { ServerService } from '../serverService/server.service';
 })
 export class OverallViewComponent implements OnInit {
 
-  server: Server;
+  server: ServerOverviewDTO;
 
-  numberOfServers: number;
+  single: any[];
 
-  constructor(private service: ServerService) { }
+  constructor(private service: ServerService, private shared: SharedDataService) { 
+  }
 
   ngOnInit() {
-    this.service.getALL().subscribe(data => {
-      const servers = data;
-      this.numberOfServers = servers.length;
-      this.countUpDetails(servers);
+    this.service.getOverview().subscribe(data => {
+      this.server = data;
+      this.sendDataToPieChart(this.server);
+
     });
   }
 
-  countUpDetails(servers: Server[]) {
-    this.server = servers[0];
-    servers.forEach(data => {
-      this.server.fullCapacity += data.fullCapacity;
-      this.server.latestStorageReserved += data.latestStorageReserved;
-      this.server.latestStorageFree += data.latestStorageFree;
-    });
-    this.server.latestStorageRatio = (this.server.latestStorageReserved / this.server.fullCapacity) * 100;
+  sendDataToPieChart(serverDTO: ServerOverviewDTO) {
+    this.shared.transmitServerDTO(serverDTO);
   }
-
 }

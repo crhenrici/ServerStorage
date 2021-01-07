@@ -1,2 +1,18 @@
+    <mat-toolbar class="prose-color">
+        <span>PROSE Server Storage</span>
+        <nav class="prose-color" mat-tab-nav-bar>
+            <a mat-tab-link
+            [routerLink]="[ '/' ]" 
+            routerLinkActive="active">
+            Overview
+        </a>
+        <a mat-tab-link
+        [routerLink]="[ '/servers' ]" 
+        routerLinkActive="active">
+        Servers
+    </a>
+    </nav>
+        <img height="35px" src="assets/img/proseLogo.png" alt="ProseLogo">
+    </mat-toolbar>
     <router-outlet></router-outlet>
 

@@ -1,48 +1,38 @@
 <div class="container">
-    <h2>Detailed view {{ volume.name }} </h2>
-    <!-- <div class="row">
-      <label class="col" for="id">Id</label>
-      <span class="col">{{ volume.id }}</span>
-    </div> -->
-    <mat-divider></mat-divider>
+  <mat-card style="margin-top: 30px;">
+    <mat-card-header>
+      <mat-card-title>
+        <h2 style="color: #db0a5b;">{{ volume.server.name }} - drive {{ volume.name }} </h2>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content style="margin-left: 20px;">
     <div class="row">
       <label class="col" for="name">Name</label>
       <span class="col">{{ volume.name }} </span>
     </div>
     <mat-divider></mat-divider>
-    <!-- <div class="row">
-      <label class="col" for="name">Description</label>
-      <span name="desc" id="desc" class="col">{{ volume.desc }} </span>
-      <button mat-stroked-button type="button" (click)="onEdit()">Edit</button>
-    </div> -->
-    <mat-divider></mat-divider>
     <div class="row">
-      <label class="col" for="fullCapacity">Full Capacity (in GB)</label>
+      <label class="col" for="fullCapacity">Overall Capacity [GB]</label>
       <span class="col">{{ volume.fullCapacity }}</span>
     </div>
     <mat-divider></mat-divider>
     <div class="row">
-      <label class="col" for="storageReserved">Storage Reserved (in GB)</label>
+      <label class="col" for="storageReserved">Storage used [GB]</label>
       <span class="col">{{ volume.latestStorageReserved }}</span>
     </div>
     <mat-divider></mat-divider>
     <div class="row">
-      <label class="col" for="storageFree">Storage Free (in GB)</label>
+      <label class="col" for="storageFree">Storage Free [GB]</label>
       <span class="col">{{ volume.latestStorageFree }}</span>
     </div>
     <mat-divider></mat-divider>
     <div class="row">
-      <label class="col" for="storageRatio">Storage Ratio (in GB)</label>
+      <label class="col" for="storageRatio">Free capacity [%]</label>
       <span class="col">{{ volume.latestStorageRatio }}</span>
     </div>
     <mat-divider></mat-divider>
     <div class="row">
-      <label for="ram" class="col">Ram (in GB)</label>
-      <span class="col">{{ volume.server.ram }}</span>
-    </div>
-    <mat-divider></mat-divider>
-    <div class="row">
-      <label for="cpuUsage" class="col">Cpu Usage (in %)</label>
+      <label for="cpuUsage" class="col">Cpu Usage [%]</label>
       <span class="col">{{ volume.server.cpuUsage }}</span>
     </div>
     <mat-divider></mat-divider>
@@ -50,9 +40,17 @@
       <label for="server" class="col">Parent Server</label>
       <span class="col">{{ volume.server.name }}</span>
     </div>
-    <mat-divider></mat-divider>
-    <div style="width: 600px; height: 450px;">
+    <div class="row">
+      <label class="col">Network Description</label>
+      <span *ngIf="!isEdit" class="col">{{ volume.desc }}</span>
+      <input class="col" *ngIf="isEdit" matInput type="text" [(ngModel)]="volume.desc">
+      <button *ngIf="!isEdit" mat-icon-button (click)="onEdit()" aria-label="Edit"><mat-icon>edit</mat-icon></button>
+      <button *ngIf="isEdit" mat-icon-button (click)="onSave()" aria-label="Save"><mat-icon>save</mat-icon></button>
+    </div>
+    </mat-card-content>
+    </mat-card>
+    <div class="chart">
       <app-chart [chartData]="volume"></app-chart>
     </div>
-    <button mat-stroked-button type="submit" routerLink="">Back</button>
+    <button style="margin-bottom: 20px;" mat-stroked-button type="submit" routerLink="/servers">Back</button>
 </div>

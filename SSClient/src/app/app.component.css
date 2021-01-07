@@ -1,1 +1,18 @@
+img {
+    margin-left: auto; 
+    margin-right: 0;
+}
 
+.prose-color {
+    background-color: #db0a5b;
+    color: white
+}
+
+a:link {
+    color: white;
+    opacity: 50%;
+}
+
+a:visited {
+    color: white;
+}

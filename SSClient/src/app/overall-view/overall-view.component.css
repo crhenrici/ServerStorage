@@ -1,0 +1,35 @@
+.data-cell {
+    padding: 5px;
+}
+
+.container {
+    display: flex;
+}
+
+.item {
+    margin: 5px;
+}
+
+.left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    float: left;
+    width: 40%;
+}
+
+.right {
+    float: right;
+    width: 60%;
+}
+
+.button-div {
+    margin-top: 10px;
+    margin-left: 25px;
+}
+
+span {
+    letter-spacing: 2px;
+}
