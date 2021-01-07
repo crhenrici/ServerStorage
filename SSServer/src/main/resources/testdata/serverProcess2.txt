@@ -1,5 +1,5 @@
 {
-    "cpuusage":  {
+    "CpuUsage":  {
                      "Path":  "\\\\nucwin\\processor(_total)\\% processor time",
                      "InstanceName":  "_total",
                      "CookedValue":  0.257164858498602875,
@@ -13,9 +13,8 @@
                      "DefaultScale":  0,
                      "TimeBase":  20000000
                  },
-    "ram":  {
+    "Ram":  {
                 "Capacity":  4
             },
-    "ramusage":  3.55,
-    "systemname":  "CHWIWS09"
+    "SystemName":  "CHWIWS09"
 }

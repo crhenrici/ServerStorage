@@ -5,10 +5,10 @@ $cpuUsage = Get-Counter '\Processor(_total)\% Processor Time'|
         Select-Object -expand CounterSamples
 $sysyemName = Get-WmiObject win32_volume | Select-Object SystemName
 $output = [ordered]@{
-    cpuusage = $cpuUsage
-    ram = $ramOutput
-    ramusage = $ramUsage
-    systemname = $sysyemName
+    CpuUsage = $cpuUsage
+    Ram = $ramOutput
+    RamUsage = $ramUsage
+    SystemName = $sysyemName
 }
 $jsonOut  = $output | ConvertTo-Json
 

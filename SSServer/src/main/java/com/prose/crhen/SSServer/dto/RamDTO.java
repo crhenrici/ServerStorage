@@ -1,17 +1,23 @@
 package com.prose.crhen.SSServer.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import lombok.Builder;
+import lombok.Value;
 
+@JsonDeserialize(builder = RamDTO.RamDTOBuilder.class)
+@JsonNaming(PropertyNamingStrategy.UpperCamelCaseStrategy.class)
+@Value
+@Builder
 public class RamDTO {
 
-    private int Capacity;
+    int Capacity;
 
-    @JsonProperty("Capacity")
-    public int getCapacity() {
-        return Capacity;
-    }
-
-    public void setCapacity(int capacity) {
-        Capacity = capacity;
+    @JsonNaming(PropertyNamingStrategy.UpperCamelCaseStrategy.class)
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class RamDTOBuilder {
     }
 }

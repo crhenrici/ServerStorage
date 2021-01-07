@@ -1,0 +1,21 @@
+plugins {
+  id 'java'
+  id "com.github.node-gradle.node" version "2.2.4"
+}
+
+node {
+  version = '13.11.0'
+  npmVersion = '6.14.8'
+  download = true
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+jar.dependsOn 'npm_run_build'
+
+jar {
+  from 'dist/SSClient' into 'static'
+}
