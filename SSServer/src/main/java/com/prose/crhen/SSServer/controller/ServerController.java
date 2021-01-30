@@ -50,6 +50,14 @@ public class ServerController {
 		return ResponseEntity.status(HttpStatus.OK).build();
 	}
 
+	@PostMapping("/update/volume")
+	public ResponseEntity<String> updateVolume(@RequestBody VolumesUpdateDTO volume) {
+		Preconditions.checkNotNull(volume, "value can't be null");
+		System.out.println("Request received");
+		service.saveVolumeDTO(volume);
+		return ResponseEntity.status(HttpStatus.OK).build();
+	}
+
 	@PostMapping("/save/server")
 	public ResponseEntity<String> saveServers(@RequestBody ServerUpdateDTO server) {
 		Preconditions.checkNotNull(server, "value can't be null");

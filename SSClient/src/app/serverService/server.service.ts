@@ -46,9 +46,10 @@ export class ServerService {
   }
 
   public postVolume(volume: Volume) {
-    const url = `${this.httpUrl}/save/volume`;
+    const url = `${this.httpUrl}/update/volume`;
+    console.log('Test if this works');
     this.http.post<Volume>(url, volume, httpOptions).pipe(
-      map(res => console.log(res)),
+      map(res => console.log('The data: ', res)),
       catchError(this.handleError)
     );
   }

@@ -11,7 +11,7 @@
 - [x] Create new Server when server inserted first
 - [x] Adapt testcase
 - [ ] Adjust history to include the latest value too
-- [ ] Adjust serverUpdateDTO to read first value off array
+- [x] Adjust serverUpdateDTO to read first value off array
 - [ ] Establish Flyaway for database migration  https://www.baeldung.com/database-migrations-with-flyway
 - [ ] Initial install package
 - [ ] Update install
