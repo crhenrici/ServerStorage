@@ -26,7 +26,7 @@
       </ng-container>
       <ng-container matColumnDef="storageDesc">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Network description</mat-header-cell>
-        <mat-cell *matCellDef="let volume"></mat-cell>
+        <mat-cell *matCellDef="let volume"> {{ volume.desc }} </mat-cell>
       </ng-container>
       <ng-container matColumnDef="storageLabel">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Drive mapping label</mat-header-cell>

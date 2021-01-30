@@ -25,7 +25,10 @@ export class DetailsViewComponent implements OnInit {
 
   onSave() {
     console.log('Post request sent! With volume desc', this.volume.desc);
-    this.service.postVolume(this.volume);
+    console.log('Volume desc', this.volume.desc)
+    this.service.postVolume(this.volume).subscribe(data => {
+      this.volume = data;
+    });
     this.isEdit = !this.isEdit;
   }
 

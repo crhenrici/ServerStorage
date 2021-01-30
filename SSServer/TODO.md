@@ -10,8 +10,8 @@
 - [x] Two scripts for ServerUpdateDto and VolumeUpdateDto
 - [x] Create new Server when server inserted first
 - [x] Adapt testcase
-- [ ] Adjust history to include the latest value too
 - [x] Adjust serverUpdateDTO to read first value off array
+- [ ] Adjust history to include the latest value too
 - [ ] Establish Flyaway for database migration  https://www.baeldung.com/database-migrations-with-flyway
 - [ ] Initial install package
 - [ ] Update install
