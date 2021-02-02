@@ -1,7 +1,9 @@
-package com.prose.crhen.SSServer.business;
+package com.prose.crhen.SSServer.business.impl;
 
+import com.prose.crhen.SSServer.business.api.ServerService;
 import com.prose.crhen.SSServer.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import com.prose.crhen.SSServer.db.ServerHistoryRepository;
@@ -15,8 +17,9 @@ import com.prose.crhen.SSServer.model.VolumeHistory;
 
 import java.util.*;
 
+@Profile("prod")
 @Service
-public class ServerService {
+public class ServerServiceImpl implements ServerService {
 	
 	@Autowired
 	private ServerRepository serverRepository;
@@ -31,14 +34,14 @@ public class ServerService {
 	private ServerHistoryRepository serverHistoryRepo;
 
 	//ONLY FOR DEMONSTRATION
-	public void deleteAll() {
+	@Override public void deleteAll() {
 		serverRepository.deleteAll();
 		volumeHistoryRepo.deleteAll();
 		volumeHistoryRepo.deleteAll();
 		serverHistoryRepo.deleteAll();
 	}
 
-	public ServerOverviewDTO getServerOverviewDTO() {
+	@Override public ServerOverviewDTO getServerOverviewDTO() {
 		List<Server> servers = serverRepository.findAll();
 		List<Volume> volumes = null;
 		double totalCapacity = 0;
@@ -57,7 +60,7 @@ public class ServerService {
 		return  serverOverviewDTO;
 	}
 
-	public List<ServerQueryDTO> getServers() {
+	@Override public List<ServerQueryDTO> getServers() {
 		List<Server> servers = serverRepository.findAll();
 		List<ServerQueryDTO> serverQueryDTOS = new ArrayList<>();
 		for (Server server : servers) {
@@ -88,7 +91,7 @@ public class ServerService {
 		return volumeQueryDTOS;
 	}
 
-	public void updateVolumeQueryDTO(VolumeQueryDTO volumeQueryDTO) {
+	@Override public void updateVolumeQueryDTO(VolumeQueryDTO volumeQueryDTO) {
 		Volume updatedVolume = volumeRepository.findByName(volumeQueryDTO.getName());
 		Server server = updatedVolume.getServer();
 		updatedVolume.setDesc(volumeQueryDTO.getDesc());
@@ -97,7 +100,7 @@ public class ServerService {
 		volumeRepository.save(updatedVolume);
 	}
 
-	public List<VolumeQueryDTO> getVolumesFromServer(String serverName) {
+	@Override public List<VolumeQueryDTO> getVolumesFromServer(String serverName) {
 		Server server = serverRepository.findByName(serverName);
 		List<Volume> volumes = volumeRepository.findByServer(server);
 		List<VolumeQueryDTO> volumeQueryDTOS = new ArrayList<>();
@@ -124,7 +127,7 @@ public class ServerService {
 		return volumeQueryDTO;
 	}
 
-	public void saveServerDTO(ServerUpdateDTO server) {
+	@Override public void saveServerDTO(ServerUpdateDTO server) {
 		Optional<Server> serverOptional = Optional.ofNullable(this.serverRepository.findByName(server.getSystemName()));
 		if (serverOptional.isPresent()) {
 			saveServerHistory(serverOptional.get());
@@ -139,7 +142,7 @@ public class ServerService {
 		}
 	}
 
-	public void saveVolumeDTO(VolumesUpdateDTO newServer) {
+	@Override public void saveVolumeDTO(VolumesUpdateDTO newServer) {
 		Optional<Server> serverFound = Optional.ofNullable(this.serverRepository.findByName(newServer.getSystemName()));
 		if (serverFound.isPresent()) {
 			checkForVolume(serverFound.get(), newServer);
@@ -180,7 +183,8 @@ public class ServerService {
 			Set<Volume> volumes = updateVolume(insertedVolume, newVolume);
 			server.setVolumes(volumes);
 		} else {
-			insertVolume(server, newVolume);
+			createVolumeToBeInserted(newVolume, server);
+			volumeRepository.save(createVolumeToBeInserted(newVolume, server));
 		}
 	}
 
@@ -214,14 +218,6 @@ public class ServerService {
 		Volume latestVolume = volumeRepository.findByName(newVolume.getName());
 		VolumeHistory volumeHistory = new VolumeHistory(latestVolume.getDate(), latestVolume.getLatestStorageReserved(), latestVolume.getLatestStorageFree(), latestVolume.getLatestStorageRatio(), latestVolume);
 		volumeHistoryRepo.save(volumeHistory);
-	}
-
-	private void insertVolume(Server server,VolumesUpdateDTO newVolume) {
-		double reserved = Double.parseDouble(newVolume.getCapacityGB()) - Double.parseDouble(newVolume.getFreeSpaceGB());
-		java.sql.Date sqlDate = getSqlDate();
-		Volume insertedVolume = new Volume(newVolume.getName(),"", sqlDate , Double.parseDouble(newVolume.getCapacityGB()) , reserved, Double.parseDouble(newVolume.getFreeSpaceGB()), Double.parseDouble(newVolume.getFreeSpacePercent()),server);
-
-		volumeRepository.save(insertedVolume);
 	}
 
 	public ServerQueryDTO.ServerQueryDTOBuilder calcServerDetails(Server server) {
