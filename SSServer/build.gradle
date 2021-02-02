@@ -20,8 +20,11 @@ repositories {
 	mavenCentral()
 }
 
+processResources.enabled = false
+
 bootJar {
 	mainClassName = 'com.prose.crhen.SSServer.SsServerApplication'
+
 }
 
 dependencies {
