@@ -3,7 +3,6 @@ package com.prose.crhen.SSServer.business.impl;
 import com.prose.crhen.SSServer.business.api.ServerService;
 import com.prose.crhen.SSServer.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import com.prose.crhen.SSServer.db.ServerHistoryRepository;
@@ -17,7 +16,6 @@ import com.prose.crhen.SSServer.model.VolumeHistory;
 
 import java.util.*;
 
-@Profile("prod")
 @Service
 public class ServerServiceImpl implements ServerService {
 	
