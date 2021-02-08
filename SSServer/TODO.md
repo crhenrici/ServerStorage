@@ -11,7 +11,7 @@
 - [x] Create new Server when server inserted first
 - [x] Adapt testcase
 - [x] Adjust serverUpdateDTO to read first value off array
-- [ ] logging in package configuration
+- [x] logging in package configuration
 - [ ] version not hardcoded in package
 - [x] installation script for db and integrate in package
 - [ ] powershell variants of the scripts
