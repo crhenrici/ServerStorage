@@ -14,13 +14,13 @@
 - [x] logging in package configuration
 - [ ] version not hardcoded in package
 - [x] installation script for db and integrate in package
-- [ ] powershell variants of the scripts
+- [x] powershell variants of the scripts
 - [ ] installservice und startservice script
-- [ ] dropdb script
-- [ ] mariadb property with attributes from nuc and test
-- [ ] in build.gradle folder into /db/initial and /db/drop  
+- [x] dropdb script
+- [x] mariadb property with attributes from nuc and test
+- [x] in build.gradle folder into /db/initial and /db/drop  
 - [ ] make target host of db configurable in package
-- [ ] Adjust history to include the latest value too
+- [x] Adjust history to include the latest value too
 - [ ] Establish Flyaway for database migration  https://www.baeldung.com/database-migrations-with-flyway
 - [ ] Initial install package
 - [ ] Update install

@@ -48,6 +48,18 @@ distributions {
 			into('/testdata') {
 				from 'src/main/resources/testdata'
 			}
+			into('/db/initial') {
+				from 'src/main/resources'
+				include('installdb.*')
+				from 'src/main/scripts/DB'
+				include('create.sql')
+			}
+			into('/db/drop') {
+				from 'src/main/resources'
+				include('dropdb.*')
+				from 'src/main/scripts/DB'
+				include('drop.sql')
+			}
 		}
 	}
 }

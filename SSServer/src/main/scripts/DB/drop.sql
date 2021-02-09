@@ -1,0 +1,1 @@
+drop database prose_servers_storage;

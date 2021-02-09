@@ -118,7 +118,7 @@ class ServerControllerTest {
 
         List<VolumeHistory> volumeHistories = volumeHistoryRepository.findAll();
 
-        assertEquals(3, volumeHistories.size());
+        assertEquals(10, volumeHistories.size());
         VolumeHistory volumeHistory = volumeHistories.get(0);
         assertEquals(Double.parseDouble(o.getFreeSpaceGB()), volumeHistory.getStorageFree());
         assertEquals(Double.parseDouble(o.getFreeSpacePercent()), volumeHistory.getStorageRatio());
@@ -176,7 +176,7 @@ class ServerControllerTest {
 
         List<ServerHistory> serverHistories = serverHistoryRepository.findAll();
 
-        assertEquals(1, serverHistories.size());
+        assertEquals(2, serverHistories.size());
 
         ServerHistory serverHistory = serverHistories.get(0);
         System.out.println(serverHistory.getCpuUsage());

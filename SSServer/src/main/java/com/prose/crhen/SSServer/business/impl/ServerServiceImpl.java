@@ -127,28 +127,33 @@ public class ServerServiceImpl implements ServerService {
 
 	@Override public void saveServerDTO(ServerUpdateDTO server) {
 		Optional<Server> serverOptional = Optional.ofNullable(this.serverRepository.findByName(server.getSystemName()));
+		Server insertedServer;
 		if (serverOptional.isPresent()) {
-			saveServerHistory(serverOptional.get());
-			Server updatedServer = serverOptional.get();
-			updatedServer.setRam(server.getRam().getCapacity());
-			updatedServer.setRamUsage(server.getRamUsage());
-			updatedServer.setCpuUsage(server.getCpuUsage().getCookedValue());
-			serverRepository.save(updatedServer);
+			insertedServer = serverOptional.get();
+			insertedServer.setRam(server.getRam().getCapacity());
+			insertedServer.setRamUsage(server.getRamUsage());
+			insertedServer.setCpuUsage(server.getCpuUsage().getCookedValue());
+			serverRepository.save(insertedServer);
 		} else {
-			Server insertedServer = new Server(server.getSystemName(), server.getRam().getCapacity(), server.getRamUsage() , server.getCpuUsage().getCookedValue());
+			insertedServer = new Server(server.getSystemName(), server.getRam().getCapacity(), server.getRamUsage() , server.getCpuUsage().getCookedValue());
 			serverRepository.save(insertedServer);
 		}
+		saveServerHistory(insertedServer);
 	}
 
-	@Override public void saveVolumeDTO(VolumesUpdateDTO newServer) {
-		Optional<Server> serverFound = Optional.ofNullable(this.serverRepository.findByName(newServer.getSystemName()));
+	@Override public void saveVolumeDTO(VolumesUpdateDTO newVolume) {
+		Optional<Server> serverFound = Optional.ofNullable(this.serverRepository.findByName(newVolume.getSystemName()));
+		Server insertedServer;
 		if (serverFound.isPresent()) {
-			checkForVolume(serverFound.get(), newServer);
+			insertedServer = serverFound.get();
+			checkForVolume(insertedServer, newVolume);
 			} else {
-			Server createdServer = createServerToBeInsertedOffVolume(newServer);
-			Volume createdVolume = createVolumeToBeInserted(newServer, createdServer);
-			insertServerAndVolume(createdServer, createdVolume);
+			insertedServer = createServerToBeInsertedOffVolume(newVolume);
+			Volume createdVolume = createVolumeToBeInserted(newVolume, insertedServer);
+			insertServerAndVolume(insertedServer, createdVolume);
 		}
+		saveVolumeHistory(newVolume);
+		saveServerHistory(insertedServer);
 	}
 
 	private Server createServerToBeInsertedOffVolume(VolumesUpdateDTO newVolume) {
@@ -175,13 +180,12 @@ public class ServerServiceImpl implements ServerService {
 
 	private void checkForVolume(Server server, VolumesUpdateDTO newVolume) {
 		Optional<Volume> volumeOptional = Optional.ofNullable(volumeRepository.findByName(newVolume.getName()));
-		Volume insertedVolume = null;
+		Volume insertedVolume;
 		if (volumeOptional.isPresent()) {
 			insertedVolume = volumeOptional.get();
 			Set<Volume> volumes = updateVolume(insertedVolume, newVolume);
 			server.setVolumes(volumes);
 		} else {
-			createVolumeToBeInserted(newVolume, server);
 			volumeRepository.save(createVolumeToBeInserted(newVolume, server));
 		}
 	}
@@ -192,8 +196,6 @@ public class ServerServiceImpl implements ServerService {
 	}
 
 	private Set<Volume> updateVolume(Volume updatedVolume, VolumesUpdateDTO newVolume) {
-		saveVolumeHistory(newVolume);
-
 		Volume insertedVolume = getVolumeToBeInserted(updatedVolume, newVolume);
 
 		Set<Volume> volumes = insertedVolume.getServer().getVolumes();
