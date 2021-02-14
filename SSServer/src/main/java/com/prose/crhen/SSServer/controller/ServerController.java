@@ -1,7 +1,7 @@
 package com.prose.crhen.SSServer.controller;
 
 import com.google.common.base.Preconditions;
-import com.prose.crhen.SSServer.business.ServerService;
+import com.prose.crhen.SSServer.business.api.ServerService;
 import com.prose.crhen.SSServer.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
