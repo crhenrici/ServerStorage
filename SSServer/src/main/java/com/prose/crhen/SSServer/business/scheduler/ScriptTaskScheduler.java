@@ -1,29 +1,28 @@
 package com.prose.crhen.SSServer.business.scheduler;
 
-import org.apache.tomcat.jni.Proc;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
 
 @Component
 public class ScriptTaskScheduler {
 
     ProcessBuilder processBuilder = new ProcessBuilder();
-    List<String> computerNames = new LinkedList<>(Arrays.asList("chwisrv03", "chwisrv04", "chwisrv07", "chwisrv11"));
+    @Value("${scripts.location}:classpath:scripts/")
+    String scriptLocation;
+    @Value("${targets}: ")
+    String computerNames;
 
     @Scheduled(cron = "${cron.expression}")
     public void scheduleScriptTask() throws IOException {
+        String[] targetList = computerNames.split(":");
         Process process;
-        for (int i = 0; i < computerNames.size(); i++) {
-           processBuilder.command("powershell.exe", "-Command", "\\script\\serverquery.ps1","-computerName", computerNames.get(i));
+        for (String target : targetList) {
+           processBuilder.command("powershell.exe", "-Command", scriptLocation + "\\serverquery.ps1","-computerName", target);
            process = processBuilder.start();
-           processBuilder.command("powershell.exe", "-Command", "\\script\\volumequery.ps1", "-computerName", computerNames.get(i));
+           processBuilder.command("powershell.exe", "-Command", scriptLocation + "\\volumequery.ps1", "-computerName", target);
            process = processBuilder.start();
        }
     }
