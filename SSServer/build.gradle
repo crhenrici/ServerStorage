@@ -39,6 +39,8 @@ distributions {
 			into('/') { // Copy runnable jar into the distribution archive
 				from 'src/main/resources'
 				include '*.sh'
+				include 'installService.ps1'
+				include 'removeService.ps1'
 			}
 			into('/config') { // Copy configuration files to config subfolder
 				from 'src/main/resources'
