@@ -15,7 +15,7 @@
 - [ ] version not hardcoded in package
 - [x] installation script for db and integrate in package
 - [x] powershell variants of the scripts
-- [ ] installservice und startservice script
+- [x] installservice und startservice script
 - [x] dropdb script
 - [x] mariadb property with attributes from nuc and test
 - [x] in build.gradle folder into /db/initial and /db/drop  

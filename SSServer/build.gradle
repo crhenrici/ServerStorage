@@ -62,6 +62,11 @@ distributions {
 				from 'src/main/scripts/DB'
 				include('drop.sql')
 			}
+			into('/script') {
+				from 'src/main/scripts/Powershell'
+				include 'serverquery.ps1'
+				include 'volumequery.ps1'
+			}
 		}
 	}
 }
