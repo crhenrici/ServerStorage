@@ -13,10 +13,10 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import com.prose.crhen.SSServer.controller.TestConfig;
 import com.prose.crhen.SSServer.db.ServerHistoryRepository;
 import com.prose.crhen.SSServer.db.ServerRepository;
 import com.prose.crhen.SSServer.db.VolumeHistoryRepository;
@@ -28,6 +28,7 @@ import com.prose.crhen.SSServer.model.Volume;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = TestConfig.class)
+@ActiveProfiles("dev")
 public class ServerServiceTest {
 	
 	@Autowired
