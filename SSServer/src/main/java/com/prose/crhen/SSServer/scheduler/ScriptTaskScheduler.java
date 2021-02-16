@@ -1,4 +1,4 @@
-package com.prose.crhen.SSServer.business.scheduler;
+package com.prose.crhen.SSServer.scheduler;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

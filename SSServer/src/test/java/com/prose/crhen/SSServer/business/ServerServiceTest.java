@@ -15,6 +15,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.prose.crhen.SSServer.db.ServerHistoryRepository;
@@ -28,7 +29,8 @@ import com.prose.crhen.SSServer.model.Volume;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = TestConfig.class)
-@ActiveProfiles("dev")
+@ActiveProfiles("scriptMock")
+@TestPropertySource(locations = "classpath:test.properties")
 public class ServerServiceTest {
 	
 	@Autowired

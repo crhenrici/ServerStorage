@@ -19,11 +19,11 @@
 - [x] dropdb script
 - [x] mariadb property with attributes from nuc and test
 - [x] in build.gradle folder into /db/initial and /db/drop  
-- [ ] make target host of db configurable in package
+- [x] make target host of db configurable in package
 - [x] Adjust history to include the latest value too
 - [ ] Establish Flyaway for database migration  https://www.baeldung.com/database-migrations-with-flyway
-- [ ] Initial install package
-- [ ] Update install
+- [x] Initial install package
+- [x] Update install
 - [x] packaging with Angular application
 - [x] Identify Client UI Navigation and required Rest Queries 
 
