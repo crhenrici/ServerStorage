@@ -22,7 +22,7 @@ import java.util.List;
 public class MockDataInitializer implements CommandLineRunner {
 
     private static final Logger logger = LoggerFactory.getLogger(MockDataInitializer.class);
-    @Value("${test.data.location:classpath:testdata/}")
+    @Value("${test.data.location}")
     private String testDataLocation;
 
     @Autowired

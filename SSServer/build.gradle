@@ -37,10 +37,7 @@ distributions {
 				from jar
 			}
 			into('/') { // Copy runnable jar into the distribution archive
-				from 'src/main/resources'
-				include '*.sh'
-				include 'installService.ps1'
-				include 'removeService.ps1'
+				from 'src/main/resources/installation'
 			}
 			into('/config') { // Copy configuration files to config subfolder
 				from 'src/main/resources'
@@ -51,16 +48,19 @@ distributions {
 				from 'src/main/resources/testdata'
 			}
 			into('/db/initial') {
-				from 'src/main/resources'
+				from 'src/main/resources/db'
 				include('installdb.*')
-				from 'src/main/scripts/DB'
 				include('create.sql')
 			}
 			into('/db/drop') {
-				from 'src/main/resources'
+				from 'src/main/resources/db'
 				include('dropdb.*')
-				from 'src/main/scripts/DB'
 				include('drop.sql')
+			}
+			into('/scripts') {
+				from 'src/main/resources/scripts'
+				include 'serverquery.ps1'
+				include 'volumequery.ps1'
 			}
 		}
 	}
@@ -74,6 +74,7 @@ distributions {
 
 	implementation 'com.google.guava:guava:29.0-jre'
 	implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.6.1'
+	implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.10'
 
 
 	compileOnly 'org.projectlombok:lombok'
