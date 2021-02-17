@@ -11,19 +11,19 @@
             </div>
             <mat-divider></mat-divider>
             <div class="container">
-                <span><b>Overall capacity [GB]: </b>{{ server.totalCapacity }}</span>
+                <span><b>Overall capacity [GB]: </b>{{ server.totalCapacity | number: '1.2-2' }}</span>
             </div>
             <mat-divider></mat-divider>
             <div class="container">
-                <span><b>Storage used [GB]: </b>{{ server.totalCapacityUsed }}</span>
+                <span><b>Storage used [GB]: </b>{{ server.totalCapacityUsed | number: '1.2-2' }}</span>
             </div>
             <mat-divider></mat-divider>
             <div class="container">
-                <span><b>Storage free [GB]: </b>{{ server.totalCapacityFree }}</span>
+                <span><b>Storage free [GB]: </b>{{ server.totalCapacityFree | number: '1.2-2' }}</span>
             </div>
             <mat-divider></mat-divider>
             <div class="container">
-                <span><b>Storage ratio [%]: </b>{{ server.totalUsedCapacityRatio }}</span>
+                <span><b>Storage ratio free [%]: </b>{{ server.totalUsedCapacityRatio | number: '1.2-2' }}</span>
             </div>
         </mat-card>
         <!-- <div class="container button-div">
