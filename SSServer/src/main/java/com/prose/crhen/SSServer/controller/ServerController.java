@@ -3,6 +3,8 @@ package com.prose.crhen.SSServer.controller;
 import com.google.common.base.Preconditions;
 import com.prose.crhen.SSServer.business.api.ServerService;
 import com.prose.crhen.SSServer.dto.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,7 @@ import java.util.List;
 @RequestMapping(path = "service")
 public class ServerController {
 
+	private static final Logger logger = LoggerFactory.getLogger(ServerController.class);
 
 	@Autowired
 	private ServerService service;
@@ -43,7 +46,7 @@ public class ServerController {
 	@PostMapping("/save/volume")
 	public ResponseEntity<String> saveVolumes(@RequestBody List<VolumesUpdateDTO> volumes) {
 		Preconditions.checkNotNull(volumes, "value can't be null");
-		System.out.println(volumes.toString());
+		logger.info(volumes.toString());
         for (VolumesUpdateDTO volume : volumes) {
         	service.saveVolumeDTO(volume);
 		}
@@ -53,7 +56,7 @@ public class ServerController {
 	@PostMapping("/update/volume")
 	public ResponseEntity<String> updateVolume(@RequestBody VolumeQueryDTO volume) {
 		Preconditions.checkNotNull(volume, "value can't be null");
-		System.out.println("Request received");
+		logger.info("Request received");
 		service.updateVolumeQueryDTO(volume);
 		return ResponseEntity.status(HttpStatus.OK).build();
 	}
@@ -61,6 +64,8 @@ public class ServerController {
 	@PostMapping("/save/server")
 	public ResponseEntity<String> saveServers(@RequestBody ServerUpdateDTO server) {
 		Preconditions.checkNotNull(server, "value can't be null");
+		logger.info("Data received");
+		logger.info("Received data: " + server.toString());
 		service.saveServerDTO(server);
 		return ResponseEntity.status(HttpStatus.OK).build();
 	}

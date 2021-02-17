@@ -1,5 +1,5 @@
 param (
-    [string]$profile = "dev", $db_name, $db_uri, $db_user, $db_pw
+    [string]$profile = "h2db", $db_name, $db_uri, $db_user, $db_pw
 )
 nssm install ServerStorage "java"
 nssm set ServerStorage AppDirectory C:\test

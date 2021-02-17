@@ -19,7 +19,6 @@ public class ScriptTaskScheduler {
     @Scheduled(cron = "${cron.expression}")
     public void scheduleScriptTask() throws IOException {
         String[] targetList = computerNames.split(":");
-        Process process;
         for (String target : targetList) {
            scriptTask.run(target);
        }

@@ -1,5 +1,9 @@
 param (
-	[string]$profile = "dev",$DB_NAME,$DB_URI,$DB_USER,$DB_PW
+	[string]$profile = "h2db",$db_name,$db_uri,$db_user,$db_pw
 )
+$env:DB_NAME=$db_name
+$env:DB_URI=$db_uri
+$env:DB_USER=$db_user
+$env:DB_PW=$db_pw
 java -jar lib/SSServer-0.0.1-SNAPSHOT.jar --spring.config.location=config/ --spring.profiles.active=$profile
 

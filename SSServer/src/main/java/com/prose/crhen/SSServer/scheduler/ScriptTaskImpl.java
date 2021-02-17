@@ -15,7 +15,7 @@ public class ScriptTaskImpl implements ScriptTask {
     private static final Logger logger = LoggerFactory.getLogger(ScriptTaskImpl.class);
     ProcessBuilder processBuilder = new ProcessBuilder();
 
-    @Value("${scripts.location}:classpath:scripts/")
+    @Value("${scripts.location}:classpath:scripts")
     String scriptLocation;
 
     @Override
@@ -26,7 +26,8 @@ public class ScriptTaskImpl implements ScriptTask {
     }
 
     private void runProcess(String target, String scriptName) {
-        processBuilder.command("powershell.exe", "-Command", String.format("%s\\%s",scriptLocation,scriptName),"-computerName", target);
+        logger.info("script path is: " + String.format("%s\\%s",scriptLocation,scriptName));
+        processBuilder.command("C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe", "-Command", String.format("%s\\%s",scriptLocation,scriptName),"-computerName", target);
         try {
             processBuilder.start();
         } catch (IOException e) {
