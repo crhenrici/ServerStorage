@@ -15,7 +15,7 @@ public class ScriptTaskImpl implements ScriptTask {
     private static final Logger logger = LoggerFactory.getLogger(ScriptTaskImpl.class);
     ProcessBuilder processBuilder = new ProcessBuilder();
 
-    @Value("${scripts.location}:classpath:scripts")
+    @Value("${scripts.location}")
     String scriptLocation;
 
     @Override
