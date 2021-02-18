@@ -18,7 +18,7 @@ export class ServerService {
   httpUrl: string;
 
   constructor(private http: HttpClient) {
-    this.httpUrl = 'http://localhost:9010/service';
+    this.httpUrl = 'http://192.168.2.28:9010/service';
    }
 
   public getServers(): Observable<any> {

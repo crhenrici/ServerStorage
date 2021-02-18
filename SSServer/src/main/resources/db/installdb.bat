@@ -1,1 +1,1 @@
-mysql --user=testadmin --password=test prose_test < create.sql;
+mysql --user= --password= prose_test < create.sql;

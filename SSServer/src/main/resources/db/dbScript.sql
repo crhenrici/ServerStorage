@@ -1,6 +1,6 @@
 -- Creating database
-DROP DATABASE IF EXISTS prose;
-CREATE DATABASE prose;
+DROP DATABASE IF EXISTS prose_serverStorage;
+CREATE DATABASE prose_serverStorage;
 
 USE prose;
 
