@@ -22,10 +22,10 @@ public class ServerController {
 	@Autowired
 	private ServerService service;
 
-//	@RequestMapping(value = {"/error"})
-//	public String index() {
-//		return "forward:/index.html";
-//	}
+	@RequestMapping(value = {"" ,"/error"})
+	public String index() {
+		return "forward:/index.html";
+	}
 
 	@GetMapping("/overview")
 	@ResponseBody
