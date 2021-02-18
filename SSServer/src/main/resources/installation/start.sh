@@ -7,4 +7,7 @@ java -jar lib/SSServer-0.0.1-SNAPSHOT.jar --spring.config.location=config/ --spr
 
 oder
 
-java -jar lib/SSServer-0.0.1-SNAPSHOT.jar --spring.config.location=config/ --spring.resources.static-locations=web/static --spring.profiles.active=$5
+java -Dloader.path="web/" -jar lib/SSServer-0.0.1-SNAPSHOT.jar --spring.config.location=config/  --spring.profiles.active=$5
+
+
+ACHTUNG : untested stuff
