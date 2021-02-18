@@ -45,10 +45,11 @@ export class ServerService {
     );
   }
 
-  public postVolume(volume: Volume) {
-    const url = `${this.httpUrl}/save/volume`;
-    this.http.post<Volume>(url, volume, httpOptions).pipe(
-      map(res => console.log(res)),
+  public postVolume(volume: Volume): Observable<any> {
+    const url = `${this.httpUrl}/update/volume`;
+    console.log('Test if this new stuff works');
+    return this.http.post<Volume>(url, volume, httpOptions).pipe(
+      map(res => res as Volume),
       catchError(this.handleError)
     );
   }

@@ -3,7 +3,10 @@ plugins {
 	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
 	id 'java'
 	id "io.freefair.lombok" version "5.3.0"
+	id 'distribution'
 }
+
+apply plugin: 'distribution'
 
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
@@ -27,7 +30,44 @@ bootJar {
 
 }
 
-dependencies {
+distributions {
+	main {
+		baseName = 'ServerStorage'
+		contents {
+			into('/lib') { // Copy runnable jar into the distribution archive
+				from jar
+			}
+			into('/') { // Copy runnable jar into the distribution archive
+				from 'src/main/resources/installation'
+			}
+			into('/config') { // Copy configuration files to config subfolder
+				from 'src/main/resources'
+				include('*.properties')
+				include('*.xml')
+			}
+			into('/testdata') {
+				from 'src/main/resources/testdata'
+			}
+			into('/db/initial') {
+				from 'src/main/resources/db'
+				include('installdb.*')
+				include('create.sql')
+			}
+			into('/db/drop') {
+				from 'src/main/resources/db'
+				include('dropdb.*')
+				include('drop.sql')
+			}
+			into('/scripts') {
+				from 'src/main/resources/scripts'
+				include 'serverquery.ps1'
+				include 'volumequery.ps1'
+			}
+		}
+	}
+}
+
+		dependencies {
 	implementation 'org.projectlombok:lombok:1.16.18'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -35,6 +75,7 @@ dependencies {
 
 	implementation 'com.google.guava:guava:29.0-jre'
 	implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.6.1'
+	implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.10'
 
 
 	compileOnly 'org.projectlombok:lombok'

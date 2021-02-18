@@ -13,27 +13,27 @@
     <mat-divider></mat-divider>
     <div class="row">
       <label class="col" for="fullCapacity">Overall Capacity [GB]</label>
-      <span class="col">{{ volume.fullCapacity }}</span>
+      <span class="col">{{ volume.fullCapacity | number: '1.2-2' }}</span>
     </div>
     <mat-divider></mat-divider>
     <div class="row">
       <label class="col" for="storageReserved">Storage used [GB]</label>
-      <span class="col">{{ volume.latestStorageReserved }}</span>
+      <span class="col">{{ volume.latestStorageReserved | number: '1.2-2' }}</span>
     </div>
     <mat-divider></mat-divider>
     <div class="row">
       <label class="col" for="storageFree">Storage Free [GB]</label>
-      <span class="col">{{ volume.latestStorageFree }}</span>
+      <span class="col">{{ volume.latestStorageFree | number: '1.2-2' }}</span>
     </div>
     <mat-divider></mat-divider>
     <div class="row">
       <label class="col" for="storageRatio">Free capacity [%]</label>
-      <span class="col">{{ volume.latestStorageRatio }}</span>
+      <span class="col">{{ volume.latestStorageRatio | number: '1.2-2' }}</span>
     </div>
     <mat-divider></mat-divider>
     <div class="row">
       <label for="cpuUsage" class="col">Cpu Usage [%]</label>
-      <span class="col">{{ volume.server.cpuUsage }}</span>
+      <span class="col">{{ volume.server.cpuUsage | number: '1.2-2' }}</span>
     </div>
     <mat-divider></mat-divider>
     <div class="row">

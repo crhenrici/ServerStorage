@@ -1,4 +1,7 @@
-﻿$volumes = Get-WmiObject win32_volume | Select-Object SystemName, Name, DriveLetter,
+﻿param (
+    [string]$computerName = "chwisrv03"
+)
+$volumes = Get-WmiObject win32_volume -Computername $computerName | Select-Object SystemName, Name, DriveLetter,
 @{ Name = "CapacityGB"; Expression = { [math]::round($_.Capacity / 1GB, 2) } },
 @{ Name = "FreeSpaceGB"; Expression = { [math]::round($_.FreeSpace / 1GB, 2) } },
 @{ Name = "FreeSpacePercent"; Expression = { [math]::round(($_.FreeSpace / ($_.Capacity * 1.00)) * 100.00, 2) } },

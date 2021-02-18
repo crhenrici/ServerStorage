@@ -10,12 +10,21 @@
 - [x] Two scripts for ServerUpdateDto and VolumeUpdateDto
 - [x] Create new Server when server inserted first
 - [x] Adapt testcase
-- [ ] Adjust history to include the latest value too
-- [ ] Adjust serverUpdateDTO to read first value off array
+- [x] Adjust serverUpdateDTO to read first value off array
+- [x] logging in package configuration
+- [ ] version not hardcoded in package
+- [x] installation script for db and integrate in package
+- [x] powershell variants of the scripts
+- [x] installservice und startservice script
+- [x] dropdb script
+- [x] mariadb property with attributes from nuc and test
+- [x] in build.gradle folder into /db/initial and /db/drop  
+- [x] make target host of db configurable in package
+- [x] Adjust history to include the latest value too
 - [ ] Establish Flyaway for database migration  https://www.baeldung.com/database-migrations-with-flyway
-- [ ] Initial install package
-- [ ] Update install
-- [ ] packaging with Angular application
-- [ ] Identify Client UI Navigation and required Rest Queries 
+- [x] Initial install package
+- [x] Update install
+- [x] packaging with Angular application
+- [x] Identify Client UI Navigation and required Rest Queries 
 
   

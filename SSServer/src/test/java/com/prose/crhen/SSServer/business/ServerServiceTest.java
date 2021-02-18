@@ -2,21 +2,22 @@ package com.prose.crhen.SSServer.business;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.prose.crhen.SSServer.business.api.ServerService;
 import com.prose.crhen.SSServer.dto.ServerQueryDTO;
 import com.prose.crhen.SSServer.dto.VolumeQueryDTO;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import com.prose.crhen.SSServer.controller.TestConfig;
 import com.prose.crhen.SSServer.db.ServerHistoryRepository;
 import com.prose.crhen.SSServer.db.ServerRepository;
 import com.prose.crhen.SSServer.db.VolumeHistoryRepository;
@@ -28,6 +29,8 @@ import com.prose.crhen.SSServer.model.Volume;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = TestConfig.class)
+@ActiveProfiles("scriptMock")
+@TestPropertySource(locations = "classpath:test.properties")
 public class ServerServiceTest {
 	
 	@Autowired
@@ -343,7 +346,8 @@ public class ServerServiceTest {
 		double fullCapacity = Double.parseDouble(newVolume.getCapacityGB()) + Double.parseDouble(secondVolume.getCapacityGB());
 		Server server = serverRepository.findByName("TestServer");
 		assertEquals(2, server.getVolumes().size());
-		assertEquals(0, server.getServerHistories().size());
+		assertEquals(1, serverRepository.count());
+		assertEquals(2, server.getServerHistories().size());
 	}
 
 	@Test
@@ -353,10 +357,10 @@ public class ServerServiceTest {
 		assertEquals(2, serverRepository.count());
 		assertEquals(3, volumeRepository.count());
 		Server testingServer = serverRepository.findByName("TestingServer");
-		assertEquals(0, testingServer.getServerHistories().size());
+		assertEquals(1, testingServer.getServerHistories().size());
 		List<ServerHistory> serverHistories = serverHistoryRepository.findAll();
-		assertEquals(0, serverHistoryRepository.count());
-		assertEquals(0, serverHistories.size());
+		assertEquals(3, serverHistoryRepository.count());
+		assertEquals(3, serverHistories.size());
 	}
 
 	@Test
@@ -368,7 +372,7 @@ public class ServerServiceTest {
 		assertEquals(25, volume.getLatestStorageFree());
 		assertEquals(75, volume.getLatestStorageReserved());
 		assertEquals(3, volumeRepository.count());
-		assertEquals(1, volumeHistoryRepository.count());
+		assertEquals(4, volumeHistoryRepository.count());
 	}
 
 	@Test
