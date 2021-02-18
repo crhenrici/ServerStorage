@@ -12,7 +12,6 @@
 - [x] Adapt testcase
 - [x] Adjust serverUpdateDTO to read first value off array
 - [x] logging in package configuration
-- [ ] version not hardcoded in package
 - [x] installation script for db and integrate in package
 - [x] powershell variants of the scripts
 - [x] installservice und startservice script
@@ -21,10 +20,10 @@
 - [x] in build.gradle folder into /db/initial and /db/drop  
 - [x] make target host of db configurable in package
 - [x] Adjust history to include the latest value too
-- [ ] Establish Flyaway for database migration  https://www.baeldung.com/database-migrations-with-flyway
 - [x] Initial install package
 - [x] Update install
 - [x] packaging with Angular application
 - [x] Identify Client UI Navigation and required Rest Queries 
-
-  
+- [ ] - [ ] Establish Flyaway for database migration  https://www.baeldung.com/database-migrations-with-flyway
+- [ ] version not hardcoded in package
+- [ ] error when refreshing details-view -> needs fixing   
