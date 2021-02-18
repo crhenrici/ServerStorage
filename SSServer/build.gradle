@@ -10,20 +10,15 @@ apply plugin: 'distribution'
 
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+	targetCompatibility = JavaVersion.VERSION_1_8
 }
 
-configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
-	}
-}
 
 repositories {
 	mavenCentral()
 }
 
-processResources.enabled = false
+processResources.enabled = true
 
 bootJar {
 	mainClassName = 'com.prose.crhen.SSServer.SsServerApplication'
@@ -66,7 +61,7 @@ distributions {
 	}
 }
 
-		dependencies {
+dependencies {
 	implementation 'org.projectlombok:lombok:1.16.18'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
