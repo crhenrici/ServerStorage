@@ -10,7 +10,7 @@ apply plugin: 'distribution'
 
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+	targetCompatibility = JavaVersion.VERSION_1_8
 }
 
 
@@ -18,22 +18,10 @@ repositories {
 	mavenCentral()
 }
 
-processResources.enabled = false
-
-configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
-	}
-	angularImpl
-	bootjarIncluded.extendsFrom implementation {
-		canBeResolved = true
-	}
-}
+processResources.enabled = true
 
 bootJar {
 	mainClassName = 'com.prose.crhen.SSServer.SsServerApplication'
-	from configurations.bootjarIncluded - configurations.angularImpl
-	from configurations.runtime
 }
 
 distributions {
@@ -45,10 +33,6 @@ distributions {
 			}
 			into('/') { // Copy runnable jar into the distribution archive
 				from 'src/main/resources/installation'
-			}
-			into('/web') {
-				from({ zipTree(configurations.angularImpl.singleFile) }) {
-				}
 			}
 			into('/config') { // Copy configuration files to config subfolder
 				from 'src/main/resources'
@@ -93,7 +77,7 @@ dependencies {
 
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
-	angularImpl(project(':SSClient'))
+	implementation(project(':SSClient'))
 
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
