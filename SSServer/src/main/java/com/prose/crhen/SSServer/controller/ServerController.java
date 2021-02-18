@@ -23,8 +23,8 @@ public class ServerController {
 	@Autowired
 	private ServerService service;
 
-	@RequestMapping({"","/error","/servers", "/details-view"})
-	public String forwardToClient(@PathVariable Optional<String> name) {
+	@RequestMapping({"","/error","/servers"})
+	public String forwardToClient() {
 		return "forward:/index.html";
 	}
 
