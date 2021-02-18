@@ -13,11 +13,6 @@ java {
     targetCompatibility = JavaVersion.VERSION_1_8
 }
 
-configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
-	}
-}
 
 repositories {
 	mavenCentral()
@@ -25,9 +20,20 @@ repositories {
 
 processResources.enabled = false
 
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+	angularImpl
+	bootjarIncluded.extendsFrom implementation {
+		canBeResolved = true
+	}
+}
+
 bootJar {
 	mainClassName = 'com.prose.crhen.SSServer.SsServerApplication'
-
+	from configurations.bootjarIncluded - configurations.angularImpl
+	from configurations.runtime
 }
 
 distributions {
@@ -39,6 +45,10 @@ distributions {
 			}
 			into('/') { // Copy runnable jar into the distribution archive
 				from 'src/main/resources/installation'
+			}
+			into('/web') {
+				from({ zipTree(configurations.angularImpl.singleFile) }) {
+				}
 			}
 			into('/config') { // Copy configuration files to config subfolder
 				from 'src/main/resources'
@@ -67,7 +77,7 @@ distributions {
 	}
 }
 
-		dependencies {
+dependencies {
 	implementation 'org.projectlombok:lombok:1.16.18'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -83,7 +93,7 @@ distributions {
 
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
-	implementation(project(':SSClient'))
+	angularImpl(project(':SSClient'))
 
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
