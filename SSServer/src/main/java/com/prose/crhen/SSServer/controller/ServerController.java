@@ -3,20 +3,19 @@ package com.prose.crhen.SSServer.controller;
 import com.google.common.base.Preconditions;
 import com.prose.crhen.SSServer.business.api.ServerService;
 import com.prose.crhen.SSServer.dto.*;
+import org.checkerframework.checker.nullness.Opt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
-//@CrossOrigin(origins = "http://localhost:4200")
-//@RequestMapping(path = "service")
 public class ServerController {
 
 	private static final Logger logger = LoggerFactory.getLogger(ServerController.class);
@@ -24,8 +23,8 @@ public class ServerController {
 	@Autowired
 	private ServerService service;
 
-	@RequestMapping({"","/error","/servers"})
-	public String index() {
+	@RequestMapping({"","/error","/servers", "/details-view"})
+	public String forwardToClient(@PathVariable Optional<String> name) {
 		return "forward:/index.html";
 	}
 
