@@ -13,26 +13,15 @@ import java.io.IOException;
 @Profile("scriptWindows")
 public class ScriptTaskImpl implements ScriptTask {
     private static final Logger logger = LoggerFactory.getLogger(ScriptTaskImpl.class);
-    ProcessBuilder processBuilder = new ProcessBuilder();
 
     @Value("${scripts.location}")
     String scriptLocation;
 
     @Override
     public void run(String target)  {
+        ProcessBuilderCmdRunner cmdRunner = new ProcessBuilderCmdRunner();
         logger.info("Task running for : " + target);
-        runProcess(target, "serverquery.ps1");
-        runProcess(target, "volumequery.ps1");
-    }
-
-    private void runProcess(String target, String scriptName) {
-        logger.info("script path is: " + String.format("%s\\%s",scriptLocation,scriptName));
-        processBuilder.command("C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe", "-Command", String.format("%s\\%s",scriptLocation,scriptName),"-computerName", target);
-        try {
-            processBuilder.start();
-        } catch (IOException e) {
-            logger.error(String.format("Script: %s error with exception: %s ",scriptName, e.getMessage()));
-            ExceptionUtils.printRootCauseStackTrace(e);
-        }
+        cmdRunner.run(new PowerShellScriptCmd(scriptLocation,"serverquery.ps1", target));
+        cmdRunner.run(new PowerShellScriptCmd(scriptLocation,"volumequery.ps1", target));
     }
 }

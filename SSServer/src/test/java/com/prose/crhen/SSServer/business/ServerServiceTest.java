@@ -7,8 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.prose.crhen.SSServer.business.api.ServerService;
-import com.prose.crhen.SSServer.dto.ServerQueryDTO;
-import com.prose.crhen.SSServer.dto.VolumeQueryDTO;
+import com.prose.crhen.SSServer.dto.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,7 +21,6 @@ import com.prose.crhen.SSServer.db.ServerHistoryRepository;
 import com.prose.crhen.SSServer.db.ServerRepository;
 import com.prose.crhen.SSServer.db.VolumeHistoryRepository;
 import com.prose.crhen.SSServer.db.VolumeRepository;
-import com.prose.crhen.SSServer.dto.VolumesUpdateDTO;
 import com.prose.crhen.SSServer.model.Server;
 import com.prose.crhen.SSServer.model.ServerHistory;
 import com.prose.crhen.SSServer.model.Volume;
@@ -69,6 +67,8 @@ public class ServerServiceTest {
 	Server server;
 
 	Server server2;
+
+	ServerUpdateDTO serverDTO;
 
 	ServerHistory serverHistory;
 	
@@ -330,6 +330,28 @@ public class ServerServiceTest {
 		volumeRepository.save(volume5);
 	}
 
+	void setUpSaveServerTest() {
+		CpuUsageDTO cpuUsageDTO = CpuUsageDTO.builder()
+				.cookedValue(12.32)
+				.counterType(12l)
+				.defaultScale(3)
+				.instanceName("Test")
+				.multipleCount(3)
+				.path("SomePath")
+				.rawValue(15l)
+				.secondValue(43l)
+				.status(1)
+				.timeBase(32l)
+				.timestamp100NSec(3200l)
+				.build();
+		serverDTO = ServerUpdateDTO.builder()
+				.ramUsage(8.00)
+				.systemName(SystemNameDTO.builder().SystemName("Test").build())
+				.cpuUsage(cpuUsageDTO)
+				.ram(RamDTO.builder().Capacity(8).build())
+				.build();
+	}
+
 	@Test
 	void saveNewServerTest() {
 		setUpNewServerTest();
@@ -347,7 +369,7 @@ public class ServerServiceTest {
 		Server server = serverRepository.findByName("TestServer");
 		assertEquals(2, server.getVolumes().size());
 		assertEquals(1, serverRepository.count());
-		assertEquals(2, server.getServerHistories().size());
+		assertEquals(0, server.getServerHistories().size());
 	}
 
 	@Test
@@ -357,10 +379,10 @@ public class ServerServiceTest {
 		assertEquals(2, serverRepository.count());
 		assertEquals(3, volumeRepository.count());
 		Server testingServer = serverRepository.findByName("TestingServer");
-		assertEquals(1, testingServer.getServerHistories().size());
+		assertEquals(0, testingServer.getServerHistories().size());
 		List<ServerHistory> serverHistories = serverHistoryRepository.findAll();
-		assertEquals(3, serverHistoryRepository.count());
-		assertEquals(3, serverHistories.size());
+		assertEquals(0, serverHistoryRepository.count());
+		assertEquals(0, serverHistories.size());
 	}
 
 	@Test
@@ -415,6 +437,17 @@ public class ServerServiceTest {
 		assertEquals(3, volumeQueryDTOS.size());
 		assertEquals("VolumeTest", volumeQueryDTOS.get(0).getName());
 		assertEquals("Volume3Test", volumeQueryDTOS.get(2).getName());
+	}
+
+	@Test
+	void saveServerTest() {
+		setUpSaveServerTest();
+		service.saveServerDTO(serverDTO);
+		Server result = serverRepository.findByName("Test");
+		assertEquals(result.getName(), serverDTO.getSystemName().getSystemName());
+		assertEquals(result.getRamUsage(), serverDTO.getRamUsage());
+		assertEquals(result.getRam(), serverDTO.getRam().getCapacity());
+		assertEquals(result.getCpuUsage(), serverDTO.getCpuUsage().getCookedValue());
 	}
 
 	@AfterEach

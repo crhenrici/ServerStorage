@@ -28,5 +28,6 @@ public class VolumesUpdateDTO {
     @JsonNaming(PropertyNamingStrategy.UpperCamelCaseStrategy.class)
     @JsonPOJOBuilder(withPrefix = "")
     public static class VolumesUpdateDTOBuilder {
+
     }
 }

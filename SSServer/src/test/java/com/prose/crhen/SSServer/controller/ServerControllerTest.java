@@ -143,7 +143,7 @@ class ServerControllerTest {
 
         Server resultServer = serverRepository.findByName("NUCWIN");
 
-        assertEquals(result.getSystemName(), resultServer.getName());
+        assertEquals(result.getSystemName().getSystemName(), resultServer.getName());
         assertEquals(result.getRam().getCapacity(), resultServer.getRam());
         assertEquals(result.getRamUsage(), resultServer.getRamUsage());
         assertEquals(result.getCpuUsage().getCookedValue(), resultServer.getCpuUsage());
@@ -172,7 +172,7 @@ class ServerControllerTest {
 
         Server resultServer = serverRepository.findByName("NUCWIN");
 
-        assertEquals(result2.getSystemName(), resultServer.getName());
+        assertEquals(result2.getSystemName().getSystemName(), resultServer.getName());
         assertEquals(result2.getCpuUsage().getCookedValue(), resultServer.getCpuUsage());
         assertEquals(result2.getRam().getCapacity(), resultServer.getRam());
 

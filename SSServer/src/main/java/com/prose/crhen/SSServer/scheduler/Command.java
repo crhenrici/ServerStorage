@@ -1,2 +1,8 @@
-package com.prose.crhen.SSServer.scheduler;public interface Command {
+package com.prose.crhen.SSServer.scheduler;
+
+public interface Command {
+
+    String[] getCommand();
+
+
 }

@@ -17,5 +17,8 @@
                 "Capacity":  8
             },
     "RamUsage":  7.8718795776367188,
-    "SystemName":  "NUCWIN"
+    "SystemName":  {
+                           "SystemName":  "NUCWIN"
+                   }
+    }
 }

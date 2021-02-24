@@ -9,3 +9,4 @@ $volumes = Get-WmiObject win32_volume -Computername $computerName | Select-Objec
         Sort-Object Name | ConvertTo-Json
 
 Invoke-RestMethod -Method Post -Uri "http://localhost:9010/service/save/volume" -Body ($volumes) -ContentType 'application/json'
+$volumes | Out-File -FilePath .\log\volumeQuery.txt
