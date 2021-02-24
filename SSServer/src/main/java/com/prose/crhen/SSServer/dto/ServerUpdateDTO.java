@@ -19,7 +19,7 @@ public class ServerUpdateDTO {
 
     double ramUsage;
 
-    String systemName;
+    SystemNameDTO systemName;
 
     @JsonNaming(PropertyNamingStrategy.UpperCamelCaseStrategy.class)
     @JsonPOJOBuilder(withPrefix = "")

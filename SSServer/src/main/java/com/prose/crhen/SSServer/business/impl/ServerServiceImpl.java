@@ -1,5 +1,6 @@
 package com.prose.crhen.SSServer.business.impl;
 
+import com.google.common.base.Preconditions;
 import com.prose.crhen.SSServer.business.api.ServerService;
 import com.prose.crhen.SSServer.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -126,7 +127,7 @@ public class ServerServiceImpl implements ServerService {
 	}
 
 	@Override public void saveServerDTO(ServerUpdateDTO server) {
-		Optional<Server> serverOptional = Optional.ofNullable(this.serverRepository.findByName(server.getSystemName()));
+		Optional<Server> serverOptional = Optional.ofNullable(this.serverRepository.findByName(server.getSystemName().getSystemName()));
 		Server insertedServer;
 		if (serverOptional.isPresent()) {
 			insertedServer = serverOptional.get();
@@ -135,7 +136,7 @@ public class ServerServiceImpl implements ServerService {
 			insertedServer.setCpuUsage(server.getCpuUsage().getCookedValue());
 			serverRepository.save(insertedServer);
 		} else {
-			insertedServer = new Server(server.getSystemName(), server.getRam().getCapacity(), server.getRamUsage() , server.getCpuUsage().getCookedValue());
+			insertedServer = new Server(server.getSystemName().getSystemName(), server.getRam().getCapacity(), server.getRamUsage() , server.getCpuUsage().getCookedValue());
 			serverRepository.save(insertedServer);
 		}
 		saveServerHistory(insertedServer);
@@ -153,7 +154,7 @@ public class ServerServiceImpl implements ServerService {
 			insertServerAndVolume(insertedServer, createdVolume);
 		}
 		saveVolumeHistory(newVolume);
-		saveServerHistory(insertedServer);
+//		saveServerHistory(insertedServer);
 	}
 
 	private Server createServerToBeInsertedOffVolume(VolumesUpdateDTO newVolume) {
@@ -162,9 +163,10 @@ public class ServerServiceImpl implements ServerService {
 	}
 
 	private Volume createVolumeToBeInserted(VolumesUpdateDTO newVolume, Server insertedServer) {
+		String freeSpacePercentage = Optional.ofNullable(newVolume.getFreeSpacePercent()).orElse("0");
 		double reserved = Double.parseDouble(newVolume.getCapacityGB()) - Double.parseDouble(newVolume.getFreeSpaceGB());
 		java.sql.Date sqlDate = getSqlDate();
-		Volume insertedVolume = new Volume(newVolume.getName(),"" , sqlDate , Double.parseDouble(newVolume.getCapacityGB()) , reserved, Double.parseDouble(newVolume.getFreeSpaceGB()), Double.parseDouble(newVolume.getFreeSpacePercent()),insertedServer);
+		Volume insertedVolume = new Volume(newVolume.getName(),"" , sqlDate , Double.parseDouble(newVolume.getCapacityGB()) , reserved, Double.parseDouble(newVolume.getFreeSpaceGB()), Double.parseDouble(freeSpacePercentage),insertedServer);
 		return insertedVolume;
 	}
 
@@ -258,8 +260,11 @@ public class ServerServiceImpl implements ServerService {
 		return fullCapacity;
 	}
 
-	private double calculateStorageRatio(double fullCapacity, double latestStorageFree) {
-		double storageRatio = (latestStorageFree/fullCapacity) * 100;
+	private double calculateStorageRatio(Double fullCapacity, Double latestStorageFree) {
+		double storageRatio = 0;
+		if (fullCapacity != null || latestStorageFree != null) {
+			storageRatio = (latestStorageFree / fullCapacity) * 100;
+		}
 		return storageRatio;
 	}
 
