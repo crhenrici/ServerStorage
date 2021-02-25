@@ -24,6 +24,6 @@
 - [x] Update install
 - [x] packaging with Angular application
 - [x] Identify Client UI Navigation and required Rest Queries 
-- [ ] - [ ] Establish Flyaway for database migration  https://www.baeldung.com/database-migrations-with-flyway
+- [ ] Establish Flyaway for database migration  https://www.baeldung.com/database-migrations-with-flyway
 - [ ] version not hardcoded in package
 - [ ] error when refreshing details-view -> needs fixing   
