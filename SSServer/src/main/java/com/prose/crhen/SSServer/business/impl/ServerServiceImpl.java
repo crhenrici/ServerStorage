@@ -3,6 +3,7 @@ package com.prose.crhen.SSServer.business.impl;
 import com.google.common.base.Preconditions;
 import com.prose.crhen.SSServer.business.api.ServerService;
 import com.prose.crhen.SSServer.dto.*;
+import org.checkerframework.checker.nullness.Opt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,11 +49,12 @@ public class ServerServiceImpl implements ServerService {
 		double totalCapacityFree = 0;
 		for (Server server : servers) {
 			volumes = volumeRepository.findByServer(server);
-		}
-		for (Volume volume : volumes) {
-			totalCapacity += volume.getFullCapacity();
-			totalCapacityUsed += volume.getLatestStorageReserved();
-			totalCapacityFree += volume.getLatestStorageFree();
+
+			for (Volume volume : volumes) {
+				totalCapacity += volume.getFullCapacity();
+				totalCapacityUsed += volume.getLatestStorageReserved();
+				totalCapacityFree += volume.getLatestStorageFree();
+			}
 		}
 		double totalUsedCapacityRatio = (totalCapacityUsed/totalCapacity) * 100;
 		ServerOverviewDTO serverOverviewDTO = new ServerOverviewDTO(servers.size(), totalCapacity, totalCapacityUsed, totalCapacityFree, totalUsedCapacityRatio);
@@ -91,8 +93,8 @@ public class ServerServiceImpl implements ServerService {
 	}
 
 	@Override public void updateVolumeQueryDTO(VolumeQueryDTO volumeQueryDTO) {
-		Volume updatedVolume = volumeRepository.findByName(volumeQueryDTO.getName());
-		Server server = updatedVolume.getServer();
+		Server server = volumeQueryDTO.getServer();
+		Volume updatedVolume = volumeRepository.findVolumeByNameAndServer(volumeQueryDTO.getName(), server);
 		updatedVolume.setDesc(volumeQueryDTO.getDesc());
 		Set<Volume> volumes = server.getVolumes();
 		server.setVolumes(volumes);
@@ -153,8 +155,7 @@ public class ServerServiceImpl implements ServerService {
 			Volume createdVolume = createVolumeToBeInserted(newVolume, insertedServer);
 			insertServerAndVolume(insertedServer, createdVolume);
 		}
-		saveVolumeHistory(newVolume);
-//		saveServerHistory(insertedServer);
+		saveVolumeHistory(insertedServer, newVolume);
 	}
 
 	private Server createServerToBeInsertedOffVolume(VolumesUpdateDTO newVolume) {
@@ -181,7 +182,8 @@ public class ServerServiceImpl implements ServerService {
 	}
 
 	private void checkForVolume(Server server, VolumesUpdateDTO newVolume) {
-		Optional<Volume> volumeOptional = Optional.ofNullable(volumeRepository.findByName(newVolume.getName()));
+		Optional<Volume> volumeOptional = Optional.ofNullable(volumeRepository.findVolumeByNameAndServer(newVolume.getName(), server));
+
 		Volume insertedVolume;
 		if (volumeOptional.isPresent()) {
 			insertedVolume = volumeOptional.get();
@@ -207,17 +209,18 @@ public class ServerServiceImpl implements ServerService {
 
 	private Volume getVolumeToBeInserted(Volume updatedVolume, VolumesUpdateDTO newVolume) {
 		Volume insertedVolume = updatedVolume;
+		String freeSpacePercentage = Optional.ofNullable(newVolume.getFreeSpacePercent()).orElse("0");
 		java.sql.Date sqlDate = getSqlDate();
 		double reserved = Double.parseDouble(newVolume.getCapacityGB()) - Double.parseDouble(newVolume.getFreeSpaceGB());
 		insertedVolume.setLatestStorageFree(Double.parseDouble(newVolume.getFreeSpaceGB()));
-		insertedVolume.setLatestStorageRatio(Double.parseDouble(newVolume.getFreeSpacePercent()));
+		insertedVolume.setLatestStorageRatio(Double.parseDouble(freeSpacePercentage));
 		insertedVolume.setLatestStorageReserved(reserved);
 		insertedVolume.setDate(sqlDate);
 		return insertedVolume;
 	}
 
-	private void saveVolumeHistory(VolumesUpdateDTO newVolume) {
-		Volume latestVolume = volumeRepository.findByName(newVolume.getName());
+	private void saveVolumeHistory(Server server, VolumesUpdateDTO newVolume) {
+		Volume latestVolume = volumeRepository.findVolumeByNameAndServer(newVolume.getName(), server);
 		VolumeHistory volumeHistory = new VolumeHistory(latestVolume.getDate(), latestVolume.getLatestStorageReserved(), latestVolume.getLatestStorageFree(), latestVolume.getLatestStorageRatio(), latestVolume);
 		volumeHistoryRepo.save(volumeHistory);
 	}

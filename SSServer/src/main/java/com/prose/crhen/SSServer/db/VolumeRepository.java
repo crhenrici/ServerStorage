@@ -13,4 +13,7 @@ public interface VolumeRepository extends JpaRepository<Volume, Long> {
     Volume findByName(String name);
 
     List<Volume> findByServer(Server server);
+
+    Volume findVolumeByNameAndServer(String name, Server server);
+
 }

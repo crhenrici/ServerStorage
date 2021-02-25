@@ -2,6 +2,7 @@ package com.prose.crhen.SSServer.business;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -53,6 +54,10 @@ public class ServerServiceTest {
 	VolumesUpdateDTO lastVolume;
 
 	VolumesUpdateDTO updatedVolume;
+
+	VolumesUpdateDTO firstVolume;
+
+	VolumesUpdateDTO otherVolume;
 
 	Volume volume;
 
@@ -352,6 +357,29 @@ public class ServerServiceTest {
 				.build();
 	}
 
+	void setUpSaveExistingVolumeNameFromDifferentServer() {
+		firstVolume = VolumesUpdateDTO.builder()
+				.capacityGB("100")
+				.date("10-8-2020")
+				.driveLetter("E")
+				.freeSpaceGB("50")
+				.freeSpacePercent("50")
+				.name("Test")
+				.systemName("TestServer")
+				.build();
+		service.saveVolumeDTO(firstVolume);
+
+		otherVolume = VolumesUpdateDTO.builder()
+				.capacityGB("200")
+				.date("12-08-2020")
+				.driveLetter("E")
+				.freeSpaceGB("50")
+				.freeSpacePercent("25")
+				.name("Test")
+				.systemName("TestingServer")
+				.build();
+	}
+
 	@Test
 	void saveNewServerTest() {
 		setUpNewServerTest();
@@ -448,6 +476,15 @@ public class ServerServiceTest {
 		assertEquals(result.getRamUsage(), serverDTO.getRamUsage());
 		assertEquals(result.getRam(), serverDTO.getRam().getCapacity());
 		assertEquals(result.getCpuUsage(), serverDTO.getCpuUsage().getCookedValue());
+	}
+
+	@Test
+	void saveExistingVolumeNameFromDifferentServer() {
+		setUpSaveExistingVolumeNameFromDifferentServer();
+		service.saveVolumeDTO(otherVolume);
+
+		assertEquals(2, serverRepository.count());
+		assertEquals(2, volumeRepository.count());
 	}
 
 	@AfterEach
