@@ -74,6 +74,7 @@ public class ServerServiceImpl implements ServerService {
 	private ServerQueryDTO createServerQuery(Server server) {
 		ServerQueryDTO.ServerQueryDTOBuilder serverQueryDTOBuilder = calcServerDetails(server);
 		serverQueryDTOBuilder.name(server.getName())
+				.networkDesc(server.getNetworkDesc())
 				.ram(server.getRam())
 				.ramUsage(server.getRamUsage())
 				.cpuUsage(server.getCpuUsage())
@@ -92,13 +93,21 @@ public class ServerServiceImpl implements ServerService {
 		return volumeQueryDTOS;
 	}
 
-	@Override public void updateVolumeQueryDTO(VolumeQueryDTO volumeQueryDTO) {
+	@Override public void updateVolume(VolumeQueryDTO volumeQueryDTO) {
 		Server server = volumeQueryDTO.getServer();
 		Volume updatedVolume = volumeRepository.findVolumeByNameAndServer(volumeQueryDTO.getName(), server);
 		updatedVolume.setDesc(volumeQueryDTO.getDesc());
+		updatedVolume.setMappingLabel(volumeQueryDTO.getMappingLabel());
+		updatedVolume.getServer().setNetworkDesc(volumeQueryDTO.getServer().getNetworkDesc());
 		Set<Volume> volumes = server.getVolumes();
 		server.setVolumes(volumes);
 		volumeRepository.save(updatedVolume);
+	}
+
+	@Override public void updateServer(ServerQueryDTO serverQueryDTO) {
+		Server server = serverRepository.findByName(serverQueryDTO.getName());
+		server.setNetworkDesc(serverQueryDTO.getNetworkDesc());
+		serverRepository.save(server);
 	}
 
 	@Override public List<VolumeQueryDTO> getVolumesFromServer(String serverName) {
@@ -122,6 +131,7 @@ public class ServerServiceImpl implements ServerService {
 				.latestStorageReserved(volume.getLatestStorageReserved())
 				.latestStorageFree(volume.getLatestStorageFree())
 				.latestStorageRatio(volume.getLatestStorageRatio())
+				.mappingLabel(volume.getMappingLabel())
 				.server(volume.getServer())
 				.volumeHistories(volume.getVolumeHistories())
 				.build();

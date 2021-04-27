@@ -46,6 +46,10 @@ public class Volume {
 	@Setter
 	@Column(name = "latest_storage_ratio")
 	private double latestStorageRatio;
+	@Getter
+	@Setter
+	@Column(name = "mapping_label")
+	private String mappingLabel;
 	@JsonIgnore
 	@Getter
 	@Setter
