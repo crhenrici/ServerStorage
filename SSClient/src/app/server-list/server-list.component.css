@@ -31,3 +31,7 @@ table {
   overflow: hidden;
   width: 100%;
 }
+
+td {
+  text-align: center;
+}

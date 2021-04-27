@@ -1,9 +1,10 @@
 import { ServerService } from '../serverService/server.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatSort } from '@angular/material';
+import { MatTableDataSource, MatSort, MatDialog } from '@angular/material';
 import { SharedDataService } from '../sharedData/shared-data.service';
 import { Server } from '../model/server';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { DialogComponent } from './dialog/dialog.component';
 
 
 @Component({
@@ -20,6 +21,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 })
 export class ServerListComponent implements OnInit {
   server: Server[];
+  // isEdit: boolean = false;
 
   dataSource: MatTableDataSource<Server>;
   displayedColumns = ['name', 'fullCapacity', 'storageReserved', 'storageFree', 'storageRatio', 'storageRam',
@@ -28,8 +30,13 @@ export class ServerListComponent implements OnInit {
 
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-  constructor(private service: ServerService, private sharedData: SharedDataService) {
+  constructor(private service: ServerService, private sharedData: SharedDataService,
+    private dialog: MatDialog) {
   }
+
+  // onEdit() {
+  //   this.isEdit = !this.isEdit;
+  // }
 
   ngOnInit() {
     this.service.getServers().subscribe(data => {
@@ -37,5 +44,23 @@ export class ServerListComponent implements OnInit {
       this.dataSource = new MatTableDataSource(this.server);
       this.dataSource.sort = this.sort;
     });
+  }
+
+  createPDF():void {
+    //TODO
+    //Open file manager
+    const dialogRef = this.dialog.open(DialogComponent, {
+      width: '300px',
+      height: '150px'
+    });
+
+    dialogRef.afterClosed().subscribe(res => {
+      console.log(res.data);
+      this.service.createPDF(res.data).subscribe();
+    })
+  }
+
+  handle(event): void {
+
   }
 }
