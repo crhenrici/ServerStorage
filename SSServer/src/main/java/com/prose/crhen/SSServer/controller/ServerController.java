@@ -6,7 +6,6 @@ import com.prose.crhen.SSServer.dto.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
+@CrossOrigin(origins = "*")
 public class ServerController {
 
 	private static final Logger logger = LoggerFactory.getLogger(ServerController.class);
@@ -64,7 +64,15 @@ public class ServerController {
 		Preconditions.checkNotNull(volume, "value can't be null");
 		logger.info("Request received");
 		logger.info("Received volume data: " + volume.toString());
-		service.updateVolumeQueryDTO(volume);
+		service.updateVolume(volume);
+		return ResponseEntity.status(HttpStatus.OK).build();
+	}
+
+	@PostMapping("/service/update/server")
+	public ResponseEntity<String> updateServerDesc(@RequestBody ServerQueryDTO server) {
+		logger.info("Request received");
+		logger.info("Received data: " + server.toString());
+		service.updateServer(server);
 		return ResponseEntity.status(HttpStatus.OK).build();
 	}
 

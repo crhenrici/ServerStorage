@@ -1,23 +1,31 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
-import { MatButtonModule, MatSortModule, MatTableModule } from "@angular/material";
+import {MatButtonModule, MatDialogModule, MatIconModule, MatInputModule, MatSortModule, MatTableModule} from '@angular/material';
 import { VolumeListComponent } from "../volume-list/volume-list.component";
 import { ServerListRoutingModule } from "./server-list-routing.module";
 import { ServerListComponent } from "./server-list.component";
+import {FormsModule} from '@angular/forms';
+import { DialogComponent } from "./dialog/dialog.component";
 
 @NgModule({
     declarations: [
         ServerListComponent,
-        VolumeListComponent
+        VolumeListComponent,
+        DialogComponent
     ],
     imports: [
         MatTableModule,
         MatSortModule,
+        MatIconModule,
+        MatInputModule,
+        MatDialogModule,
+        FormsModule,
         CommonModule,
         MatButtonModule,
         ServerListRoutingModule
     ],
     providers: [],
-    bootstrap: []
+    bootstrap: [],
+    entryComponents: [DialogComponent]
 })
 export class ServerListModule {}

@@ -19,6 +19,7 @@ public class VolumeQueryDTO {
     double latestStorageReserved;
     double latestStorageFree;
     double latestStorageRatio;
+    String mappingLabel;
     Server server;
     Set<VolumeHistory> volumeHistories;
 

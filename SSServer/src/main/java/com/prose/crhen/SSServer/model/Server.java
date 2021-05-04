@@ -23,6 +23,10 @@ public class Server {
 	private String name;
 	@Getter
 	@Setter
+	@Column(name = "network_desc")
+	private String networkDesc;
+	@Getter
+	@Setter
 	@Column(name = "ram", nullable = true)
 	private int ram;
 	@Getter

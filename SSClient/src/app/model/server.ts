@@ -4,6 +4,7 @@ import { ServerHistory } from './serverHistory';
 export interface Server {
   id: number;
   name: string;
+  networkDesc: string;
   fullCapacity: number;
   latestStorageReserved: number;
   latestStorageFree: number;
