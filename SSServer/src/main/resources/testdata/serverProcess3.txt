@@ -16,7 +16,7 @@
     "Ram":  {
                 "Capacity":  12
             },
-    "RamUsage":  15.3318795776367188,
+    "RamUsage":  15.9998795776367188,
     "SystemName": {
                           "SystemName": "CHWIWS09"
                   }

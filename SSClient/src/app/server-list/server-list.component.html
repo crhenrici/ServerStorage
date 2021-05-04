@@ -26,7 +26,7 @@
     </ng-container>
     <ng-container matColumnDef="storageRamUsage">
       <th mat-header-cell *matHeaderCellDef>RAM Usage [GB]</th>
-      <td mat-cell *matCellDef="let server">{{ server.ramUsage | number: '1.2-2' }}</td>
+      <td mat-cell *matCellDef="let server">{{ server.ramUsage | notRound: '1.2-2'}}</td>
     </ng-container>
     <ng-container matColumnDef="storageCpuUsage">
       <th mat-header-cell *matHeaderCellDef>CPU Usage [%]</th>
