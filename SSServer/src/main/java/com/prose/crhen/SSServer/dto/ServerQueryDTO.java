@@ -12,6 +12,7 @@ import java.util.Set;
 public class ServerQueryDTO {
     
     String name;
+    String networkDesc;
     double fullCapacity;
     double latestStorageReserved;
     double latestStorageFree;

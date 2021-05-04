@@ -6,31 +6,31 @@
       </ng-container>
       <ng-container matColumnDef="name">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Network name</mat-header-cell>
-        <mat-cell *matCellDef="let volume"> {{ volume.name }}</mat-cell>
+        <mat-cell *matCellDef="let volume" style="justify-content: left !important;"> {{ volume.name }}</mat-cell>
       </ng-container>
       <ng-container matColumnDef="fullCapacity">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Overall Capacity [GB]</mat-header-cell>
-        <mat-cell *matCellDef="let volume"> {{ volume.fullCapacity | number: '1.2-2' }}</mat-cell>
+        <mat-cell *matCellDef="let volume" style="text-align: right;"> {{ volume.fullCapacity | number: '1.2-2' }}</mat-cell>
       </ng-container>
       <ng-container matColumnDef="storageReserved">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Storage used [GB]</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef>Storage used [GB]</mat-header-cell>
         <mat-cell *matCellDef="let volume"> {{ volume.latestStorageReserved | number: '1.2-2' }}</mat-cell>
       </ng-container>
       <ng-container matColumnDef="storageFree">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Storage Free [GB]</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef>Storage Free [GB]</mat-header-cell>
         <mat-cell *matCellDef="let volume"> {{ volume.latestStorageFree | number: '1.2-2' }}</mat-cell>
       </ng-container>
       <ng-container matColumnDef="storageRatio">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Free Capacity [%]</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef>Free Capacity [%]</mat-header-cell>
         <mat-cell *matCellDef="let volume"> {{ volume.latestStorageRatio | number: '1.2-2' }}</mat-cell>
       </ng-container>
       <ng-container matColumnDef="storageDesc">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Network description</mat-header-cell>
-        <mat-cell *matCellDef="let volume"> {{ volume.desc }} </mat-cell>
+        <mat-header-cell *matHeaderCellDef>Network description</mat-header-cell>
+        <mat-cell *matCellDef="let volume" style="justify-content: left !important;"> {{ volume.desc }} </mat-cell>
       </ng-container>
       <ng-container matColumnDef="storageLabel">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Drive mapping label</mat-header-cell>
-        <mat-cell *matCellDef="let volume"></mat-cell>
+        <mat-header-cell *matHeaderCellDef>Drive mapping label</mat-header-cell>
+        <mat-cell *matCellDef="let volume" style="justify-content: left !important;">{{ volume.mappingLabel }}</mat-cell>
       </ng-container>
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns; let volume" [ngClass]="{'data-affected': row.latestStorageRatio >= 95}" ></mat-row>

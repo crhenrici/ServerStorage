@@ -1,7 +1,6 @@
 import { Volume } from './../model/volume';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { SharedDataService } from '../sharedData/shared-data.service';
-import { ActivatedRoute } from '@angular/router';
 import { ServerService } from '../serverService/server.service';
 
 @Component({
@@ -12,24 +11,35 @@ import { ServerService } from '../serverService/server.service';
 export class DetailsViewComponent implements OnInit {
   volume: Volume;
   id: number;
-  isEdit: boolean = false;
+  isDescEdit: boolean = false;
+  isLabelEdit: boolean = false;
+  isServerEdit: boolean = false;
 
-  constructor(private sharedData: SharedDataService, private route: ActivatedRoute,
-    private service: ServerService) {
-    this.route.params.subscribe(params => console.log(params));
+  constructor(private sharedData: SharedDataService, private service: ServerService) {
   }
 
-  onEdit() {
-    this.isEdit = !this.isEdit;
+  onDescEdit() {
+    this.isDescEdit = !this.isDescEdit;
+  }
+
+  onLabelEdit() {
+    this.isLabelEdit = !this.isLabelEdit;
+  }
+
+  onServerEdit() {
+    this.isServerEdit = !this.isServerEdit;
   }
 
   onSave() {
     console.log('Post request sent! With volume desc', this.volume.desc);
-    console.log('Volume desc', this.volume.desc)
+    console.log('Post request sent! With volume label', this.volume.mappingLabel)
+    console.log('Post request sent! With volume server network desc', this.volume.server.networkDesc);
     this.service.postVolume(this.volume).subscribe(data => {
-      this.volume = data;
+        console.log('Post request worked!');
     });
-    this.isEdit = !this.isEdit;
+    this.isDescEdit = false;
+    this.isLabelEdit = false;
+    this.isServerEdit = false;
   }
 
   ngOnInit() {

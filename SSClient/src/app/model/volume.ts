@@ -10,6 +10,7 @@ export interface Volume {
   latestStorageReserved: number;
   latestStorageFree: number;
   latestStoragetRatio: number;
+  mappingLabel: string;
   server: Server;
   volumeHistories: Set<VolumeHistory>;
 }

@@ -13,7 +13,9 @@ public interface ServerService {
 
     List<ServerQueryDTO> getServers();
 
-    void updateVolumeQueryDTO(VolumeQueryDTO volumeQueryDTO);
+    void updateVolume(VolumeQueryDTO volumeQueryDTO);
+
+    void updateServer(ServerQueryDTO serverQueryDTO);
 
     List<VolumeQueryDTO> getVolumesFromServer(String serverName);
 

@@ -2,39 +2,39 @@
   <table style="margin: 20px;" mat-table [dataSource]="dataSource" matSort multiTemplateDataRows>
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Server name</th>
-      <td mat-cell *matCellDef="let server"> {{ server.name }}</td>
+      <td mat-cell *matCellDef="let server" style="text-align: left;"> {{ server.name }}</td>
     </ng-container>
     <ng-container matColumnDef="fullCapacity">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Overall Capacity [GB]</th>
       <td mat-cell *matCellDef="let server"> {{ server.fullCapacity | number: '1.2-2' }}</td>
     </ng-container>
     <ng-container matColumnDef="storageReserved">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Storage used [GB]</th>
+      <th mat-header-cell *matHeaderCellDef>Storage used [GB]</th>
       <td mat-cell *matCellDef="let server"> {{ server.latestStorageReserved | number: '1.2-2' }}</td>
     </ng-container>
     <ng-container matColumnDef="storageFree">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Storage Free [GB]</th>
+      <th mat-header-cell *matHeaderCellDef>Storage Free [GB]</th>
       <td mat-cell *matCellDef="let server"> {{ server.latestStorageFree | number: '1.2-2' }}</td>
     </ng-container>
     <ng-container matColumnDef="storageRatio">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Free Capacity [%]</th>
+      <th mat-header-cell *matHeaderCellDef>Free Capacity [%]</th>
       <td mat-cell *matCellDef="let server"> {{ server.latestStorageRatio | number: '1.2-2' }}</td>
     </ng-container>
     <ng-container matColumnDef="storageRam">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>RAM [GB]</th>
+      <th mat-header-cell *matHeaderCellDef>RAM [GB]</th>
       <td mat-cell *matCellDef="let server">{{ server.ram }}</td>
     </ng-container>
     <ng-container matColumnDef="storageRamUsage">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>RAM Usage [%]</th>
+      <th mat-header-cell *matHeaderCellDef>RAM Usage [GB]</th>
       <td mat-cell *matCellDef="let server">{{ server.ramUsage | number: '1.2-2' }}</td>
     </ng-container>
     <ng-container matColumnDef="storageCpuUsage">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>CPU Usage [%]</th>
+      <th mat-header-cell *matHeaderCellDef>CPU Usage [%]</th>
       <td mat-cell *matCellDef="let server">{{ server.cpuUsage | number: '1.2-2' }}</td>
     </ng-container>
     <ng-container matColumnDef="storageDesc">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Server/network description</th>
-      <td mat-cell *matCellDef="let server"></td>
+      <th mat-header-cell *matHeaderCellDef>Server/network description</th>
+      <td mat-cell *matCellDef="let server" style="text-align: left;">{{ server.networkDesc }}</td>
     </ng-container>
 
     <ng-container matColumnDef="expandedDetail">
@@ -57,5 +57,7 @@
     <tr mat-row *matRowDef="let row; columns: ['expandedDetail']"
     class="detail-row"></tr>
   </table>
+
+  <button mat-stroked-button (click)="createPDF()">Create PDF Report</button>
 </div>
 

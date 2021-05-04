@@ -18,7 +18,7 @@ export class ServerService {
   httpUrl: string;
 
   constructor(private http: HttpClient) {
-    this.httpUrl = 'http://192.168.2.28:9010/service';
+    this.httpUrl = 'http://localhost:9010/service';
    }
 
   public getServers(): Observable<any> {
@@ -50,6 +50,21 @@ export class ServerService {
     console.log('Test if this new stuff works');
     return this.http.post<Volume>(url, volume, httpOptions).pipe(
       map(res => res as Volume),
+      catchError(this.handleError)
+    );
+  }
+
+  public postServerDesc(server: Server): Observable<any> {
+    const url = `${this.httpUrl}/update/server`;
+    return this.http.post<Server>(url, server, httpOptions).pipe(
+      map(res => res as Server),
+      catchError(this.handleError)
+    );
+  }
+
+  public createPDF(path: string): Observable<any> {
+    const url = `${this.httpUrl}/pdf/create?path=${path}`;
+    return this.http.get<string>(url,  httpOptions).pipe(
       catchError(this.handleError)
     );
   }
