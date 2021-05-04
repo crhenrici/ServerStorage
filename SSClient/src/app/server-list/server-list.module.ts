@@ -6,12 +6,14 @@ import { ServerListRoutingModule } from "./server-list-routing.module";
 import { ServerListComponent } from "./server-list.component";
 import {FormsModule} from '@angular/forms';
 import { DialogComponent } from "./dialog/dialog.component";
+import { NotRoundPipe } from "../notRound.pipe";
 
 @NgModule({
     declarations: [
         ServerListComponent,
         VolumeListComponent,
-        DialogComponent
+        DialogComponent,
+        NotRoundPipe
     ],
     imports: [
         MatTableModule,
