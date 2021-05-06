@@ -2,9 +2,11 @@ package com.prose.crhen.SSServer.business.impl;
 
 import com.lowagie.text.DocumentException;
 import com.prose.crhen.SSServer.business.api.PDFGenerator;
+import com.prose.crhen.SSServer.dto.PdfDTO;
 import com.prose.crhen.SSServer.dto.ServerQueryDTO;
 import com.prose.crhen.SSServer.dto.VolumeQueryDTO;
 import com.prose.crhen.SSServer.model.Volume;
+import org.aspectj.util.FileUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +17,10 @@ import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 import org.xhtmlrenderer.pdf.ITextRenderer;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Base64;
 import java.util.List;
 import java.util.Set;
 
@@ -46,19 +48,33 @@ public class PDFGeneratorImpl implements PDFGenerator {
         return templateEngine.process("pdf_template", context);
     }
 
-    public void generatePDF(String outputFolder) throws IOException, DocumentException {
+    public PdfDTO generatePDF(String fileName) throws IOException, DocumentException {
         String html = parseThymeleafTemplate();
-        OutputStream outputStream = new FileOutputStream(outputFolder);
+        OutputStream outputStream = new FileOutputStream(fileName);
 
         ITextRenderer renderer = new ITextRenderer();
         renderer.setDocumentFromString(html);
         renderer.layout();
         renderer.createPDF(outputStream);
-
         outputStream.close();
+
+        PdfDTO pdf = PdfDTO.builder()
+                .fileName(fileName)
+                .encodedFile(encodeFile(fileName))
+                .build();
+        return pdf;
     }
 
-    private double roundOff(double num) {
-        return Math.round(num*100)/100;
+    private byte[] encodeFile(String fileName) throws IOException {
+        byte[] inFileBytes = Files.readAllBytes(Paths.get(fileName));
+        deleteFile(fileName);
+        byte[] encodedFile = Base64.getEncoder().encode(inFileBytes);
+        return encodedFile;
+    }
+
+    private void deleteFile(String fileName) {
+        File file = new File(fileName);
+        if (file.exists())
+            file.delete();
     }
 }
