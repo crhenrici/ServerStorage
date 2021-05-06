@@ -33,10 +33,6 @@ export class ServerListComponent implements OnInit {
     private dialog: MatDialog) {
   }
 
-  // onEdit() {
-  //   this.isEdit = !this.isEdit;
-  // }
-
   ngOnInit() {
     this.service.getServers().subscribe(data => {
       this.server = data;
@@ -46,8 +42,6 @@ export class ServerListComponent implements OnInit {
   }
 
   createPDF():void {
-    //TODO
-    //Open file manager
     const dialogRef = this.dialog.open(DialogComponent, {
       width: '300px',
       height: '150px'
@@ -56,7 +50,6 @@ export class ServerListComponent implements OnInit {
     dialogRef.afterClosed().subscribe(res => {
       console.log(res.data);
       this.service.createPDF(res.data).subscribe(data => {
-        // console.log(data.encodedFile);
         const file = this.dataToFile(data.encodedFile)
         this.downloadFile(file, data.fileName);
       }, error => {
@@ -88,9 +81,5 @@ export class ServerListComponent implements OnInit {
    downloadLink.href = linkSource;
    downloadLink.download = fileName + '.pdf';
    downloadLink.click();
-  }
-
-  handle(event): void {
-
   }
 }
