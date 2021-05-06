@@ -3,7 +3,8 @@ param (
 )
 $ramOutput = Get-WmiObject win32_physicalmemory -Computername $computerName |
         Select-Object @{n="Capacity";e={$_.Capacity/1GB}}
-$ramUsage = (Get-WmiObject Win32_ComputerSystem -Computername $computerName).totalphysicalmemory / (1024 * 1024 * 1024)
+$os = Get-Ciminstance Win32_OperatingSystem
+$ramUsage = ($os.TotalVisibleMemorySize/(1024*1024)) - ($os.FreePhysicalMemory/(1024*1024))
 #$cpuUsage = Get-Counter '\Processor(_total)\% Processor Time' -Computername $computerName |
 #        Select-Object -expand CounterSamples
 $cpuUsage =  get-counter "\\$computerName\Processor(_total)\% Processor Time" | Select-Object -expand CounterSamples
