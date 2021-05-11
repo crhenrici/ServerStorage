@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <body>
 <h2>PDF Report</h2>
 <div th:each="server: ${serverList}">
@@ -21,17 +21,16 @@
     <tr>
       <td th:text="${server.name}"></td>
       <td th:text="${server.fullCapacity}"></td>
-      <td th:text="${#numbers.formatDecimal(server.latestStorageReserved, 1, 2)}"></td>
-      <td th:text="${#numbers.formatDecimal(server.latestStorageFree, 1, 2)}"></td>
-      <td th:text="${#numbers.formatDecimal(server.latestStorageRatio, 1, 2)}"></td>
-      <td th:text="${#numbers.formatDecimal(server.ram, 1, 2)}"></td>
-      <td th:text="${#numbers.formatDecimal(server.ramUsage, 1, 2)}"></td>
-      <td th:text="${#numbers.formatDecimal(server.cpuUsage, 1, 2)}"></td>
-      <td th:text="${server.networkDesc}"></td>
+      <td th:text="${server.latestStorageReserved}"></td>
+      <td th:text="${server.latestStorageFree}"></td>
+      <td th:text="${server.latestStorageRatio}"></td>
+      <td th:text="${server.ram}"></td>
+      <td th:text="${server.ramUsage}"></td>
+      <td th:text="${server.cpuUsage}"></td>
+      <td>Some text</td>
     </tr>
     </tbody>
   </table>
-  <br/>
   <div style="margin-left: 15px">
     <table>
       <thead>
@@ -46,20 +45,18 @@
       </tr>
       </thead>
       <tbody>
-      <tr th:each="volume: ${server.getVolumes()}" th:style="${volume.latestStorageRatio >= 95 ? 'color: red;' : volume.latestStorageRatio >= 85 ? 'color: orange;' : 'color: black' }">
+      <tr th:each="volume: ${volumeList}">
         <td th:text="${volume.name}"></td>
-        <td th:text="${#numbers.formatDecimal(volume.fullCapacity, 1, 2)}"></td>
-        <td th:text="${#numbers.formatDecimal(volume.latestStorageReserved, 1, 2)}"></td>
-        <td th:text="${#numbers.formatDecimal(volume.latestStorageFree, 1, 2)}"></td>
-        <td th:text="${#numbers.formatDecimal(volume.latestStorageRatio, 1, 2)}"></td>
+        <td th:text="${volume.fullCapacity}"></td>
+        <td th:text="${volume.latestStorageReserved}"></td>
+        <td th:text="${volume.latestStorageFree}"></td>
+        <td th:text="${volume.latestStorageRatio}"></td>
         <td th:text="${volume.desc}"></td>
-        <td th:text="${volume.mappingLabel}"></td>
+        <td>Some</td>
       </tr>
       </tbody>
     </table>
   </div>
-  <br/>
-  <br/>
 </div>
 </body>
 </html>

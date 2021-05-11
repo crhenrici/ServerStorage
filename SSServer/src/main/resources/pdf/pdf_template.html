@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<body>
+<h2>PDF Report</h2>
+<div th:each="server: ${serverList}">
+  <table>
+    <thead>
+    <tr>
+      <th>Server name</th>
+      <th>Overall capacity [GB]</th>
+      <th>Storage used [GB]</th>
+      <th>Storage free [GB]</th>
+      <th>Free capacity [%]</th>
+      <th>RAM [GB]</th>
+      <th>RAM usage [GB]</th>
+      <th>CPU usage [%]</th>
+      <th>Server Network description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td th:text="${server.name}"></td>
+      <td th:text="${server.fullCapacity}"></td>
+      <td th:text="${#numbers.formatDecimal(server.latestStorageReserved, 1, 2)}"></td>
+      <td th:text="${#numbers.formatDecimal(server.latestStorageFree, 1, 2)}"></td>
+      <td th:text="${#numbers.formatDecimal(server.latestStorageRatio, 1, 2)}"></td>
+      <td th:text="${#numbers.formatDecimal(server.ram, 1, 2)}"></td>
+      <td th:text="${#numbers.formatDecimal(server.ramUsage, 1, 2)}"></td>
+      <td th:text="${#numbers.formatDecimal(server.cpuUsage, 1, 2)}"></td>
+      <td th:text="${server.networkDesc}"></td>
+    </tr>
+    </tbody>
+  </table>
+  <br/>
+  <div style="margin-left: 15px">
+    <table>
+      <thead>
+      <tr>
+        <th>Network name</th>
+        <th>Overall capacity [GB]</th>
+        <th>Storage used [GB]</th>
+        <th>Storage free [GB]</th>
+        <th>Free capacity [%]</th>
+        <th>Network description</th>
+        <th>Drive mapping label</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="volume: ${server.getVolumes()}" th:style="${volume.latestStorageRatio >= 95 ? 'color: red;' : volume.latestStorageRatio >= 85 ? 'color: orange;' : 'color: black' }">
+        <td th:text="${volume.name}"></td>
+        <td th:text="${#numbers.formatDecimal(volume.fullCapacity, 1, 2)}"></td>
+        <td th:text="${#numbers.formatDecimal(volume.latestStorageReserved, 1, 2)}"></td>
+        <td th:text="${#numbers.formatDecimal(volume.latestStorageFree, 1, 2)}"></td>
+        <td th:text="${#numbers.formatDecimal(volume.latestStorageRatio, 1, 2)}"></td>
+        <td th:text="${volume.desc}"></td>
+        <td th:text="${volume.mappingLabel}"></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <br/>
+  <br/>
+</div>
+</body>
+</html>

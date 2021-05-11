@@ -20,7 +20,7 @@ import { DialogComponent } from './dialog/dialog.component';
 })
 export class ServerListComponent implements OnInit {
   server: Server[];
-  // isEdit: boolean = false;
+   isEdit: boolean = false;
 
   dataSource: MatTableDataSource<Server>;
   displayedColumns = ['name', 'fullCapacity', 'storageReserved', 'storageFree', 'storageRatio', 'storageRam',
@@ -31,6 +31,10 @@ export class ServerListComponent implements OnInit {
 
   constructor(private service: ServerService, private sharedData: SharedDataService,
     private dialog: MatDialog) {
+  }
+
+  onEdit() {
+    this.isEdit = !this.isEdit;
   }
 
   ngOnInit() {

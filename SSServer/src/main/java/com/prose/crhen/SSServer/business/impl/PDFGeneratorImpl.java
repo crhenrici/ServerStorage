@@ -4,11 +4,6 @@ import com.lowagie.text.DocumentException;
 import com.prose.crhen.SSServer.business.api.PDFGenerator;
 import com.prose.crhen.SSServer.dto.PdfDTO;
 import com.prose.crhen.SSServer.dto.ServerQueryDTO;
-import com.prose.crhen.SSServer.dto.VolumeQueryDTO;
-import com.prose.crhen.SSServer.model.Volume;
-import org.aspectj.util.FileUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.thymeleaf.TemplateEngine;
@@ -17,12 +12,14 @@ import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 import org.xhtmlrenderer.pdf.ITextRenderer;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Base64;
 import java.util.List;
-import java.util.Set;
 
 @Component
 public class PDFGeneratorImpl implements PDFGenerator {
@@ -32,7 +29,7 @@ public class PDFGeneratorImpl implements PDFGenerator {
 
     private String parseThymeleafTemplate() {
         ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
-        templateResolver.setPrefix("web/");
+        templateResolver.setPrefix("pdf/");
         templateResolver.setSuffix(".html");
         templateResolver.setTemplateMode(TemplateMode.HTML);
 
@@ -44,7 +41,6 @@ public class PDFGeneratorImpl implements PDFGenerator {
         List<ServerQueryDTO> serverList = service.getServers();
 
         context.setVariable("serverList", serverList);
-
         return templateEngine.process("pdf_template", context);
     }
 

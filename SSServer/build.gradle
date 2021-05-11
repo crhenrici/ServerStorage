@@ -9,8 +9,8 @@ plugins {
 apply plugin: 'distribution'
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-	targetCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = JavaVersion.VERSION_11
+	targetCompatibility = JavaVersion.VERSION_11
 }
 
 
@@ -65,6 +65,7 @@ dependencies {
 	implementation 'org.projectlombok:lombok:1.16.18'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'junit:junit:4.13.1'
 	runtime 'com.h2database:h2'
 
 	implementation 'com.google.guava:guava:29.0-jre'
