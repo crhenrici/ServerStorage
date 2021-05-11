@@ -1,5 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+  <meta charset="UTF-8"/>
+  <style>
+    @page { size: A4 landscape;}
+    td {
+      justify-content: right;
+    }
+  </style>
+</head>
 <body>
 <h2>PDF Report</h2>
 <div th:each="server: ${serverList}">
@@ -20,7 +29,7 @@
     <tbody>
     <tr>
       <td th:text="${server.name}"></td>
-      <td th:text="${server.fullCapacity}"></td>
+      <td th:text="${#numbers.formatDecimal(server.fullCapacity, 1, 2)}"></td>
       <td th:text="${#numbers.formatDecimal(server.latestStorageReserved, 1, 2)}"></td>
       <td th:text="${#numbers.formatDecimal(server.latestStorageFree, 1, 2)}"></td>
       <td th:text="${#numbers.formatDecimal(server.latestStorageRatio, 1, 2)}"></td>
