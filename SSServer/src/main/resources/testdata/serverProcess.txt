@@ -16,15 +16,8 @@
     "Ram":  {
                 "Capacity":  8
             },
-<<<<<<< Updated upstream
     "RamUsage":  7.8718795776367188,
-=======
->>>>>>> Stashed changes
     "SystemName": {
                         "SystemName": "CHWIWS08"
                   }
 }
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
