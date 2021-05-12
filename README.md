@@ -32,6 +32,8 @@ To application will be installed as a service with the help of [NSSM](https://ns
 
 Before executing the install script make sure to adjust the AppDirectory in the installService.ps1 script file. The `AppDirectory` has to be the location where the zip got unpackaged with all its resources! The `ObjectName` has to be adjusted to a username in the prose.one network with admin rights. Password also needs to be provided. This is needed because the PowerShell scripts execute some queries that need admin rights.
 
+Also make sure that the database namespace is setup befor executing the install script.
+
 To execute the install script, open PowerShell and go to the directory in which the application is unzipped and type in the following:
 ```
 ./installService “mariadb, log, scriptWindows”
