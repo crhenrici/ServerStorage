@@ -1,7 +1,17 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+  <meta charset="UTF-8"/>
+  <style>
+    @page { size: A4 landscape;}
+    td, th {
+      text-align: right;
+      font-size: 10px;
+    }
+  </style>
+</head>
 <body>
-<h2>PDF Report</h2>
+<h2 th:text="'PDF Report ' + ${currentDate}">PDF Report</h2>
 <div th:each="server: ${serverList}">
   <table>
     <thead>
@@ -36,7 +46,7 @@
     <table>
       <thead>
       <tr>
-        <th>Network name</th>
+        <th th:style="'text-align: left;'">Network name</th>
         <th>Overall capacity [GB]</th>
         <th>Storage used [GB]</th>
         <th>Storage free [GB]</th>
@@ -47,7 +57,7 @@
       </thead>
       <tbody>
       <tr th:each="volume: ${server.getVolumes()}" th:style="${volume.latestStorageRatio >= 95 ? 'color: red;' : volume.latestStorageRatio >= 85 ? 'color: orange;' : 'color: black' }">
-        <td th:text="${volume.name}"></td>
+        <td th:style="'text-align: left;'" th:text="${volume.name}"></td>
         <td th:text="${#numbers.formatDecimal(volume.fullCapacity, 1, 2)}"></td>
         <td th:text="${#numbers.formatDecimal(volume.latestStorageReserved, 1, 2)}"></td>
         <td th:text="${#numbers.formatDecimal(volume.latestStorageFree, 1, 2)}"></td>
