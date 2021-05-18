@@ -30,7 +30,6 @@ public class PDFController {
         logger.info("PDFController: Request received");
         logger.info("PDFController: Data received: " + path);
         PdfDTO pdf = pdfGenerator.generatePDF(path);
-        logger.info(pdf.toString());
         return pdf;
     }
 }

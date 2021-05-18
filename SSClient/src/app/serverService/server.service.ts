@@ -48,7 +48,6 @@ export class ServerService {
 
   public postVolume(volume: Volume): Observable<any> {
     const url = `${this.httpUrl}/update/volume`;
-    console.log('Test if this new stuff works');
     return this.http.post<Volume>(url, volume, httpOptions).pipe(
       map(res => res as Volume),
       catchError(this.handleError)

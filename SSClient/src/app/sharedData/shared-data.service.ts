@@ -17,7 +17,6 @@ export class SharedDataService {
 
   transmitData(newVolume: Volume) {
     this.volume.next(newVolume);
-    console.log('Sent server: ', newVolume);
   }
 
   transmitServerDTO(newServerDTO: ServerOverviewDTO) {
