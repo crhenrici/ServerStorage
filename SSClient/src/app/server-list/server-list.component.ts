@@ -30,11 +30,7 @@ export class ServerListComponent implements OnInit {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   constructor(private service: ServerService, private sharedData: SharedDataService,
-    private dialog: MatDialog) {
-  }
-
-  onEdit() {
-    this.isEdit = !this.isEdit;
+              private dialog: MatDialog) {
   }
 
   onEdit() {
@@ -49,7 +45,7 @@ export class ServerListComponent implements OnInit {
     });
   }
 
-  createPDF():void {
+  createPDF(): void {
     const dialogRef = this.dialog.open(DialogComponent, {
       width: '300px',
       height: '150px'
@@ -63,7 +59,7 @@ export class ServerListComponent implements OnInit {
       }, error => {
         console.error(error);
       });
-    })
+    });
   }
 
   dataURItoBlob(dataURI): any {
