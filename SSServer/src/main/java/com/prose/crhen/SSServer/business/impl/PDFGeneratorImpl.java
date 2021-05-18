@@ -18,7 +18,10 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Base64;
+import java.util.Date;
 import java.util.List;
 
 @Component
@@ -26,6 +29,8 @@ public class PDFGeneratorImpl implements PDFGenerator {
 
     @Autowired
     ServerServiceImpl service;
+
+    String currentDate;
 
     private String parseThymeleafTemplate() {
         ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
@@ -39,8 +44,12 @@ public class PDFGeneratorImpl implements PDFGenerator {
         Context context = new Context();
 
         List<ServerQueryDTO> serverList = service.getServers();
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate timeNow = LocalDate.now();
+        currentDate = df.format(timeNow).toString();
 
         context.setVariable("serverList", serverList);
+        context.setVariable("currentDate", currentDate);
         return templateEngine.process("pdf_template", context);
     }
 

@@ -45,7 +45,7 @@
       <span *ngIf="!isDescEdit" class="col">{{ volume.desc }}</span>
       <input class="col" *ngIf="isDescEdit" matInput type="text" [(ngModel)]="volume.desc">
       <button *ngIf="!isDescEdit" mat-icon-button (click)="onDescEdit()" aria-label="Edit"><mat-icon>edit</mat-icon></button>
-      <button *ngIf="isDescEdit" mat-icon-button (click)="onSave()" aria-label="Save"><mat-icon>save</mat-icon></button>
+      <button *ngIf="isDescEdit" mat-icon-button (click)="onSetEditFalse()" aria-label="Save"><mat-icon>save</mat-icon></button>
     </div>
     <mat-divider></mat-divider>
     <div class="row">
@@ -53,7 +53,7 @@
       <span *ngIf="!isLabelEdit" class="col">{{ volume.mappingLabel }}</span>
       <input class="col" *ngIf="isLabelEdit" matInput type="text" [(ngModel)]="volume.mappingLabel">
       <button *ngIf="!isLabelEdit" mat-icon-button (click)="onLabelEdit()" aria-label="Edit"><mat-icon>edit</mat-icon></button>
-      <button *ngIf="isLabelEdit" mat-icon-button (click)="onSave()" aria-label="Save"><mat-icon>save</mat-icon></button>
+      <button *ngIf="isLabelEdit" mat-icon-button (click)="onSetEditFalse()" aria-label="Save"><mat-icon>save</mat-icon></button>
     </div>
     <mat-divider></mat-divider>
     <div class="row">
@@ -61,7 +61,7 @@
       <span *ngIf="!isServerEdit" class="col">{{ volume.server.networkDesc }}</span>
       <input type="text" *ngIf="isServerEdit" matInput class="col" [(ngModel)]="volume.server.networkDesc">
       <button *ngIf="!isServerEdit" mat-icon-button (click)="onServerEdit()" aria-label="Edit"><mat-icon>edit</mat-icon></button>
-      <button *ngIf="isServerEdit" mat-icon-button (click)="onSave()" aria-label="Save"><mat-icon>save</mat-icon></button>
+      <button *ngIf="isServerEdit" mat-icon-button (click)="onSetEditFalse()" aria-label="Save"><mat-icon>save</mat-icon></button>
     </div>
     </mat-card-content>
     </mat-card>
