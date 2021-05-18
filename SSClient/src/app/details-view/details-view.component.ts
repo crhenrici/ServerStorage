@@ -28,6 +28,7 @@ export class DetailsViewComponent implements OnInit {
 
   onServerEdit() {
     this.isServerEdit = !this.isServerEdit;
+    this.isDescEdit = true;
   }
 
   onSave() {

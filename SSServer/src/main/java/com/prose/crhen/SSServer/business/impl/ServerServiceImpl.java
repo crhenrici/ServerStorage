@@ -98,7 +98,10 @@ public class ServerServiceImpl implements ServerService {
 		Volume updatedVolume = volumeRepository.findVolumeByNameAndServer(volumeQueryDTO.getName(), server);
 		updatedVolume.setDesc(volumeQueryDTO.getDesc());
 		updatedVolume.setMappingLabel(volumeQueryDTO.getMappingLabel());
+<<<<<<< Updated upstream
 		updatedVolume.getServer().setNetworkDesc(volumeQueryDTO.getServer().getNetworkDesc());
+=======
+>>>>>>> Stashed changes
 		Set<Volume> volumes = server.getVolumes();
 		server.setVolumes(volumes);
 		volumeRepository.save(updatedVolume);

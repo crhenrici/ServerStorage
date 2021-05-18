@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<h2>PDF Report</h2>
+<div th:each="server: ${serverList}">
+  <table>
+    <thead>
+    <tr>
+      <th>Server name</th>
+      <th>Overall capacity [GB]</th>
+      <th>Storage used [GB]</th>
+      <th>Storage free [GB]</th>
+      <th>Free capacity [%]</th>
+      <th>RAM [GB]</th>
+      <th>RAM usage [%]</th>
+      <th>CPU usage [%]</th>
+      <th>Server Network description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td th:text="${server.name}"></td>
+      <td th:text="${server.fullCapacity}"></td>
+      <td th:text="${server.latestStorageReserved}"></td>
+      <td th:text="${server.latestStorageFree}"></td>
+      <td th:text="${server.latestStorageRatio}"></td>
+      <td th:text="${server.ram}"></td>
+      <td th:text="${server.ramUsage}"></td>
+      <td th:text="${server.cpuUsage}"></td>
+      <td>Some text</td>
+    </tr>
+    </tbody>
+  </table>
+  <div style="margin-left: 15px">
+    <table>
+      <thead>
+      <tr>
+        <th>Network name</th>
+        <th>Overall capacity [GB]</th>
+        <th>Storage used [GB]</th>
+        <th>Storage free [GB]</th>
+        <th>Free capacity [%]</th>
+        <th>Network description</th>
+        <th>Drive mapping label</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="volume: ${volumeList}">
+        <td th:text="${volume.name}"></td>
+        <td th:text="${volume.fullCapacity}"></td>
+        <td th:text="${volume.latestStorageReserved}"></td>
+        <td th:text="${volume.latestStorageFree}"></td>
+        <td th:text="${volume.latestStorageRatio}"></td>
+        <td th:text="${volume.desc}"></td>
+        <td>Some</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</body>
+</html>
