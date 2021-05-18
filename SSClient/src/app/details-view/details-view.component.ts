@@ -37,6 +37,7 @@ export class DetailsViewComponent implements OnInit {
       this.onSetEditFalse();
     }
     this.isServerEdit = !this.isServerEdit;
+    this.isDescEdit = true;
   }
 
   onSetEditFalse() {

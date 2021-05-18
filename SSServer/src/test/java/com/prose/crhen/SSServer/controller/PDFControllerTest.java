@@ -8,8 +8,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
@@ -42,12 +44,12 @@ class PDFControllerTest {
         if (file.exists())
             file.delete();
     }
-//    @Test
+    @Test
     void createPDFTest() {
         final String baseUrl = "http://localhost:" + randomServerPort + "/service/pdf/create";
         RestTemplate restTemplate = new RestTemplate();
-        PdfDTO.PdfDTOBuilder pdfDTOBuilder = restTemplate.getForObject(baseUrl + "?path=" + path, PdfDTO.PdfDTOBuilder.class, path);
-        PdfDTO pdfTest = pdfDTOBuilder.build();
-        assertEquals(pdfTest.getFileName(), path);
+        PdfDTO pdf = restTemplate.getForObject(baseUrl + "?path=" + path, PdfDTO.class);
+        System.out.println(pdf.toString());
+        assertEquals(pdf.getFileName(), path);
     }
 }

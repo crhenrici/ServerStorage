@@ -4,14 +4,13 @@
   <meta charset="UTF-8"/>
   <style>
     @page { size: A4 landscape;}
-    td, th {
-      text-align: right;
-      font-size: 10px;
+    td {
+      justify-content: right;
     }
   </style>
 </head>
 <body>
-<h2 th:text="'PDF Report ' + ${currentDate}">PDF Report</h2>
+<h2>PDF Report</h2>
 <div th:each="server: ${serverList}">
   <table>
     <thead>
@@ -30,7 +29,7 @@
     <tbody>
     <tr>
       <td th:text="${server.name}"></td>
-      <td th:text="${server.fullCapacity}"></td>
+      <td th:text="${#numbers.formatDecimal(server.fullCapacity, 1, 2)}"></td>
       <td th:text="${#numbers.formatDecimal(server.latestStorageReserved, 1, 2)}"></td>
       <td th:text="${#numbers.formatDecimal(server.latestStorageFree, 1, 2)}"></td>
       <td th:text="${#numbers.formatDecimal(server.latestStorageRatio, 1, 2)}"></td>
@@ -46,7 +45,7 @@
     <table>
       <thead>
       <tr>
-        <th th:style="'text-align: left;'">Network name</th>
+        <th>Network name</th>
         <th>Overall capacity [GB]</th>
         <th>Storage used [GB]</th>
         <th>Storage free [GB]</th>
@@ -57,7 +56,7 @@
       </thead>
       <tbody>
       <tr th:each="volume: ${server.getVolumes()}" th:style="${volume.latestStorageRatio >= 95 ? 'color: red;' : volume.latestStorageRatio >= 85 ? 'color: orange;' : 'color: black' }">
-        <td th:style="'text-align: left;'" th:text="${volume.name}"></td>
+        <td th:text="${volume.name}"></td>
         <td th:text="${#numbers.formatDecimal(volume.fullCapacity, 1, 2)}"></td>
         <td th:text="${#numbers.formatDecimal(volume.latestStorageReserved, 1, 2)}"></td>
         <td th:text="${#numbers.formatDecimal(volume.latestStorageFree, 1, 2)}"></td>

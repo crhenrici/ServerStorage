@@ -8,7 +8,6 @@ import {VolumeListComponent} from '../volume-list/volume-list.component';
 import {FormsModule} from '@angular/forms';
 import {ServerListRoutingModule} from './server-list-routing.module';
 
-
 @NgModule({
     declarations: [
         ServerListComponent,

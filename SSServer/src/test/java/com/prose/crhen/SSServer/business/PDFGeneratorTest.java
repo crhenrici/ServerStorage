@@ -30,6 +30,7 @@ class PDFGeneratorTest {
         String fileName = "test";
         PdfDTO pdf = pdfGenerator.generatePDF(fileName);
         assertEquals(pdf.getFileName(), fileName);
+        assertNotEquals(pdf.getEncodedFile(), null);
     }
 
 }
