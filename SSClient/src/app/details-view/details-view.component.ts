@@ -19,27 +19,40 @@ export class DetailsViewComponent implements OnInit {
   }
 
   onDescEdit() {
-    this.isDescEdit = !this.isDescEdit;
+    if (this.isLabelEdit || this.isServerEdit) {
+      this.onSetEditFalse();
+    }
+    this.isDescEdit = true;
   }
 
   onLabelEdit() {
+    if (this.isServerEdit || this.isDescEdit) {
+      this.onSetEditFalse();
+    }
     this.isLabelEdit = !this.isLabelEdit;
   }
 
   onServerEdit() {
+    if (this.isDescEdit || this.isLabelEdit) {
+      this.onSetEditFalse();
+    }
     this.isServerEdit = !this.isServerEdit;
+  }
+
+  onSetEditFalse() {
+    this.isLabelEdit = false;
+    this.isDescEdit = false;
+    this.isServerEdit = false;
+    this.onSave();
   }
 
   onSave() {
     console.log('Post request sent! With volume desc', this.volume.desc);
-    console.log('Post request sent! With volume label', this.volume.mappingLabel)
+    console.log('Post request sent! With volume label', this.volume.mappingLabel);
     console.log('Post request sent! With volume server network desc', this.volume.server.networkDesc);
     this.service.postVolume(this.volume).subscribe(data => {
         console.log('Post request worked!');
     });
-    this.isDescEdit = false;
-    this.isLabelEdit = false;
-    this.isServerEdit = false;
   }
 
   ngOnInit() {
