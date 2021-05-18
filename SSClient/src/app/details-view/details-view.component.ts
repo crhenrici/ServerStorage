@@ -29,15 +29,14 @@ export class DetailsViewComponent implements OnInit {
     if (this.isServerEdit || this.isDescEdit) {
       this.onSetEditFalse();
     }
-    this.isLabelEdit = !this.isLabelEdit;
+    this.isLabelEdit = true;
   }
 
   onServerEdit() {
     if (this.isDescEdit || this.isLabelEdit) {
       this.onSetEditFalse();
     }
-    this.isServerEdit = !this.isServerEdit;
-    this.isDescEdit = true;
+    this.isServerEdit = true;
   }
 
   onSetEditFalse() {
