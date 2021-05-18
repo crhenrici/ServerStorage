@@ -2,6 +2,12 @@
     background-color: lightpink;
 }
 
-.mat-cell {
-    justify-content: center !important;
+.mat-cell.align {
+  display: block;
+  text-align: right;
+}
+
+.mat-header-cell {
+  display: block;
+  text-align: center;
 }
