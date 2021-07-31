@@ -16,22 +16,19 @@ class ServerController @Autowired constructor(private val service: ServerService
     @GetMapping("/service/overview")
     @ResponseBody
     fun getServerOverview(): ServerOverviewDTO {
-        val serverOverviewDTO = service.getServerOverviewDTO()
-        return serverOverviewDTO
+        return service.getServerOverviewDTO()
     }
 
     @GetMapping("/service/servers")
     @ResponseBody
     fun getAllServers(): List<ServerQueryDTO> {
-        val serverList = service.getServers()
-        return serverList
+        return service.getServers()
     }
 
     @GetMapping("/service/volumes")
     @ResponseBody
     fun getAllVolumesFromServer(@RequestParam serverName: String): List<VolumeQueryDTO> {
-        val volumeList = service.getVolumesFromServer(serverName)
-        return volumeList
+        return service.getVolumesFromServer(serverName)
     }
 
     @PostMapping("/service/save/volume")

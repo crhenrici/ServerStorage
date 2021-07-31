@@ -8,12 +8,12 @@ import javax.persistence.*
 data class VolumeHistory(
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        val id: Long,
+        val id: Long? = null,
         val date: Date,
         val storageReserved: Double,
         val storageFree: Double,
         val storageRatio: Double,
-        @ManyToOne(fetch = FetchType.EAGER, cascade = arrayOf(CascadeType.ALL))
+        @ManyToOne(fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
         @JoinColumn(name = "volume_id", nullable = false)
         val volume: Volume
 )

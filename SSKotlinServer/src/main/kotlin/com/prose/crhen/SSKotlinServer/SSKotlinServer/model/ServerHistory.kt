@@ -7,11 +7,11 @@ import javax.persistence.*
 data class ServerHistory(
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        val id: Long,
+        val id: Long? = null,
         val ram: Int,
         val ramUsage: Double,
         val cpuUsage: Double,
-        @ManyToOne(fetch = FetchType.EAGER, cascade = arrayOf(CascadeType.ALL))
+        @ManyToOne(fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
         @JoinColumn(name = "server_id", nullable = false)
         val server: Server
 )

@@ -4,7 +4,7 @@ import com.prose.crhen.SSKotlinServer.SSKotlinServer.dto.*
 import com.prose.crhen.SSKotlinServer.SSKotlinServer.model.Server
 
 interface ServerService {
-    fun deleteAll();
+    fun deleteAll()
 
     fun getServerOverviewDTO(): ServerOverviewDTO
 
@@ -20,9 +20,9 @@ interface ServerService {
 
     fun saveVolumeDTO(newServer: VolumesUpdateDTO)
 
-    fun calcServerDetails(server: Server): ServerQueryDTO
+    fun createServerQuery(server: Server): ServerQueryDTO
 
-    fun getVolumes(): List<VolumeQueryDTO>
+    fun getVolumes(): List<VolumeQueryDTO?>
 
 
 }
